@@ -1,0 +1,153 @@
+/* Prevent black font */
+
+body, p, td {
+    color:#2E2E2E;
+}
+
+
+/* Remove inner shadow from inputs on mobile iOS */
+
+textarea, input[type="text"], input[type="number"] {
+    -webkit-appearance: none;
+}
+
+
+/* Headings */
+
+
+
+h1, h2, h3, h4 {
+    font-family: 'Segoe Light', 'Segoe UI Light', 'Segoe UI', 'Segoe WP Light', 'Roboto Light', Frutiger, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    height: auto;
+    line-height: 48px;
+    text-align: left;
+    text-shadow: rgb(255, 255, 255) 0px 0px 0px;
+    white-space: nowrap;
+    width: auto;
+    word-wrap: normal;
+    zoom: 1;
+    margin-top:10px;
+
+}
+
+h1 {
+    font-size: 36px;
+}
+
+label {
+    font-weight: normal;
+}
+
+.checkbox {
+    margin-top:8px;
+    margin-bottom: 8px;
+}
+
+@media all and (max-width: 400px) {
+    h1 {
+        font-size: 29px;
+    }
+}
+
+
+
+.coloured{
+    color:#0174DF;
+}
+
+.green{
+    /*color:#01DF01;*/
+    color:rgb(60, 118, 61)
+}
+
+.shaded{
+    background-color: #F2F2F2;
+}
+
+.tiles{
+    margin:0px;
+    padding: 0px;
+}
+
+.tiles > li{
+    list-style-type: none;
+    padding: 10px;
+    margin:0px;
+}
+
+.tiles-light > li{
+    background-color: #F2F2F2;
+    border: solid 1px #F2F2F2;
+}
+
+.tiles-light > li:hover{
+    background-color: white;
+    border: solid 1px #F2F2F2;
+}
+
+.tiles-light > li.active{
+    background-color: white;
+    border-right: solid 1px white;
+
+}
+
+.tiles-dark > li{
+    background-color: #A4A4A4;
+    border: solid 1px #A4A4A4;
+    color: white;
+    font-weight: 150;
+    border-bottom: solid 1px white;
+}
+
+.tiles-dark > li:hover{
+    background-color: #424242;
+    border: solid 1px #A4A4A4;
+}
+
+.tiles-dark > li.active{
+    background-color: #424242;
+}
+
+.rounded{
+    border-radius: 10px;
+}
+
+.above-top{
+    margin-top: -5px;
+}
+
+.ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inversed{
+    background-color: #424242;
+    color:white;
+}
+
+.small-right-margin{
+    margin-right:10px;
+}
+
+.small-top-margin{
+    margin-top:10px;
+}
+
+.top-margin{
+    margin-top:20px;
+}
+
+.bottom-margin{
+    margin-bottom:20px;
+}
+
+.transparent{
+    background: transparent;
+    border: solid 1px #c0c0c0;
+}
+
+.btn-fixed{
+    width:70px;
+}

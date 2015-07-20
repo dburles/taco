@@ -1,0 +1,222 @@
+<template name="scenarioForm">
+    <div class="container">
+    {{#autoForm id="afInsertDemo" type="insert" collection="Scenarios"
+    template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9"}}
+
+        <div class="checkbox checkbox-primary">
+            <input type="checkbox" id="checkbox1">
+            <label for="checkbox1">
+                Check me out
+            </label>
+        </div>
+
+        {{ > afQuickField name="names"}}
+        {{ > afQuickField name="isBuying" template="awesome"}}
+        {{#if afFieldValueIs name="isBuying" value=true}}
+            {{ > afQuickField name="investmentPurpose" template="awesomeRadios"}}
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ > afQuickField name="purchasePrice"}}
+                </div>
+                <div class="col-sm-6">
+                    {{#if afFieldValueIs name="investmentPurpose" value="Investment"}}
+                        {{ > afQuickField name="weeklyRent"}}
+                    {{/if}}
+                </div>
+            </div>
+            {{#if afFieldValueIs name="investmentPurpose" value="Owner Occupied"}}
+                {{ > afQuickField name="firstHome"}}
+            {{/if}}
+        {{/if}}
+        {{#if afFieldValueIs name="hasProperty" value=true}}
+            <h2>Existing Property</h2>
+        {{/if}}
+        {{ > afQuickField name="hasProperty" template="awesome"}}
+        {{#if afFieldValueIs name="hasProperty" value=true}}
+
+
+            <!--Properties-->
+
+            <div class="row bottom-margin">
+
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-xs-12">
+                        {{ > afFieldInput name="property1" class="form-control"}}
+                        </div>
+                    </div>
+                    <div class="row small-top-margin">
+                        <div class="col-xs-8">
+                            {{ > afFieldInput name="propertyValue1" class="form-control"}}
+                        </div>
+                        <div class="col-xs-4" style="margin-left:-20px;">
+                            {{ > afFieldInput name="propertyHome1"}}
+                        </div>
+                    </div>
+                    {{#if afFieldValueIs name="propertyHome1" value=false}}
+                        <div class="row small-top-margin">
+                            <div class="col-xs-8">
+                                {{ > afFieldInput name="rent1" class="form-control"}}
+                            </div>
+                            <div class="col-xs-4" style="margin-left:-20px;margin-top:6px">
+                                weekly
+                            </div>
+                        </div>
+                    {{/if}}
+                    <div class="row small-top-margin">
+                        <div class="col-xs-12">
+                            {{ > afFieldInput name="propertyType1" class="form-control"}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {{ > afFieldInput name="property2" class="form-control"}}
+                        </div>
+                    </div>
+                    <div class="row small-top-margin">
+                        <div class="col-xs-8">
+                            {{ > afFieldInput name="propertyValue2" class="form-control"}}
+                        </div>
+                        <div class="col-xs-4" style="margin-left:-20px;">
+                            {{ > afFieldInput name="propertyHome2"}}
+                        </div>
+                    </div>
+                    {{#if afFieldValueIs name="propertyHome2" value=false}}
+                        <div class="row small-top-margin">
+                            <div class="col-xs-8">
+                                {{ > afFieldInput name="rent2" class="form-control"}}
+                            </div>
+                            <div class="col-xs-4" style="margin-left:-20px;margin-top:6px">
+                                weekly
+                            </div>
+                        </div>
+                    {{/if}}
+                    <div class="row small-top-margin">
+                        <div class="col-xs-12">
+                            {{ > afFieldInput name="propertyType2" class="form-control"}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {{ > afFieldInput name="property3" class="form-control"}}
+                        </div>
+                    </div>
+                    <div class="row small-top-margin">
+                        <div class="col-xs-8">
+                            {{ > afFieldInput name="propertyValue3" class="form-control"}}
+                        </div>
+                        <div class="col-xs-4" style="margin-left:-20px;">
+                            {{ > afFieldInput name="propertyHome3"}}
+                        </div>
+                    </div>
+                    {{#if afFieldValueIs name="propertyHome3" value=false}}
+                        <div class="row small-top-margin">
+                            <div class="col-xs-8">
+                                {{ > afFieldInput name="rent3" class="form-control"}}
+                            </div>
+                            <div class="col-xs-4" style="margin-left:-20px;margin-top:6px">
+                                weekly
+                            </div>
+                        </div>
+                    {{/if}}
+                    <div class="row small-top-margin">
+                        <div class="col-xs-12">
+                            {{ > afFieldInput name="propertyType3" class="form-control"}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {{ > afFieldInput name="property4" class="form-control"}}
+                        </div>
+                    </div>
+                    <div class="row small-top-margin">
+                        <div class="col-xs-8">
+                            {{ > afFieldInput name="propertyValue4" class="form-control"}}
+                        </div>
+                        <div class="col-xs-4" style="margin-left:-20px;">
+                            {{ > afFieldInput name="propertyHome4"}}
+                        </div>
+                    </div>
+                    {{#if afFieldValueIs name="propertyHome4" value=false}}
+                        <div class="row small-top-margin">
+                            <div class="col-xs-8">
+                                {{ > afFieldInput name="rent4" class="form-control"}}
+                            </div>
+                            <div class="col-xs-4" style="margin-left:-20px;margin-top:6px">
+                                weekly
+                            </div>
+                        </div>
+                    {{/if}}
+                    <div class="row small-top-margin">
+                        <div class="col-xs-12">
+                            {{ > afFieldInput name="propertyType4" class="form-control"}}
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        {{/if}}
+
+        {{#if afFieldValueIs name="isBuying" value=true}}
+        <div class="row">
+            <div class="col-sm-3">
+                {{ > afQuickField name="genSavings"}}
+            </div>
+            <div class="col-sm-3">
+                {{ > afQuickField name="giftedFunds"}}
+            </div>
+            <div class="col-sm-3">
+                {{ > afQuickField name="proceedsOfSale"}}
+            </div>
+            <div class="col-sm-3">
+                {{ > afQuickField name="otherContribution"}}
+            </div>
+
+        </div>
+        {{/if}}
+
+        <div class="row">
+            <div class="col-sm-2">
+                {{ > afQuickField name="hasKids"  template="awesome"}}
+            </div>
+            {{#if afFieldValueIs name="hasKids" value=true}}
+                <div class="col-sm-4">
+                    {{ > afQuickField name="agesOfKids"}}
+                </div>
+            {{/if}}
+            <div class="col-sm-4">
+                {{ > afQuickField name="currentRent"}}
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Person</button>
+            <button type="reset" class="btn btn-default">Reset Form</button>
+        </div>
+    {{/autoForm}}
+    </div>
+</template>
+
+<!--<template name="afCheckbox_awesome">-->
+    <!--<div class="checkbox checkbox-primary"><input type="checkbox" id="{{this.name}}" value="true" {{atts}} /><label for="{{this.atts.id}}">{{afFieldLabelText name=this.name}}</label></div>-->
+<!--</template>-->
+
+<!--<template name="afRadioGroup_awesomeRadios">-->
+    <!--<div class="af-radio-group" {{dsk}}>-->
+        <!--{{#each this.items}}-->
+            <!--<div><input type="radio" value="{{this.value}}" {{atts}} /><label for="{{this.atts.id}}"> {{this.label}}</label></div>-->
+        <!--{{/each}}-->
+    <!--</div>-->
+<!--</template>-->
