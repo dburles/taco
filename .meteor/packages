@@ -19,3 +19,5 @@ yogiben:admin
 useraccounts:core
 useraccounts:bootstrap
 msavin:mongol
+anti:fake
+yogiben:autoform-modals
