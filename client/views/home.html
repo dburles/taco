@@ -1,0 +1,43 @@
+<template name="home">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="ellipsis"><i class="fa fa-pie-chart coloured small-right-margin"></i>Snap CRM</h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-4">
+                <input type="text" placeholder="Search..." class="form-control top-margin bottom-margin">
+                {{#each contacts}}
+                    <div class="panel panel-default">
+                        <div class="panel-heading dropdown">{{fullName}}
+                            <i class="fa fa-chevron-down pull-right dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></i>
+
+                               <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li><a href="#">Complete</a></li>
+                                    <li><a href="#">Not Applicable</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">Edit Task</a></li>
+                                </ul>
+
+                        </div>
+                        <div class="panel-body">
+                            {{#if mobile}}
+                            <span class="grey">M&nbsp;</span>{{mobile}}
+                            {{/if}}
+                            {{#if home}}
+                                <span class="grey">H&nbsp;</span>{{home}}
+                                <br/>
+                            {{/if}}
+                            {{email}}
+                        </div>
+                    </div>
+
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</template>

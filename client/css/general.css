@@ -52,6 +52,11 @@ h1 {
     color:rgb(60, 118, 61)
 }
 
+.grey{
+    /*color:#01DF01;*/
+    color: #A4A4A4;
+}
+
 .shaded{
     background-color: #F2F2F2;
 }
