@@ -1,11 +1,14 @@
-Template.home.helpers({
-    contacts: function () {
-        return Contacts.find();
-    }
-});
+
+
+//Template.home.helpers({
+//    contacts: function () {
+//        return Contacts.find();
+//    }
+//});
 
 Template.home.events({
-    'click button': function () {
-
+    'keyup #txtContactSearch': function (e, t) {
+        event.preventDefault();
+        Session.set("searchText", $("#txtContactSearch").val());
     }
 });

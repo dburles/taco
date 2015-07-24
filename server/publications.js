@@ -3,7 +3,7 @@ Meteor.publish("contactSearch", function(searchText){
     searchText = searchText || "";
 
     if(searchText.length < 3)
-        return Contacts.find({}, {limit:20});
+        return Contacts.find({}, {limit:10});
 
     searchArr = searchText.split(" ");
 
