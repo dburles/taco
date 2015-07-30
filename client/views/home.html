@@ -19,25 +19,47 @@
 
                 {{#each contacts}}
                     <div class="panel panel-default glow-box">
-                        <div class="panel-heading dropdown">
+                        <div class="panel-heading">
 
-                            <div xclass="dropdown">
-                                {{fullName}}
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                                    <i class="fa fa-chevron-down pull-right glow-text" ></i>
-                                </a>
+                            <table>
+                                <tr>
+                                    <td width="99%">
+                                        <div class="checkbox no-margin">
+                                            <label>
+                                                <input type="checkbox" class="select-contact"> {{fullName}}
+                                            </label>
+                                        </div>
+                                    </td>
 
-                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <li><a href="#">Open Applications</a></li>
-                                    <li><a href="#">Edit Contact</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Send Email</a></li>
-                                    <li class="divider"></li>
-                                    <li><a id="newContactMenu" href="#">New Contact</a></li>
-                                    <li><a href="#">New Partner</a></li>
-                                </ul>
+                                    <td>
+                                        <div class="dropdown">
+                                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                                            <i class="fa fa-chevron-down pull-right glow-text" ></i>
+                                        </a>
 
-                            </div>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <li><a href="#">Open Applications</a></li>
+                                            <li><a href="#">Edit Contact</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Send Email</a></li>
+                                            <li class="divider"></li>
+                                            <li><a id="newContactMenu" href="#">New Contact</a></li>
+                                            <li><a href="#">New Partner</a></li>
+                                        </ul>
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!--<div>-->
+
+
+
+                            <!--</div>-->
+
+
 
                         </div>
                         <div class="panel-body">

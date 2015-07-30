@@ -133,6 +133,10 @@ h1 {
     color:white;
 }
 
+.no-margin{
+    margin:0px;
+}
+
 .small-right-margin{
     margin-right:10px;
 }

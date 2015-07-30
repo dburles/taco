@@ -15,6 +15,24 @@ Template.home.events({
         event.preventDefault();
         //Session.set("action", "newContact");
         Modal.show('contactModal');
+    },
+    'click .select-contact': function(e, t){
+        var selectedContacts = Session.get("selectedContacts");
+        if(!selectedContacts)
+            selectedContacts = [];
+        
+        if(e.target.checked) {
+            if(selectedContacts.indexOf(this._id) === -1)
+                selectedContacts.push(this._id);
+
+        } else {
+            var ind = selectedContacts.indexOf(this._id);
+            if(ind > -1)
+                selectedContacts.splice(ind,1);
+        }
+
+        Session.set("selectedContacts", selectedContacts);
+
     }
 
 });
