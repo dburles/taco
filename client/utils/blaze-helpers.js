@@ -29,3 +29,10 @@ UI.registerHelper("sessionMatching", function(sessionName, str1) {
 
 });
 
+UI.registerHelper("formType", function(sessionName){
+    if (Session.get(sessionName))
+        return "edit"
+    else
+        return "insert";
+})
+

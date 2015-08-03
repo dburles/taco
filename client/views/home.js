@@ -1,10 +1,6 @@
 
 
-//Template.home.helpers({
-//    contacts: function () {
-//        return Contacts.find();
-//    }
-//});
+
 
 Template.home.events({
     'keyup #txtContactSearch': function (e, t) {
@@ -20,7 +16,7 @@ Template.home.events({
         var selectedContacts = Session.get("selectedContacts");
         if(!selectedContacts)
             selectedContacts = [];
-        
+
         if(e.target.checked) {
             if(selectedContacts.indexOf(this._id) === -1)
                 selectedContacts.push(this._id);
@@ -33,6 +29,15 @@ Template.home.events({
 
         Session.set("selectedContacts", selectedContacts);
 
+    },
+    'click #newContactButton': function (e, t) {
+        event.preventDefault();
+        //Session.set("action", "newContact");
+        var newContactId = Contacts.insert({
+            firstName:"New Contact"
+        })
+        Session.set("editingContact", newContactId);
+        Modal.show('contactModal');
     }
 
 });
@@ -44,14 +49,22 @@ Template.newContact.events({
     }
 });
 
+
+Template.contactModal.helpers({
+    editingContact: function () {
+        return Session.get("editingContact")
+    }
+});
+
 Template.contactModal.events({
     'click #CancelContact': function (e, t) {
         event.preventDefault();
-        Modal.hide("contactModal")
+        AutoForm.resetForm('createContactForm');
+        Modal.hide("contactModal");
     },
     'click #SaveContact': function (e, t) {
         //event.preventDefault();
-        Modal.hide("contactModal")
+
     }
 });
 
