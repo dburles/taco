@@ -39,7 +39,7 @@
 
                                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
                                             <li><a href="#">Open Applications</a></li>
-                                            <li><a href="#">Edit Contact</a></li>
+                                            <li><a id="editContactMenu" href="#">Edit Contact</a></li>
                                             <li class="divider"></li>
                                             <li><a href="#">Send Email</a></li>
                                             <li class="divider"></li>
@@ -75,95 +75,4 @@
     </div>
 </template>
 
-<template name="newContact">
-    <div class="panel panel-default">
-        <div class="panel-heading dropdown">
-                New Contact
-                <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                    <i class="fa fa-chevron-down pull-right glow-text" ></i>
-                </a>
 
-                <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li><a href="#">Open Applications</a></li>
-                    <li><a href="#">Edit Contact</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Send Email</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">New Contact</a></li>
-                    <li><a href="#">New Partner</a></li>
-                </ul>
-
-        </div>
-        <div class="panel-body">
-            {{#autoForm collection="Contacts" id="xcreateContactForm" type="insert"}}
-                {{> afQuickField name="firstName" placeholder="First Name" label=false}}
-                {{> afQuickField name="lastName" placeholder="Last Name" label=false}}
-                {{> afQuickField name="email" placeholder="Email" label=false}}
-                <div class="top-margin">
-                    <button id="SaveContact" type="submit" class="btn btn-primary">Save</button>
-                    <button id="CancelContact" type="button" class="btn btn-default cancel">Cancel</button>
-                </div>
-            {{/autoForm}}
-        </div>
-    </div>
-</template>
-
-<template name="contactModal">
-    <div class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!--<div class="modal-header">-->
-                    <!--<h4 class="modal-title">Contact Details</h4>-->
-                <!--</div>-->
-                {{#autoForm collection="Contacts" id="createContactForm" type="insert"}}
-                <div class="modal-body">
-
-                        <div class="row">
-                            <div class="col-sm-12">
-
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs bottom-margin" role="tablist">
-                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Contact</a></li>
-                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Numbers</a></li>
-                                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Addresses</a></li>
-                                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Other</a></li>
-                                </ul>
-
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-
-                                    <!--Main Tab-->
-
-                                    <div role="tabpanel" class="tab-pane active" id="home">
-                                        {{> afQuickField name="firstName" placeholder="First Name" label=false autofocus="autofocus"}}
-                                        {{> afQuickField name="lastName" placeholder="Last Name" label=false}}
-                                        {{> afQuickField name="email" placeholder="Email" label=false}}
-                                        {{> afQuickField name="mobile" placeholder="Mobile" label=false}}
-                                        {{> afQuickField name="work" placeholder="Work" label=false}}
-                                        {{> afQuickField name="home" placeholder="Home" label=false}}
-                                    </div>
-
-
-
-                                    <div role="tabpanel" class="tab-pane" id="profile">...</div>
-                                    <div role="tabpanel" class="tab-pane" id="messages">...</div>
-                                    <div role="tabpanel" class="tab-pane" id="settings">...</div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button id="SaveContact" type="submit" class="btn btn-primary">Save</button>
-                    <button id="CancelContact" type="button" class="btn btn-default cancel">Cancel</button>
-                </div>
-
-                {{/autoForm}}
-
-            </div>
-        </div>
-    </div>
-</template>

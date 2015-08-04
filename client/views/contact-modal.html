@@ -1,0 +1,61 @@
+<template name="contactModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!--<div class="modal-header">-->
+                <!--<h4 class="modal-title">Contact Details</h4>-->
+                <!--</div>-->
+
+              {{#autoForm collection="Contacts" id="createContactForm" type=formType doc=editingContactDocument}}
+                  <div class="modal-body">
+
+                      <div class="row">
+                          <div class="col-sm-12">
+
+                              <!-- Nav tabs -->
+                              <ul class="nav nav-tabs bottom-margin" role="tablist">
+                                  <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Contact</a></li>
+                                  <li role="presentation"><a href="#addresses" aria-controls="addresses" role="tab" data-toggle="tab">Addresses</a></li>
+                                  <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Other</a></li>
+                              </ul>
+
+                              <!-- Tab panes -->
+                              <div class="tab-content">
+
+                                  <!--Main Tab-->
+
+                                  <div role="tabpanel" class="tab-pane active" id="home">
+                                    {{> afQuickField name="firstName" placeholder="First Name" label=false autofocus="autofocus"}}
+                                    {{> afQuickField name="lastName" placeholder="Last Name" label=false}}
+                                    {{> afQuickField name="email" placeholder="Email" label=false}}
+                                    {{> afQuickField name="mobile" placeholder="Mobile" label=false}}
+                                    {{> afQuickField name="work" placeholder="Work" label=false}}
+                                    {{> afQuickField name="home" placeholder="Home" label=false}}
+                                  </div>
+
+
+
+                                  <div role="tabpanel" class="tab-pane" id="addresses">
+                                    {{> afQuickField name="postalStreetAddress" placeholder="Postal Address" label=false}}
+                                    {{> afQuickField name="postalCityStatePostcode" placeholder="City State Postcode" label=false}}
+                                  </div>
+                                  <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                              </div>
+
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <div class="modal-footer">
+                      <button id="SaveContact" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                      <button id="CancelContact" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                  </div>
+
+              {{/autoForm}}
+
+            </div>
+        </div>
+    </div>
+</template>
