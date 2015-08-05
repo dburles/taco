@@ -161,3 +161,11 @@ h1 {
 .btn-fixed{
     width:70px;
 }
+
+.light-text{
+    color:#c0c0c0;
+}
+
+.center-text {
+    text-align: center;
+}

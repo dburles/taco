@@ -19,6 +19,10 @@ Template.home.events({
         debugger;
         Modal.show('contactModal');
     },
+    'click #emailContactMenu': function (e, t) {
+        event.preventDefault();
+        Modal.show('emailModal');
+    },
     'click .select-contact': function(e, t){
         var selectedContacts = Session.get("selectedContacts");
         if(!selectedContacts)

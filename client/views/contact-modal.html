@@ -37,8 +37,11 @@
 
 
                                   <div role="tabpanel" class="tab-pane" id="addresses">
-                                    {{> afQuickField name="postalStreetAddress" placeholder="Postal Address" label=false}}
-                                    {{> afQuickField name="postalCityStatePostcode" placeholder="City State Postcode" label=false}}
+                                      {{> afQuickField name="postalStreetAddress" placeholder="Postal Address" label=false}}
+                                      {{> afQuickField name="postalCityStatePostcode" placeholder="City State Postcode" label=false}}
+                                      <hr/>
+                                      {{> afQuickField name="streetAddress" placeholder="Address (if different)" label=false}}
+                                      {{> afQuickField name="cityStatePostcode" placeholder="City State Postcode" label=false}}
                                   </div>
                                   <div role="tabpanel" class="tab-pane" id="settings">...</div>
                               </div>

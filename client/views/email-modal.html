@@ -1,0 +1,60 @@
+<template name="emailModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!--<div class="modal-header">-->
+                <!--<h4 class="modal-title">Contact Details</h4>-->
+                <!--</div>-->
+
+                {{#autoForm collection="Activities" id="emailForm" type="insert" doc=editingContactDocument}}
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs bottom-margin" role="tablist">
+                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Contact</a></li>
+                                    <li role="presentation"><a href="#addresses" aria-controls="addresses" role="tab" data-toggle="tab">Addresses</a></li>
+                                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Other</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+
+                                    <!--Main Tab-->
+
+                                    <div role="tabpanel" class="tab-pane active" id="home">
+                                        {{> afQuickField name="emailSubject" placeholder="Subject" label=false}}
+                                        {{> afQuickField name="emailBody" placeholder="" label=false}}
+                                    </div>
+
+
+
+                                    <div role="tabpanel" class="tab-pane" id="addresses">
+                                        {{> afQuickField name="postalStreetAddress" placeholder="Postal Address" label=false}}
+                                        {{> afQuickField name="postalCityStatePostcode" placeholder="City State Postcode" label=false}}
+                                        <hr/>
+                                        {{> afQuickField name="streetAddress" placeholder="Address (if different)" label=false}}
+                                        {{> afQuickField name="cityStatePostcode" placeholder="City State Postcode" label=false}}
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <button id="sendEmail" type="submit" class="btn btn-primary btn-fixed">Send</button>
+                        <button id="cancelEmail" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                    </div>
+
+                    <!--<div class="modal-footer">-->
+
+                    <!--</div>-->
+
+                {{/autoForm}}
+
+            </div>
+        </div>
+    </div>
+</template>
