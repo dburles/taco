@@ -1,4 +1,4 @@
-
+emailSending = {};
 
 
 
@@ -21,6 +21,10 @@ Template.home.events({
     },
     'click #emailContactMenu': function (e, t) {
         event.preventDefault();
+        var emailId = Emails.insert({
+            subject: "test subject"
+        });
+        emailSending = Emails.findOne(emailId);
         Modal.show('emailModal');
     },
     'click .select-contact': function(e, t){
