@@ -14,3 +14,13 @@
     font-size: 30px;
     font-weight: 100;
 }
+
+.redactor-editor{
+    border-radius: 4px;
+    border-color: #ccc !important;
+}
+.redactor-toolbar{
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none !important;
+}

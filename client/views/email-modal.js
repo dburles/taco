@@ -29,9 +29,16 @@ Template.emailModal.events({
     'click #cancelEmail': function (e, t) {
         event.preventDefault();
         AutoForm.resetForm('emailForm');
+        $('.redactor').html('');
         Modal.hide("emailModal");
     },
     'click #sendEmail': function (e, t) {
         //Session.set("editingContact");
     }
 });
+
+Template.emailModal.rendered = function(){
+    $('.redactor').redactor({
+        minHeight:200
+    });
+};
