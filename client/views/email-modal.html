@@ -1,9 +1,4 @@
 <template name="emailModal">
-    <head>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.1/css/select2.min.css" rel="stylesheet" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-rc.1/js/select2.min.js"></script>
-    </head>
-    
     <div class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -18,8 +13,9 @@
                         <div class="row">
                             <div class="col-sm-12">
 
-                            {{> afQuickField name="recipientsTo" placeholder="To" label=false type="select2"}}
+                            {{> afQuickField name="recipientsTo" placeholder="To" label=false type="select2" style="width:100%" select2Options=s2Opts}}
                             {{> afQuickField name="subject" placeholder="Subject" label=false}}
+
                             {{> afQuickField name="body" placeholder="" label=false}}
 
 

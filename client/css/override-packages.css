@@ -1,0 +1,16 @@
+/*Select2*/
+
+.select2-selection--multiple{
+    border: 1px solid #ccc !important;
+}
+
+.select2-selection--focus{
+    border: 1px solid #ccc !important;
+}
+
+/*Fonts*/
+
+.at-title h3 {
+    font-size: 30px;
+    font-weight: 100;
+}

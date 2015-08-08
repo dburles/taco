@@ -1,10 +1,10 @@
 Template.contactModal.helpers({
-    //editingContactDocument: function () {
-    //    var editingContact = Session.get("editingContact");
-    //    var editingContactDocument = Contacts.findOne(editingContact);
-    //    console.log(editingContactDocument);
-    //    return editingContactDocument;
-    //},
+    editingContactDocument: function () {
+        var editingContact = Session.get("editingContact");
+        var editingContactDocument = Contacts.findOne(editingContact);
+        console.log(editingContactDocument);
+        return editingContactDocument;
+    },
     formType: function(){
         var editingContact = Session.get("editingContact");
         if(editingContact)
@@ -14,14 +14,14 @@ Template.contactModal.helpers({
     }
 });
 
-Template.emailModal.events({
-    'click #cancelEmail': function (e, t) {
+Template.contactModal.events({
+    'click #cancelContact': function (e, t) {
         event.preventDefault();
-        AutoForm.resetForm('emailForm');
-        Modal.hide("emailModal");
-        //Session.set("editingContact");
+        AutoForm.resetForm('contactForm');
+        Modal.hide("contactModal");
+        Session.set("editingContact");
     },
-    'click #sendEmail': function (e, t) {
-        //Session.set("editingContact");
+    'click #saveContact': function (e, t) {
+        Session.set("editingContact");
     }
 });

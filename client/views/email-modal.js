@@ -8,8 +8,22 @@ Template.emailModal.helpers({
             return "update"
         else
             return "insert"
+    },
+    s2Opts: function () {
+        return {
+            placeholder: ' To',
+            tags: true,
+            selectOnBlur: true,
+            createSearchChoice:function(term, data) {
+                if ($(data).filter(function() {
+                        return this.text.localeCompare(term)===0;
+                    }).length===0)
+                {return {id:term, text:term};}
+            }
+        };
     }
 });
+
 
 Template.emailModal.events({
     'click #cancelEmail': function (e, t) {

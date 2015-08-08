@@ -73,7 +73,13 @@ AccountsTemplates.configure({
     }
 });
 
-AccountsTemplates.configureRoute('signIn');
+//AccountsTemplates.configureRoute('signIn');
+
+AccountsTemplates.configureRoute('signIn', {
+    name: 'signin',
+    path: '/signin',
+    template: 'signIn'
+});
 
 Router.plugin('ensureSignedIn', {
     except: ['/', "root", "application", 'atSignIn', 'atSignUp', 'atForgotPassword']
