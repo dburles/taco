@@ -170,3 +170,10 @@ h1 {
     text-align: center;
 }
 
+.button-row{
+    text-align: right;
+}
+
+.button-row .btn{
+    margin-left:5px;
+}

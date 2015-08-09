@@ -1,6 +1,10 @@
 emailSending = {};
 
-
+Template.home.helpers({
+    contacts: function() {
+        return Contacts.find();
+    }
+});
 
 Template.home.events({
     'keyup #txtContactSearch': function (e, t) {
@@ -52,6 +56,11 @@ Template.home.events({
         Modal.show('contactModal');
     }
 
+});
+
+Template.home.onCreated(function () {
+    // Use this.subscribe inside onCreated callback
+    this.subscribe('contactSearch', Session.get("searchText"));
 });
 
 

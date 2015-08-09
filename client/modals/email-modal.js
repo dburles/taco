@@ -39,6 +39,6 @@ Template.emailModal.events({
 
 Template.emailModal.rendered = function(){
     $('.redactor').redactor({
-        minHeight:200
+        minHeight:180
     });
 };

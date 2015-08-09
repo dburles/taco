@@ -3,9 +3,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
 
-                <div class="modal-header">
-                <h4 class="modal-title">Email</h4>
-                </div>
+                <!--<div class="modal-header">-->
+                <!--<h4 class="modal-title">Email</h4>-->
+                <!--</div>-->
 
                 {{#autoForm collection="Emails" id="emailForm" type="insert" doc=null}}
                     <div class="modal-body">
@@ -18,16 +18,21 @@
 
                             {{> afQuickField name="body" placeholder="" label=false class="redactor"}}
 
+                            <div class="button-row" style="margin-top: -10px">
+                                <button id="sendEmail" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                                <button id="cancelEmail" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                            </div>
+
 
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="modal-footer">
-                        <button id="sendEmail" type="submit" class="btn btn-primary btn-fixed">Save</button>
-                        <button id="cancelEmail" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
-                    </div>
+                    <!--<div class="modal-footer">-->
+                        <!--<button id="sendEmail" type="submit" class="btn btn-primary btn-fixed">Save</button>-->
+                        <!--<button id="cancelEmail" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>-->
+                    <!--</div>-->
 
                 {{/autoForm}}
 

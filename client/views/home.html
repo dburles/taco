@@ -15,11 +15,6 @@
             <div class="col-sm-4">
                 <input id="txtContactSearch" type="text" placeholder="Search..." class="form-control bottom-margin">
 
-                {{#if sessionMatching "action" "newContact"}}
-                {{> newContact}}
-                {{/if}}
-
-
                 {{#each contacts}}
                     <div class="panel panel-default glow-box">
                         <div class="panel-heading">
@@ -70,6 +65,12 @@
                     </div>
 
                 {{/each}}
+
+                {{#if Template.subscriptionsReady}}
+                {{else}}
+                    {{> loader}}
+                {{/if}}
+
 
                 <button id="newContactButton" class="btn btn-primary">New Contact</button>
 
