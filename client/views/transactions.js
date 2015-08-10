@@ -1,12 +1,12 @@
 emailSending = {};
 
-Template.home.helpers({
-    contacts: function() {
-        return Contacts.find();
+Template.transactions.helpers({
+    transactions: function() {
+        return Transactions.find();
     }
 });
 
-Template.home.events({
+Template.transactions.events({
     'keyup #txtContactSearch': function (e, t) {
         event.preventDefault();
         Session.set("searchText", $("#txtContactSearch").val());
@@ -20,7 +20,6 @@ Template.home.events({
         event.preventDefault();
 
         Session.set("editingContact", this._id);
-        debugger;
         Modal.show('contactModal');
     },
     'click #emailContactMenu': function (e, t) {
@@ -49,23 +48,21 @@ Template.home.events({
         Session.set("selectedContacts", selectedContacts);
 
     },
-    'click #newContactButton': function (e, t) {
+    'click #newTransactionButton': function (e, t) {
         event.preventDefault();
-        //Session.set("action", "newContact");
-        Session.set("editingContact");
-        Modal.show('contactModal');
+        Modal.show('transactionModal');
     }
 
 });
 
-Template.home.onCreated(function () {
+Template.transactions.onCreated(function () {
 
     // Use this.subscribe inside onCreated callback
 
     var self = this;
 
     self.autorun(function () {
-        self.subscribe('contactSearch', Session.get("searchText"));
+        self.subscribe('allTransactions');
     });
 });
 

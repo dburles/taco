@@ -1,21 +1,18 @@
-<template name="home">
+<template name="transactions">
     <div class="container">
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="pull-right">
-                    {{> atNavButton}}
-                </div>
-                <h1 class="ellipsis"><i class="fa fa-pie-chart coloured small-right-margin"></i>Snap CRM</h1>
+                <h1 class="ellipsis"><i class="fa fa-pie-chart coloured small-right-margin"></i>Transactions</h1>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-sm-4">
-                <input id="txtContactSearch" type="text" placeholder="Search..." class="form-control bottom-margin">
+                <input id="txtTransactionSearch" type="text" placeholder="Search..." class="form-control bottom-margin">
 
-                {{#each contacts}}
+                {{#each transactions}}
                     <div class="panel panel-default glow-box">
                         <div class="panel-heading">
 
@@ -24,7 +21,7 @@
                                     <td width="99%">
                                         <div class="checkbox no-margin">
                                             <label>
-                                                <input type="checkbox" class="select-contact"> {{fullName}}
+                                                <input type="checkbox" class="select-transaction"> {{client}}
                                             </label>
                                         </div>
                                     </td>
@@ -53,14 +50,7 @@
 
                         </div>
                         <div class="panel-body">
-                            {{#if mobile}}
-                                <span class="grey">M&nbsp;</span>{{mobile}}
-                            {{/if}}
-                            {{#if home}}
-                                <span class="grey">H&nbsp;</span>{{home}}
-                                <br/>
-                            {{/if}}
-                            {{email}}
+                            {{description}}
                         </div>
                     </div>
 
@@ -72,7 +62,7 @@
                 {{/if}}
 
 
-                <button id="newContactButton" class="btn btn-primary">New Contact</button>
+                <button id="newTransactionButton" class="btn btn-primary">New Transaction</button>
 
             </div>
         </div>

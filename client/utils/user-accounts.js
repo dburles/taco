@@ -73,12 +73,12 @@ AccountsTemplates.configure({
     }
 });
 
-//AccountsTemplates.configureRoute('signIn');
 
 AccountsTemplates.configureRoute('signIn', {
-    name: 'signin',
+    name: 'signIn',
     path: '/signin',
-    template: 'signIn'
+    template: 'signIn',
+    redirect: '/'
 });
 
 Router.plugin('ensureSignedIn', {

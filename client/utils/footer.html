@@ -1,3 +1,14 @@
 <template name="footer">
-    <div class="muted top-margin bottom-margin center-text light-text">Home | Tools | Applications</div>
+    <div id="footer" class="muted top-margin bottom-margin center-text light-text">
+        <!--<i class="fa fa-pie-chart light-text small-right-margin"></i>-->
+
+        <a href="/">Home</a> |
+        Tools |
+        <a href="/transactions">Transactions</a><br/>
+        {{#if currentUser}}
+            {{username}} | <a id="logout" href="#">Logout</a>
+        {{else}}
+            <a href="/signin/">Sign In</a>
+        {{/if}}
+    </div>
 </template>
