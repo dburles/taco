@@ -1,6 +1,5 @@
 Template.footer.helpers({
     username: function() {
-        console.log (Meteor.user())
         return Meteor.user().emails[0].address;
     }
 });

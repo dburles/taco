@@ -1,5 +1,4 @@
 <template name="transactions">
-    <div class="container">
 
         <div class="row">
             <div class="col-sm-12">
@@ -50,7 +49,9 @@
 
                         </div>
                         <div class="panel-body">
+                            <a href="{{pathFor 'transaction'}}">
                             {{description}}
+                            </a>
                         </div>
                     </div>
 
@@ -66,7 +67,6 @@
 
             </div>
         </div>
-    </div>
 
 </template>
 
