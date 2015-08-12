@@ -1,7 +1,8 @@
 Template.transaction.helpers({
     transaction: function () {
-        debugger;
-        return Transaction.findOne(this.params.query._id);
+        var id = FlowRouter.getParam("id");
+        var doc = Transactions.findOne(id);
+        return doc;
     }
 });
 
@@ -17,9 +18,10 @@ Template.transaction.onCreated(function () {
     //this.subscribe("oneTransaction", dataContext._id);
 
     var self = this;
-
     // Use self.subscribe with the data context reactively
     self.autorun(function () {
-        self.subscribe("oneTransaction", Router.getCurrent().params._id);
+        var id = FlowRouter.getParam("id");
+
+        self.subscribe("oneTransaction", id);
     });
 });

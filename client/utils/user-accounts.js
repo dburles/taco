@@ -1,4 +1,13 @@
 AccountsTemplates.configure({
+    defaultLayout: 'main',
+    //defaultLayoutRegions: {
+    //    nav: 'myNav',
+    //    footer: 'myFooter'
+    //},
+    defaultContentRegion: 'main'
+});
+
+AccountsTemplates.configure({
     // Behavior
     confirmPassword: true,
     enablePasswordChange: true,
@@ -74,13 +83,13 @@ AccountsTemplates.configure({
 });
 
 
-AccountsTemplates.configureRoute('signIn', {
-    name: 'signIn',
-    path: '/signin',
-    template: 'signIn',
-    redirect: '/'
-});
-
-Router.plugin('ensureSignedIn', {
-    except: ['/', "root", "application", 'atSignIn', 'atSignUp', 'atForgotPassword']
-});
+//AccountsTemplates.configureRoute('signIn', {
+//    name: 'signIn',
+//    path: '/signin',
+//    template: 'signIn',
+//    redirect: '/'
+//});
+//
+//Router.plugin('ensureSignedIn', {
+//    except: ['/', "root", "application", 'atSignIn', 'atSignUp', 'atForgotPassword']
+//});

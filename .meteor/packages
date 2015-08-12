@@ -6,7 +6,6 @@
 
 meteor-platform
 insecure
-iron:router
 dburles:collection-helpers
 aldeed:collection2
 accounts-base
@@ -14,9 +13,6 @@ accounts-password
 alanning:roles
 twbs:bootstrap
 fortawesome:fontawesome
-yogiben:admin
-useraccounts:core
-useraccounts:bootstrap
 msavin:mongol
 anti:fake
 yogiben:autoform-modals
@@ -25,7 +21,9 @@ msavin:jetsetter
 raix:handlebar-helpers
 aldeed:autoform
 chrismbeckett:toastr
-mpowaga:autoform-summernote
 aldeed:autoform-select2
 zimme:select2-bootstrap3-css
 mystor:device-detection
+kadira:flow-router
+useraccounts:flow-routing
+arillo:flow-router-helpers
