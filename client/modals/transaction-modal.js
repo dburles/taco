@@ -15,12 +15,12 @@ Template.transactionModal.helpers({
 });
 
 Template.transactionModal.events({
-    'click #canceltransaction': function (e, t) {
+    'click #cancelTransaction': function (e, t) {
         event.preventDefault();
         AutoForm.resetForm('transactionForm');
         Modal.hide("transactionModal");
     },
-    'click #savetransaction': function (e, t) {
+    'click #saveTransaction': function (e, t) {
 
     }
 });
