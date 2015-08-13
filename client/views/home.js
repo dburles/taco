@@ -3,7 +3,21 @@ emailSending = {};
 Template.home.helpers({
     contacts: function() {
         return Contacts.find();
+    },
+    selectedBox: function() {
+        var thisId = this._id;
+        var selectedContacts = Session.get("selectedContacts");
+        return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
+    },
+    selectedContactsCount: function() {
+        var selectedContacts = Session.get("selectedContacts");
+        return selectedContacts.length;
+    },
+    twoSelectedContacts: function() {
+        var selectedContacts = Session.get("selectedContacts");
+        return selectedContacts.length == 2 ? true : false;
     }
+
 });
 
 Template.home.events({
@@ -31,20 +45,16 @@ Template.home.events({
         emailSending = Emails.findOne(emailId);
         Modal.show('emailModal');
     },
-    'click .select-contact': function(e, t){
+    'click .selectable': function(e, t){
         var selectedContacts = Session.get("selectedContacts");
         if(!selectedContacts)
             selectedContacts = [];
 
-        if(e.target.checked) {
-            if(selectedContacts.indexOf(this._id) === -1)
-                selectedContacts.push(this._id);
-
-        } else {
-            var ind = selectedContacts.indexOf(this._id);
-            if(ind > -1)
-                selectedContacts.splice(ind,1);
-        }
+        var ind = selectedContacts.indexOf(this._id);
+        if(ind === -1)
+            selectedContacts.push(this._id);
+        else
+            selectedContacts.splice(ind,1);
 
         Session.set("selectedContacts", selectedContacts);
 
@@ -54,6 +64,11 @@ Template.home.events({
         //Session.set("action", "newContact");
         Session.set("editingContact");
         Modal.show('contactModal');
+    },
+    'click #clearSelectionMenu': function (e, t) {
+        event.preventDefault();
+        //Session.set("action", "newContact");
+        Session.set("selectedContacts", []);
     }
 
 });

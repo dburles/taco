@@ -12,18 +12,32 @@
             <div class="col-sm-4">
                 <input id="txtContactSearch" type="text" placeholder="Search..." class="form-control bottom-margin">
 
+                {{#if selectedContactsCount}}
+                    <div class="dropdown bottom-margin above-top">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{selectedContactsCount}} Selected
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            {{#if twoSelectedContacts}}
+                                <li><a href="#">Create Couple</a></li>
+                            {{/if}}
+                            <li><a href="#">New Transaction</a></li>
+                            <li><a href="#">Send Email</a></li>
+                            <li class="divider"></li>
+                            <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
+                        </ul>
+                    </div>
+                {{/if}}
+
                 {{#each contacts}}
-                    <div class="panel panel-default glow-box">
+                    <div class="panel panel-default selectable {{selectedBox}}">
                         <div class="panel-heading">
 
                             <table>
                                 <tr>
                                     <td width="99%">
-                                        <div class="checkbox no-margin">
-                                            <label>
-                                                <input type="checkbox" class="select-contact"> {{fullName}}
-                                            </label>
-                                        </div>
+                                        {{fullName}}
                                     </td>
 
                                     <td>
