@@ -27,3 +27,4 @@ mystor:device-detection
 kadira:flow-router
 useraccounts:flow-routing
 arillo:flow-router-helpers
+zimme:collection-timestampable

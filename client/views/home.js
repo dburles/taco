@@ -21,6 +21,12 @@ Template.home.helpers({
 });
 
 Template.home.events({
+    'click .btn-group': function (e,t){
+        //event.preventDefault();
+        //e.preventDefault();
+        //event.stopPropagation();
+    },
+
     'keyup #txtContactSearch': function (e, t) {
         event.preventDefault();
         Session.set("searchText", $("#txtContactSearch").val());
@@ -29,6 +35,14 @@ Template.home.events({
         event.preventDefault();
         //Session.set("action", "newContact");
         Modal.show('contactModal');
+    },
+    'click #createCoupleMenu': function (e, t) {
+        event.preventDefault();
+        //Session.set("action", "newContact");
+        var selectedContacts = Session.get("selectedContacts");
+        if(selectedContacts.length == 2){
+            Meteor.call('createCouple', selectedContacts[0], selectedContacts[1])
+        }
     },
     'click #editContactMenu': function (e, t) {
         event.preventDefault();
@@ -44,6 +58,10 @@ Template.home.events({
         });
         emailSending = Emails.findOne(emailId);
         Modal.show('emailModal');
+    },
+    'click #divorceMenu': function (e, t) {
+        e.preventDefault();
+        Meteor.call('divorce', this._id)
     },
     'click .selectable': function(e, t){
         var selectedContacts = Session.get("selectedContacts");
@@ -82,7 +100,9 @@ Template.home.onCreated(function () {
     self.autorun(function () {
         self.subscribe('contactSearch', Session.get("searchText"));
     });
+
 });
+
 
 
 
