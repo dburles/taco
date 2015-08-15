@@ -31,10 +31,10 @@ Template.home.events({
         event.preventDefault();
         Session.set("searchText", $("#txtContactSearch").val());
     },
-    'click #newContactMenu': function (e, t) {
-        event.preventDefault();
-        //Session.set("action", "newContact");
-        Modal.show('contactModal');
+    'click #callContactMenu': function (e, t) {
+        e.preventDefault();
+        Session.set("oneContact", this);
+        Modal.show('callModal');
     },
     'click #createCoupleMenu': function (e, t) {
         event.preventDefault();

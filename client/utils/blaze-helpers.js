@@ -34,5 +34,14 @@ UI.registerHelper("formType", function(sessionName){
         return "edit"
     else
         return "insert";
-})
+});
+
+UI.registerHelper('emptyCollection', function(collection) {
+    if(collection){
+        return (collection.count() == 0);
+    }
+});
+
+
+
 

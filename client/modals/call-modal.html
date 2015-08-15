@@ -1,0 +1,37 @@
+<template name="callModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{#with oneContact}}
+                <div class="modal-header">
+                <h3 class="modal-title">Call {{firstName}} {{lastName}}</h3>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <a href="tel:{{mobile}}"><button class="btn btn-default full-width">Mobile {{mobile}}</button></a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="tel:{{home}}"><button class="btn btn-default full-width">Home {{home}}</button></a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="tel:{{work}}"><button class="btn btn-default full-width">Work {{work}}</button></a>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                    <!--<div class="modal-footer">-->
+                        <!--<button id="sendEmail" type="submit" class="btn btn-primary btn-fixed">Save</button>-->
+                        <!--<button id="cancelEmail" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>-->
+                    <!--</div>-->
+
+                {{/with}}
+
+            </div>
+        </div>
+    </div>
+</template>
