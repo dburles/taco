@@ -42,6 +42,11 @@ UI.registerHelper('emptyCollection', function(collection) {
     }
 });
 
+UI.registerHelper('logThis', function() {
+    console.log('Logging from the logThis template helper...');
+    console.log(this);
+});
+
 
 
 

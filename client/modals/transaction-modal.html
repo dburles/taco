@@ -3,9 +3,9 @@
         <div class="modal-dialog">
             <div class="modal-content">
 
-                <!--<div class="modal-header">-->
-                <!--<h4 class="modal-title">transaction Details</h4>-->
-                <!--</div>-->
+                <div class="modal-header">
+                <h3 class="modal-title">{{clientNames}} (New Transation) {{logThis}}</h3>
+                </div>
 
               {{#autoForm collection="Transactions" id="transactionForm" type="insert"}}
                   <div class="modal-body">
@@ -32,11 +32,6 @@
 
 
                                   <div role="tabpanel" class="tab-pane" id="addresses">
-                                      {{> afQuickField name="postalStreetAddress" placeholder="Postal Address" label=false}}
-                                      {{> afQuickField name="postalCityStatePostcode" placeholder="City State Postcode" label=false}}
-                                      <hr/>
-                                      {{> afQuickField name="streetAddress" placeholder="Address (if different)" label=false}}
-                                      {{> afQuickField name="cityStatePostcode" placeholder="City State Postcode" label=false}}
                                   </div>
 
                               </div>

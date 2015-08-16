@@ -7,6 +7,7 @@ AccountsTemplates.configure({
     defaultContentRegion: 'main'
 });
 
+
 AccountsTemplates.configure({
     // Behavior
     confirmPassword: true,
@@ -82,14 +83,18 @@ AccountsTemplates.configure({
     }
 });
 
+AccountsTemplates.configureRoute('signIn', {
+    name: 'signIn',
+    path: '/signin',
+    template: 'signIn',
+    redirect: '/'
+});
 
-//AccountsTemplates.configureRoute('signIn', {
-//    name: 'signIn',
-//    path: '/signin',
-//    template: 'signIn',
-//    redirect: '/'
-//});
-//
+FlowRouter.triggers.enter([AccountsTemplates.ensureSignedIn]);
+
+
+
+//...old from iron router....
 //Router.plugin('ensureSignedIn', {
 //    except: ['/', "root", "application", 'atSignIn', 'atSignUp', 'atForgotPassword']
 //});
