@@ -1,4 +1,4 @@
-Meteor.publish("contactSearch", function(searchText){
+Meteor.publish("contactsSearch", function(searchText){
 
     searchText = searchText || "";
 
@@ -19,44 +19,9 @@ Meteor.publish("contactSearch", function(searchText){
         ]}, {limit:10, sort: {createdAt: -1}});
 })
 
-Meteor.methods({
-    'createCouple': function(contactId1, contactId2){
-        var doc1 = Contacts.findOne({_id:contactId1});
-        var doc2 = Contacts.findOne({_id:contactId2});
-        if(!doc1 || !doc2)
-            return false;
+Meteor.publish("contactsSelected", function(selectedContacts){
 
-        Contacts.update({_id:contactId1}, {$set: {
-            partnerId:contactId2,
-            partnerName: doc2.fullName()
-        }});
+    return Contacts.find({ _id: { $in: selectedContacts } }, {limit:10, sort: {createdAt: -1}});
 
-        Contacts.update({_id:contactId2}, {$set: {
-            partnerId:contactId1,
-            partnerName: doc1.fullName()
-        }});
+})
 
-        return true;
-    }
-});
-
-Meteor.methods({
-    'divorce': function(contactId){
-        var doc = Contacts.findOne({_id:contactId});
-
-        if(!doc)
-            return false;
-
-        Contacts.update({_id:doc.partnerId}, {$set: {
-            partnerId:null,
-            partnerName: null
-        }});
-
-        Contacts.update({_id:contactId}, {$set: {
-            partnerId:null,
-            partnerName: null
-        }});
-
-        return true;
-    }
-});

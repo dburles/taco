@@ -9,15 +9,27 @@
 
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <a href="tel:{{mobile}}"><button class="btn btn-default full-width">Mobile {{mobile}}</button></a>
-                        </div>
-                        <div class="col-sm-4">
-                            <a href="tel:{{home}}"><button class="btn btn-default full-width">Home {{home}}</button></a>
-                        </div>
-                        <div class="col-sm-4">
-                            <a href="tel:{{work}}"><button class="btn btn-default full-width">Work {{work}}</button></a>
-                        </div>
+                        {{#if mobile}}
+                            <div class="col-sm-4">
+                                <a href="tel:{{mobile}}">
+                                    <button class="btn btn-default full-width bottom-margin">Mobile {{mobile}}</button>
+                                </a>
+                            </div>
+                        {{/if}}
+                        {{#if home}}
+                            <div class="col-sm-4">
+                                <a href="tel:{{home}}">
+                                    <button class="btn btn-default full-width bottom-margin">Home {{home}}</button>
+                                </a>
+                            </div>
+                        {{/if}}
+                        {{#if work}}
+                            <div class="col-sm-4">
+                                <a href="tel:{{work}}">
+                                    <button class="btn btn-default full-width bottom-margin">Work {{work}}</button>
+                                </a>
+                            </div>
+                        {{/if}}
 
 
 

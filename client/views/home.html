@@ -10,7 +10,7 @@
 
     <div class="row">
         <div class="col-sm-4">
-            <input id="txtContactSearch" type="text" placeholder="Search..." class="form-control bottom-margin">
+            <input id="txtContactSearch" type="text" value="{{searchText}}" placeholder="Search..." class="form-control bottom-margin">
 
             <div class="bottom-margin above-top">
                 <button id="newContactButton" class="btn btn-primary">
@@ -37,6 +37,7 @@
                             <li><a href="#">New Transaction</a></li>
                             <li><a href="#">Send Email</a></li>
                             <li class="divider"></li>
+                            <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
                             <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
                         </ul>
                     </div>
@@ -92,11 +93,12 @@
             </div>
 
             {{/each}}
-            {{#if emptyCollection contacts}}
-                No Contacts Found
-            {{/if}}
+
 
             {{#if Template.subscriptionsReady}}
+                {{#if emptyCollection contacts}}
+                    No Contacts Found
+                {{/if}}
             {{else}}
                 {{> loader}}
             {{/if}}

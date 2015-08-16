@@ -16,6 +16,10 @@ Template.home.helpers({
     twoSelectedContacts: function() {
         var selectedContacts = Session.get("selectedContacts");
         return selectedContacts.length == 2 ? true : false;
+    },
+    searchText: function() {
+
+        return Session.get("searchText");
     }
 
 });
@@ -83,9 +87,15 @@ Template.home.events({
         Session.set("editingContact");
         Modal.show('contactModal');
     },
-    'click #clearSelectionMenu': function (e, t) {
+    'click #viewSelectedMenu': function (e, t) {
         event.preventDefault();
         //Session.set("action", "newContact");
+        Session.set("searchText", "selected");
+    },
+    'click #clearSelectionMenu': function (e, t) {
+        event.preventDefault();
+        if(Session.get("searchText") == "selected")
+            Session.set("searchText");
         Session.set("selectedContacts", []);
     }
 
@@ -98,7 +108,13 @@ Template.home.onCreated(function () {
     var self = this;
 
     self.autorun(function () {
-        self.subscribe('contactSearch', Session.get("searchText"));
+        var searchText = Session.get("searchText");
+        if(searchText == "selected"){
+            var selectedContacts = Session.get("selectedContacts");
+            self.subscribe('contactsSelected', selectedContacts);
+        }
+        else
+            self.subscribe('contactsSearch', searchText);
     });
 
 });
