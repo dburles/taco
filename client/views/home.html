@@ -57,6 +57,9 @@
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a id="newTransactionMenu" href="#">New Transaction</a></li>
+                        {{#if partnerId}}
+                            <li><a id="newJointTransactionMenu" href="#">Joint Transaction</a></li>
+                        {{/if}}
                         <li><a id="editContactMenu" href="#">Edit Contact</a></li>
                         <li class="divider"></li>
                         <li><a id="emailContactMenu" href="#">Send Email</a></li>
@@ -71,8 +74,8 @@
 
                     <div class="selectable" style="padding:10px 15px;border-bottom:solid 1px #ddd">
                         {{fullName}}
-                        {{#if partnerName}}
-                            <span class="light-text"> & {{partnerName}}</span>
+                        {{#if partnerId}}
+                            <span class="light-text"> & {{partnerFullName}}</span>
                         {{/if}}
                     </div>
 

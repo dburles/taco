@@ -5,17 +5,19 @@ Template.home.helpers({
         return Contacts.find();
     },
     selectedBox: function() {
-        var thisId = this._id;
-        var selectedContacts = Session.get("selectedContacts");
-        return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
+        //var thisId = this._id;
+        //var selectedContacts = Session.get("selectedContacts");
+        //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
+        return (SelectedContacts.findOne({_id:this._id})) ? "selected-box": "";
     },
     selectedContactsCount: function() {
-        var selectedContacts = Session.get("selectedContacts");
-        return selectedContacts.length;
+        //var selectedContacts = Session.get("selectedContacts");
+        //return selectedContacts.length;
+        return SelectedContacts.find().count();
     },
     twoSelectedContacts: function() {
-        var selectedContacts = Session.get("selectedContacts");
-        return selectedContacts.length == 2 ? true : false;
+        //var selectedContacts = Session.get("selectedContacts");
+        return SelectedContacts.find().count() == 2 ? true : false;
     },
     searchText: function() {
 
@@ -31,6 +33,18 @@ Template.home.events({
         event.preventDefault();
         Session.set("searchText", $("#txtContactSearch").val());
     },
+    'click #newContactButton': function (e, t) {
+        e.preventDefault();
+        //Session.set("action", "newContact");
+        //Session.set("editingContact");
+        //Modal.show('contactModal');
+        var contactModalData = {
+            formType: "insert",
+            contact: null
+        }
+
+        Modal.show('contactModal', contactModalData);
+    },
     'click #callContactMenu': function (e, t) {
         e.preventDefault();
         Session.set("oneContact", this);
@@ -38,9 +52,42 @@ Template.home.events({
     },
     'click #newTransactionMenu': function (e, t) {
         e.preventDefault();
-
+        SelectedContacts.clear();
+        SelectedContacts.insert({
+            _id:this._id,
+            firstName:this.firstName,
+            lastName:this.lastName,
+            email:this.email
+        });
         var transactionContext = {
-            clientNames: this.fullName()
+            clientNames: this.fullName(),  //dont need this i think?
+            transaction: {
+                client: this.fullName()
+            }
+        }
+
+        Modal.show('transactionModal', transactionContext);
+    },
+    'click #newJointTransactionMenu': function (e, t) {
+        e.preventDefault();
+        SelectedContacts.clear();
+        SelectedContacts.insert({
+            _id:this._id,
+            firstName:this.firstName,
+            lastName:this.lastName,
+            email:this.email
+        });
+        SelectedContacts.insert({
+            _id:this.partnerId,
+            firstName:this.partnerFirstName,
+            lastName:this.partnerLastName,
+            email:this.partnerEmail
+        });
+        var transactionContext = {
+            clientNames: this.jointFullName(),
+            transaction: {
+                client: this.jointFullName()
+            }
         }
 
         Modal.show('transactionModal', transactionContext);
@@ -48,9 +95,12 @@ Template.home.events({
     'click #editContactMenu': function (e, t) {
         e.preventDefault();
 
-        Session.set("editingContact", this._id);
-        debugger;
-        Modal.show('contactModal');
+        var contactModalData = {
+            formType: "update",
+            contact: this
+        }
+
+        Modal.show('contactModal', contactModalData);
     },
     'click #emailContactMenu': function (e, t) {
         e.preventDefault();
@@ -63,9 +113,10 @@ Template.home.events({
     'click #createCoupleMenu': function (e, t) {
         e.preventDefault();
         //Session.set("action", "newContact");
-        var selectedContacts = Session.get("selectedContacts");
-        if(selectedContacts.length == 2){
-            Meteor.call('createCouple', selectedContacts[0], selectedContacts[1])
+        //var selectedContacts = Session.get("selectedContacts");
+        if(SelectedContacts.find().count() == 2){
+            var selectedContactsArray = SelectedContacts.find().fetch();
+            Meteor.call('createCouple', selectedContactsArray[0]._id, selectedContactsArray[1]._id)
         }
     },
     'click #divorceMenu': function (e, t) {
@@ -78,24 +129,29 @@ Template.home.events({
 
     },
     'click .selectable': function(e, t){
-        var selectedContacts = Session.get("selectedContacts");
-        if(!selectedContacts)
-            selectedContacts = [];
+        //var selectedContacts = Session.get("selectedContacts");
+        //if(!selectedContacts)
+        //    selectedContacts = [];
+        //
+        //var ind = selectedContacts.indexOf(this._id);
+        //if(ind === -1)
+        //    selectedContacts.push(this._id);
+        //else
+        //    selectedContacts.splice(ind,1);
+        //
+        //Session.set("selectedContacts", selectedContacts);
 
-        var ind = selectedContacts.indexOf(this._id);
-        if(ind === -1)
-            selectedContacts.push(this._id);
+        if(SelectedContacts.findOne({_id:this._id}))
+            SelectedContacts.remove(this._id)
         else
-            selectedContacts.splice(ind,1);
+            SelectedContacts.insert({
+                _id:this._id,
+                firstName:this.firstName,
+                lastName:this.lastName,
+                email:this.email
+            })
 
-        Session.set("selectedContacts", selectedContacts);
 
-    },
-    'click #newContactButton': function (e, t) {
-        e.preventDefault();
-        //Session.set("action", "newContact");
-        Session.set("editingContact");
-        Modal.show('contactModal');
     },
     'click #viewSelectedMenu': function (e, t) {
         e.preventDefault();
@@ -106,7 +162,9 @@ Template.home.events({
         e.preventDefault();
         if(Session.get("searchText") == "selected")
             Session.set("searchText");
-        Session.set("selectedContacts", []);
+        //Session.set("selectedContacts", []);
+        //var contactCursor = ;
+        SelectedContacts.clear();
     }
 
 });
@@ -120,7 +178,12 @@ Template.home.onCreated(function () {
     self.autorun(function () {
         var searchText = Session.get("searchText");
         if(searchText == "selected"){
-            var selectedContacts = Session.get("selectedContacts");
+
+            //var selectedContacts = Session.get("selectedContacts");
+            var selectedContacts = [];
+            SelectedContacts.find().forEach(function (contact) {
+                selectedContacts.push(contact._id);
+            });
             self.subscribe('contactsSelected', selectedContacts);
         }
         else
@@ -128,6 +191,12 @@ Template.home.onCreated(function () {
     });
 
 });
+
+SelectedContacts.clear = function(){
+    SelectedContacts.find().forEach(function (contact) {
+        SelectedContacts.remove(contact._id);
+    });
+}
 
 
 

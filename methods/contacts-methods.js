@@ -5,12 +5,16 @@ Meteor.methods({
 
         Contacts.update({_id:contactId1}, {$set: {
             partnerId:contactId2,
-            partnerName: doc2.fullName()
+            partnerFirstName: doc2.firstName,
+            partnerLastName: doc2.lastName,
+            partnerEmail: doc2.email
         }});
 
         Contacts.update({_id:contactId2}, {$set: {
             partnerId:contactId1,
-            partnerName: doc1.fullName()
+            partnerFirstName: doc1.firstName,
+            partnerLastName: doc1.lastName,
+            partnerEmail: doc1.email
         }});
     },
     'divorce': function(contactId){
@@ -18,12 +22,16 @@ Meteor.methods({
 
         Contacts.update({_id:doc.partnerId}, {$set: {
             partnerId:null,
-            partnerName: null
+            partnerFirstName: null,
+            partnerLastName: null,
+            partnerEmail: null
         }});
 
         Contacts.update({_id:contactId}, {$set: {
             partnerId:null,
-            partnerName: null
+            partnerFirstName: null,
+            partnerLastName: null,
+            partnerEmail: null
         }});
     }
 });
