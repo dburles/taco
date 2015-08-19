@@ -166,22 +166,24 @@
             <div class="col-sm-2">
 
                 <ul class="tiles tiles-dark">
+                    {{#each participants}}
                     <li>
                         <i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>
-                        James Smith
+                        {{contactName}}
                     </li>
-                    <li>
-                        <i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>
-                        Peter Smith
-                    </li>
-                    <li class="active">
-                        <i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>
-                        Michael Van Handerflop
-                    </li>
-                    <li>
-                        <i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>
-                        Mark Zuckerberg
-                    </li>
+                    {{/each}}
+                    <!--<li>-->
+                        <!--<i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>-->
+                        <!--Peter Smith-->
+                    <!--</li>-->
+                    <!--<li class="active">-->
+                        <!--<i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>-->
+                        <!--Michael Van Handerflop-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>-->
+                        <!--Mark Zuckerberg-->
+                    <!--</li>-->
                 </ul>
 
             </div>

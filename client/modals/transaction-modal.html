@@ -4,7 +4,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                <h3 class="modal-title">{{clientNames}} (New Transation) {{logThis}}</h3>
+                <h4 class="modal-title">{{clientNames}} (New Transation) {{logThis}}</h4>
                 </div>
 
               {{#autoForm collection="Transactions" id="transactionForm" type="insert" doc=this.transaction}}
@@ -15,8 +15,8 @@
 
                               <!-- Nav tabs -->
                               <ul class="nav nav-tabs bottom-margin" role="tablist">
-                                  <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Transaction</a></li>
-                                  <li role="presentation"><a href="#addresses" aria-controls="addresses" role="tab" data-toggle="tab">Addresses</a></li>
+                                  <li role="presentation" class="active"><a href="#transactionTab" aria-controls="transactionTab" role="tab" data-toggle="tab">Transaction</a></li>
+                                  <li role="presentation"><a href="#advancedTab" aria-controls="advancedTab" role="tab" data-toggle="tab">Advanced</a></li>
                               </ul>
 
                               <!-- Tab panes -->
@@ -24,15 +24,15 @@
 
                                   <!--Main Tab-->
 
-                                  <div role="tabpanel" class="tab-pane active" id="home">
-                                    {{> afQuickField name="client" placeholder=""}}
+                                  <div role="tabpanel" class="tab-pane active" id="transactionTab">
                                     {{> afQuickField name="title" placeholder="eg. Purchase investment unit with guarantor"}}
-                                    {{> afQuickField name="description" placeholder=""}}
                                   </div>
 
 
 
-                                  <div role="tabpanel" class="tab-pane" id="addresses">
+                                  <div role="tabpanel" class="tab-pane" id="advancedTab">
+                                      {{> afQuickField name="client" placeholder=""}}
+                                      {{> afQuickField name="description" placeholder=""}}
                                   </div>
 
                               </div>

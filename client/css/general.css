@@ -26,7 +26,7 @@ textarea, input[type="text"], input[type="number"] {
 
 
 
-h1, h2, h3, h4 {
+h1, h2, h3 {
     font-family: 'Segoe Light', 'Segoe UI Light', 'Segoe UI', 'Segoe WP Light', 'Roboto Light', Frutiger, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
     font-weight: 100;
     height: auto;
@@ -50,6 +50,8 @@ h1 {
         font-size: 29px;
     }
 }
+
+
 
 .glow-text:hover{
     -webkit-stroke-width: 5.3px;
