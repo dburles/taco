@@ -3,7 +3,7 @@ Meteor.publish("contactsSearch", function(searchText){
     searchText = searchText || "";
 
     if(searchText.length < 3)
-        return Contacts.find({}, {limit:10, sort: {createdAt: -1}});
+        return Contacts.find({}, {limit:10, sort: {updatedAt: -1}});
 
     searchArr = searchText.split(" ");
 
@@ -21,7 +21,7 @@ Meteor.publish("contactsSearch", function(searchText){
 
 Meteor.publish("contactsSelected", function(selectedContacts){
 
-    return Contacts.find({ _id: { $in: selectedContacts } }, {limit:10, sort: {createdAt: -1}});
+    return Contacts.find({ _id: { $in: selectedContacts } }, {limit:10, sort: {updatedAt: -1}});
 
 })
 

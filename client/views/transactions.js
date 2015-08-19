@@ -63,7 +63,6 @@ Template.transactions.onCreated(function () {
 
     self.autorun(function () {
         self.subscribe('allTransactions');
-        self.subscribe('participantsAll');
     });
 });
 

@@ -27,6 +27,6 @@ mystor:device-detection
 kadira:flow-router
 useraccounts:flow-routing
 arillo:flow-router-helpers
-zimme:collection-timestampable
 mizzao:bootboxjs
 useraccounts:bootstrap
+matb33:collection-hooks

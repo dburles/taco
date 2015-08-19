@@ -45,6 +45,16 @@ Template.home.events({
 
         Modal.show('contactModal', contactModalData);
     },
+
+    'dblclick .selectable': function (e, t) {
+        e.preventDefault();
+        Meteor.call('latestTransactionForContact', function(err, result){
+            if(result)
+                FlowRouter.go('/transactions/' + result);
+        })
+
+    },
+
     'click #callContactMenu': function (e, t) {
         e.preventDefault();
         Session.set("oneContact", this);
