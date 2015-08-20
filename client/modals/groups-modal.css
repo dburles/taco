@@ -1,0 +1,26 @@
+.simple-list{
+    height:250px;
+    overflow-y: scroll;
+}
+
+.simple-list div{
+    padding:12px;
+    padding-left:15px;
+    border: solid 1px #FFFFFF;
+    border-bottom: solid 1px #f2f2f2;
+}
+
+.simple-list div:hover{
+    border:solid 1px #CEECF5;
+    background-color:#EFF8FB;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor:default;
+}

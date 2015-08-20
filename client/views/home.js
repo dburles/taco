@@ -78,6 +78,13 @@ Template.home.events({
 
         Modal.show('transactionModal', transactionContext);
     },
+
+    'click #addToGroupMenu': function (e, t) {
+        e.preventDefault();
+
+        Modal.show('groupsModal');
+    },
+
     'click #newJointTransactionMenu': function (e, t) {
         e.preventDefault();
         SelectedContacts.clear();

@@ -1,0 +1,31 @@
+<template name="groupsModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{#if singleSelectedName}}
+                        <h4 class="modal-title">Add {{singleSelectedName}} to group</h4>
+                    {{else}}
+                        <h4 class="modal-title">Add {{collectionCount selectedContacts}} contacts to group</h4>
+                    {{/if}}
+                </div>
+
+                <div class="modal-body">
+                    <div class="simple-list">
+                    {{#each groups}}
+                        <div class="noselect group-item">
+                            {{name}}
+                        </div>
+                    {{/each}}
+                        <div class="noselect group-item">
+                            <input id="newGroupText" class="form-control" type="text" placeholder="Create a new group"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
