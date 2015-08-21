@@ -36,6 +36,7 @@
                             <li><a href="#">New Transaction</a></li>
                             <li><a href="#">Send Email</a></li>
                             <li><a id="addToGroupMenu" href="#">Add to Group</a></li>
+                            <li><a id="removeFromGroupMenu" href="#">Remove from Group</a></li>
                             <li class="divider"></li>
                             <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
                             <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
@@ -65,6 +66,7 @@
                         <li class="divider"></li>
                         <li><a id="emailContactMenu" href="#">Send Email</a></li>
                         <li><a id="callContactMenu" href="#">Call</a></li>
+                        <li><a id="sendSMSMenu" href="#">Send SMS</a></li>
                         {{#if partnerId}}
                             <li class="divider"></li>
                             <li><a id="divorceMenu" href="#">Divorce</a></li>
@@ -95,7 +97,7 @@
                     {{/if}}
                     <div class="ellipsis">{{email}}</div>
                     {{#each groups}}
-                        <span class="label label-primary">{{this}}</span>
+                        <span class="label {{labelClass}}">{{this}}</span>
                     {{/each}}
                 </div>
             </div>

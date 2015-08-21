@@ -2,6 +2,9 @@ Template.groupsModal.helpers({
     groups: function () {
         return [{name: "Agents"},{name: "Solicitors"},{name: "Clients"},{name: "Accountants"},{name: "Builders"}]
     },
+    isAdding: function () {
+        return this.mode == "Add";
+    },
     singleSelectedName: function () {
 
         var contacts = SelectedContacts.find();
@@ -26,12 +29,17 @@ Template.groupsModal.events({
     'click .group-item': function (e, t) {
         e.preventDefault();
 
+        var mode = Template.currentData().mode;
+        var methodName = (mode == "Add") ? 'addContactsToGroup' : 'removeContactsFromGroup'
+
         var contactsArray = SelectedContacts.find().map(function(contact){
             return contact._id
         })
-        Meteor.call('addContactsToGroup', contactsArray, this.name);
+        Meteor.call(methodName, contactsArray, this.name);
         Modal.hide('groupsModal')
-        toastr.success("Added to group");
+
+        var msg = (mode == "Add") ? 'Added to group' : 'Removed from group'
+        toastr.success(msg);
     }
 });
 

@@ -22,6 +22,12 @@ Template.home.helpers({
     searchText: function() {
 
         return Session.get("searchText");
+    },
+    labelClass: function() {
+        if(this == "Clients")
+            return "label-primary";
+        else
+            return "label-light";
     }
 
 });
@@ -60,6 +66,11 @@ Template.home.events({
         Session.set("oneContact", this);
         Modal.show('callModal');
     },
+    'click #sendSMSMenu': function (e, t) {
+        e.preventDefault();
+        Meteor.call('sendEmail', 'matt.ireland@mortgagechoice.com.au', 'matt.ireland@mortgagechoice.com.au', 'test email', 'test body');
+        toastr.success('sent?')
+    },
     'click #newTransactionMenu': function (e, t) {
         e.preventDefault();
         SelectedContacts.clear();
@@ -82,7 +93,17 @@ Template.home.events({
     'click #addToGroupMenu': function (e, t) {
         e.preventDefault();
 
-        Modal.show('groupsModal');
+        Modal.show('groupsModal', {
+            mode: "Add"
+        });
+    },
+
+    'click #removeFromGroupMenu': function (e, t) {
+        e.preventDefault();
+
+        Modal.show('groupsModal', {
+            mode: "Remove"
+        });
     },
 
     'click #newJointTransactionMenu': function (e, t) {
@@ -146,17 +167,6 @@ Template.home.events({
 
     },
     'click .selectable': function(e, t){
-        //var selectedContacts = Session.get("selectedContacts");
-        //if(!selectedContacts)
-        //    selectedContacts = [];
-        //
-        //var ind = selectedContacts.indexOf(this._id);
-        //if(ind === -1)
-        //    selectedContacts.push(this._id);
-        //else
-        //    selectedContacts.splice(ind,1);
-        //
-        //Session.set("selectedContacts", selectedContacts);
 
         if(SelectedContacts.findOne({_id:this._id}))
             SelectedContacts.remove(this._id)
@@ -221,3 +231,19 @@ SelectedContacts.clear = function(){
 
 
 
+
+
+
+
+
+//var selectedContacts = Session.get("selectedContacts");
+//if(!selectedContacts)
+//    selectedContacts = [];
+//
+//var ind = selectedContacts.indexOf(this._id);
+//if(ind === -1)
+//    selectedContacts.push(this._id);
+//else
+//    selectedContacts.splice(ind,1);
+//
+//Session.set("selectedContacts", selectedContacts);
