@@ -25,7 +25,13 @@ Template.groupsModal.events({
     },
     'click .group-item': function (e, t) {
         e.preventDefault();
-        //Meteor.call('addContactsToGroup', )
+
+        var contactsArray = SelectedContacts.find().map(function(contact){
+            return contact._id
+        })
+        Meteor.call('addContactsToGroup', contactsArray, this.name);
+        Modal.hide('groupsModal')
+        toastr.success("Added to group");
     }
 });
 

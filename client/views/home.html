@@ -94,6 +94,9 @@
                         <br/>
                     {{/if}}
                     <div class="ellipsis">{{email}}</div>
+                    {{#each groups}}
+                        <span class="label label-primary">{{this}}</span>
+                    {{/each}}
                 </div>
             </div>
 
