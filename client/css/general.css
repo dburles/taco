@@ -105,25 +105,7 @@ h1 {
     color:white;
 }
 
-.no-margin{
-    margin:0px;
-}
 
-.small-right-margin{
-    margin-right:10px;
-}
-
-.small-top-margin{
-    margin-top:10px;
-}
-
-.top-margin{
-    margin-top:20px;
-}
-
-.bottom-margin{
-    margin-bottom:20px;
-}
 
 .transparent{
     background: transparent;
@@ -152,6 +134,10 @@ h1 {
 
 .full-width{
     width:100%;
+}
+
+.label-as-badge {
+    border-radius: 1em;
 }
 
 

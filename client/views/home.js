@@ -4,6 +4,9 @@ Template.home.helpers({
     contacts: function() {
         return Contacts.find();
     },
+    allGroups: function () {
+        return [{name: "Agents"},{name: "Solicitors"},{name: "Clients"},{name: "Accountants"},{name: "Builders"}]
+    },
     selectedBox: function() {
         //var thisId = this._id;
         //var selectedContacts = Session.get("selectedContacts");
@@ -18,6 +21,10 @@ Template.home.helpers({
     twoSelectedContacts: function() {
         //var selectedContacts = Session.get("selectedContacts");
         return SelectedContacts.find().count() == 2 ? true : false;
+    },
+    oneSelectedContact: function() {
+        //var selectedContacts = Session.get("selectedContacts");
+        return SelectedContacts.find().count() == 1 ? true : false;
     },
     searchText: function() {
 
@@ -39,7 +46,7 @@ Template.home.events({
         event.preventDefault();
         Session.set("searchText", $("#txtContactSearch").val());
     },
-    'click #newContactButton': function (e, t) {
+    'click #addContactButton': function (e, t) {
         e.preventDefault();
         //Session.set("action", "newContact");
         //Session.set("editingContact");
@@ -61,7 +68,7 @@ Template.home.events({
 
     },
 
-    'click #callContactMenu': function (e, t) {
+    'click #callContactButton': function (e, t) {
         e.preventDefault();
         Session.set("oneContact", this);
         Modal.show('callModal');
@@ -140,7 +147,7 @@ Template.home.events({
 
         Modal.show('contactModal', contactModalData);
     },
-    'click #emailContactMenu': function (e, t) {
+    'click #emailContactButton': function (e, t) {
         e.preventDefault();
         var emailId = Emails.insert({
             subject: "test subject"
@@ -148,7 +155,7 @@ Template.home.events({
         emailSending = Emails.findOne(emailId);
         Modal.show('emailModal');
     },
-    'click #createCoupleMenu': function (e, t) {
+    'click #createCoupleButton': function (e, t) {
         e.preventDefault();
         //Session.set("action", "newContact");
         //var selectedContacts = Session.get("selectedContacts");
@@ -217,7 +224,14 @@ Template.home.onCreated(function () {
             self.subscribe('contactsSearch', searchText);
     });
 
+
+
 });
+
+Template.home.rendered = function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    $("#buttonBar").sticky({topSpacing:0});
+}
 
 SelectedContacts.clear = function(){
     SelectedContacts.find().forEach(function (contact) {
