@@ -4,7 +4,7 @@
 
     <div class="row margin-bottom-10">
         <div class="col-sm-12">
-            <h1 class="ellipsis margin-right-10" style="display: inline"><i class="fa fa-pie-chart coloured small-right-margin"></i>Snap CRM</h1>
+            <h1 class="ellipsis margin-right-10" style="display: inline"><i class="fa fa-pie-chart coloured small-right-margin"></i>{{title}}</h1>
             <div class="dropdown" style="display: inline-block">
 
                 <a href="#" id="titleDropdown" class="glow-text dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -17,8 +17,9 @@
                         <li><a id="removeFromGroupMenu" href="#">Remove <label class="label label-primary">{{selectedContactsCount}}</label> from Group</a></li>
                         <li class="divider"></li>
                     {{/if}}
+                    <li><a class="groupAllMenuItem" href="#">Show All Contacts</a></li>
                     {{#each allGroups}}
-                        <li><a href="#">{{this.name}}</a></li>
+                        <li><a class="groupMenuItem" href="#">{{this.name}}</a></li>
                     {{/each}}
 
                 </ul>
@@ -34,7 +35,7 @@
 
             <div class="input-group margin-bottom-10">
                 <input id="txtContactSearch" type="text" value="{{searchText}}" placeholder="Search..." class="form-control">
-                <div class="input-group-addon"><i class="fa fa-times"></i></div>
+                    <div class="input-group-addon"><i id="clearSearchButton" class="fa fa-times"></i></div>
             </div>
 
             <!--Button Bar-->
@@ -64,6 +65,12 @@
                         <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
                         <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
                     </ul>
+                    {{#if oneSelectedContact}}
+                        {{#if partnerId}}
+                            <li class="divider"></li>
+                            <li><a id="divorceMenu" href="#">Divorce</a></li>
+                        {{/if}}
+                    {{/if}}
                 </div>&nbsp;
 
                 <!--Communicate Dropdown -->
@@ -174,6 +181,10 @@
                         <span class="grey">H&nbsp;</span>{{home}}
                         <br/>
                     {{/if}}
+                    {{#if work}}
+                        <span class="grey">W&nbsp;</span>{{work}}
+                        <br/>
+                    {{/if}}
                     <div class="ellipsis">{{email}}</div>
                     {{#each groups}}
                         <span class="label {{labelClass}}">{{this}}</span>
@@ -186,7 +197,7 @@
 
             {{#if Template.subscriptionsReady}}
                 {{#if emptyCollection contacts}}
-                    No Contacts Found
+                    No records found in {{title}}
                 {{/if}}
             {{else}}
                 {{> loader}}

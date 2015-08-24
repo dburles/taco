@@ -140,6 +140,10 @@ h1 {
     border-radius: 1em;
 }
 
+.inline-block{
+    display: inline-block;
+}
+
 
 
 

@@ -1,6 +1,12 @@
 emailSending = {};
 
 Template.home.helpers({
+    title: function() {
+        var groupName = FlowRouter.getQueryParam("group");
+        if(!groupName)
+            groupName = "Contacts"
+        return groupName;
+    },
     contacts: function() {
         return Contacts.find();
     },
@@ -28,7 +34,7 @@ Template.home.helpers({
     },
     searchText: function() {
 
-        return Session.get("searchText");
+        return FlowRouter.getQueryParam("search"); //Session.get("searchText");
     },
     labelClass: function() {
         if(this == "Clients")
@@ -39,12 +45,38 @@ Template.home.helpers({
 
 });
 
+//String.prototype.toNullIfEmpty = function(){
+//    if(this.toString())
+//        return this;
+//    else
+//        return null;
+//}
+
 Template.home.events({
 
 
     'keyup #txtContactSearch': function (e, t) {
         event.preventDefault();
-        Session.set("searchText", $("#txtContactSearch").val());
+        var searchText = $("#txtContactSearch").val();
+        if(searchText === "")
+            searchText = null;
+        Session.set("searchText", searchText);
+        FlowRouter.setQueryParams({search: searchText})
+    },
+    'click #clearSearchButton': function (e, t) {
+        event.preventDefault();
+        FlowRouter.setQueryParams({search:null});
+        //Session.set("searchText");
+    },
+    'click .groupMenuItem': function (e, t) {
+        event.preventDefault();
+        //debugger;
+        FlowRouter.setQueryParams({group: this.name})
+    },
+    'click .groupAllMenuItem': function (e, t) {
+        event.preventDefault();
+        //debugger;
+        FlowRouter.setQueryParams({group: null})
     },
     'click #addContactButton': function (e, t) {
         e.preventDefault();
@@ -177,13 +209,15 @@ Template.home.events({
 
         if(SelectedContacts.findOne({_id:this._id}))
             SelectedContacts.remove(this._id)
-        else
+        else {
             SelectedContacts.insert({
-                _id:this._id,
-                firstName:this.firstName,
-                lastName:this.lastName,
-                email:this.email
+                _id: this._id,
+                firstName: this.firstName,
+                lastName: this.lastName,
+                email: this.email
             })
+            //FlowRouter.setQueryParams({contact: this._id})
+        }
 
 
     },
@@ -210,7 +244,9 @@ Template.home.onCreated(function () {
     var self = this;
 
     self.autorun(function () {
-        var searchText = Session.get("searchText");
+        var searchText = FlowRouter.getQueryParam("search"); //Session.get("searchText");
+        var groupName = FlowRouter.getQueryParam("group");
+
         if(searchText == "selected"){
 
             //var selectedContacts = Session.get("selectedContacts");
@@ -220,8 +256,10 @@ Template.home.onCreated(function () {
             });
             self.subscribe('contactsSelected', selectedContacts);
         }
-        else
-            self.subscribe('contactsSearch', searchText);
+        else {
+            self.subscribe('contactsSearch', searchText, groupName);
+
+        }
     });
 
 
@@ -229,7 +267,7 @@ Template.home.onCreated(function () {
 });
 
 Template.home.rendered = function(){
-    $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-toggle="tooltip"]').tooltip();
     $("#buttonBar").sticky({topSpacing:0});
 }
 
@@ -237,6 +275,11 @@ SelectedContacts.clear = function(){
     SelectedContacts.find().forEach(function (contact) {
         SelectedContacts.remove(contact._id);
     });
+}
+
+SelectedContacts.getOne = function() {
+    var doc = SelectedContacts.find().fetch()[0]
+    return doc;
 }
 
 
