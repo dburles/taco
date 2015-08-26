@@ -1,0 +1,119 @@
+<template name="profile">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="ellipsis">
+                <a href="/">
+                    <i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>My Profile
+            </h1>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-3">
+
+
+        </div>
+        <div class="col-sm-6">
+
+
+
+            {{#with profile}}
+                {{logThis}}
+                {{#autoForm collection="Profiles" id="profileForm" type="update" doc=this}}
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-user light-text fa-2x pull-right"></i>
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="firstName" label=false placeholder="First Name"}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">
+
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="lastName" label=false placeholder="Last Name"}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i style="font-size:170%" class="fa fa-envelope light-text fa-2x pull-right"></i>
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="email"  label=false placeholder="Email"}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-phone light-text fa-2x pull-right"></i>
+                        </div>
+                        <div class="col-xs-10">
+                            <div class="input-group margin-bottom-15">
+                            <div class="input-group-addon">M</div>
+                            {{> afFieldInput name="mobile" label=false placeholder="Mobile"}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-2">
+
+                        </div>
+                        <div class="col-xs-10">
+                            <div class="input-group margin-bottom-15">
+                                <div class="input-group-addon">W</div>
+                                {{> afFieldInput name="work" label=false placeholder="Work"}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-google light-text fa-2x pull-right"></i>
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="gmailAddress" label=false placeholder="Gmail Address"}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-2">
+
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="gmailPassword" label=false placeholder="Gmail Password"}}
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    {{> afQuickField name="emailSignature" class="redactor"}}
+
+                    <div class="button-row" style="margin-top: -10px">
+                        <button id="saveProfile" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                        <button id="cancelProfile" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                    </div>
+
+
+                {{/autoForm}}
+
+            {{/with}}
+            {{#if Template.subscriptionsReady}}
+
+            {{else}}
+                {{> loader}}
+            {{/if}}
+        </div>
+        <div class="col-sm-3">
+
+
+        </div>
+    </div>
+
+</template>

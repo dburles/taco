@@ -8,6 +8,6 @@ Template.footer.events({
     'click #logout': function (e, t) {
         event.preventDefault();
         Meteor.logout();
-        Router.go('home');
+        FlowRouter.go('/');
     }
 })

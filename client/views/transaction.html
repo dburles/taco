@@ -1,4 +1,11 @@
 <template name="transaction">
+
+    {{#if Template.subscriptionsReady}}
+
+    {{else}}
+        {{> loader}}
+    {{/if}}
+
     {{#with transaction}}
     <div class="row">
         <div class="col-sm-12">

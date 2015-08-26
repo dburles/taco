@@ -33,5 +33,21 @@ Meteor.methods({
             partnerLastName: null,
             partnerEmail: null
         }});
+    },
+    'addContactsToGroup': function(contactArray, groupName){
+
+        Contacts.update(
+            { _id: { $in: contactArray } },
+            { $addToSet: { groups: groupName } },
+            {multi:true}
+        )
+    },
+    'removeContactsFromGroup': function(contactArray, groupName){
+
+        Contacts.update(
+            { _id: { $in: contactArray } },
+            { $pull: { groups: groupName } },
+            {multi:true}
+        )
     }
 });

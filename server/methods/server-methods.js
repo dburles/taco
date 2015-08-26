@@ -2,22 +2,7 @@ Meteor.methods({
     'latestTransactionForContact': function(contactId){
         return "dv4utTHwxyDzoiKBC";
     },
-    'addContactsToGroup': function(contactArray, groupName){
 
-        Contacts.update(
-            { _id: { $in: contactArray } },
-            { $addToSet: { groups: groupName } },
-            {multi:true}
-        )
-    },
-    'removeContactsFromGroup': function(contactArray, groupName){
-
-        Contacts.update(
-            { _id: { $in: contactArray } },
-            { $pull: { groups: groupName } },
-            {multi:true}
-        )
-    },
     sendEmail: function (to, from, subject, text) {
         check([to, from, subject, text], [String]);
 

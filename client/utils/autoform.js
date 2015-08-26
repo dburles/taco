@@ -10,5 +10,10 @@ AutoForm.hooks({
             Modal.hide("transactionModal");
             toastr.success("Transaction saved");
         }
+    },
+    profileForm: {
+        onSuccess: function () {
+            FlowRouter.go("/");
+        }
     }
 });

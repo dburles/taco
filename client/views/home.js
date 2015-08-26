@@ -45,15 +45,11 @@ Template.home.helpers({
 
 });
 
-//String.prototype.toNullIfEmpty = function(){
-//    if(this.toString())
-//        return this;
-//    else
-//        return null;
-//}
 
 Template.home.events({
 
+
+    //Search bar events
 
     'keyup #txtContactSearch': function (e, t) {
         event.preventDefault();

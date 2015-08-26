@@ -17,7 +17,7 @@ a.plain:{
 
 /* Remove inner shadow from inputs on mobile iOS */
 
-textarea, input[type="text"], input[type="number"] {
+textarea, input[type="text"], input[type="number"], input[type="password"] {
     -webkit-appearance: none;
 }
 
@@ -57,7 +57,8 @@ h1 {
     -webkit-stroke-width: 5.3px;
     -webkit-stroke-color: #FFFFFF;
     -webkit-fill-color: #FFFFFF;
-    text-shadow: 1px 0px 20px blue;
+    text-shadow: 1px 0px 20px #00BFFF;
+    color:rgb(86, 180, 239);
 }
 
 .glow-box:hover{

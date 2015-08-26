@@ -12,11 +12,7 @@
                 </a>
 
                 <ul class="dropdown-menu pull-right" aria-labelledby="titleDropdown">
-                    {{#if selectedContactsCount}}
-                        <li><a id="addToGroupMenu" href="#">Add <label class="label label-primary">{{selectedContactsCount}}</label> to Group</a></li>
-                        <li><a id="removeFromGroupMenu" href="#">Remove <label class="label label-primary">{{selectedContactsCount}}</label> from Group</a></li>
-                        <li class="divider"></li>
-                    {{/if}}
+
                     <li><a class="groupAllMenuItem" href="#">Show All Contacts</a></li>
                     {{#each allGroups}}
                         <li><a class="groupMenuItem" href="#">{{this.name}}</a></li>
@@ -62,15 +58,25 @@
 
                     <ul class="dropdown-menu" aria-labelledby="selectionDropdownButton">
 
-                        <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
-                        <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
-                    </ul>
-                    {{#if oneSelectedContact}}
-                        {{#if partnerId}}
-                            <li class="divider"></li>
-                            <li><a id="divorceMenu" href="#">Divorce</a></li>
+                        {{#if selectedContactsCount}}
+                            <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
+                            <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
+                        {{else}}
+                            <li><a href="#">Click contacts to select them</a></li>
                         {{/if}}
-                    {{/if}}
+
+                        {{#if oneSelectedContact}}
+                            {{#if partnerId}}
+                                <li class="divider"></li>
+                                <li><a id="divorceMenu" href="#">Divorce</a></li>
+                            {{/if}}
+                        {{/if}}
+                        {{#if selectedContactsCount}}
+                            <li class="divider"></li>
+                            <li><a id="addToGroupMenu" href="#">Add <label class="label label-primary">{{selectedContactsCount}}</label> to Group</a></li>
+                            <li><a id="removeFromGroupMenu" href="#">Remove <label class="label label-primary">{{selectedContactsCount}}</label> from Group</a></li>
+                        {{/if}}
+                    </ul>
                 </div>&nbsp;
 
                 <!--Communicate Dropdown -->
