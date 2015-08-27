@@ -19,6 +19,12 @@ Template.home.helpers({
         //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
         return (SelectedContacts.findOne({_id:this._id})) ? "selected-box": "";
     },
+    selectedTick: function() {
+        //var thisId = this._id;
+        //var selectedContacts = Session.get("selectedContacts");
+        //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
+        return (SelectedContacts.findOne({_id:this._id})) ? "green": "light-text";
+    },
     selectedContactsCount: function() {
         //var selectedContacts = Session.get("selectedContacts");
         //return selectedContacts.length;
