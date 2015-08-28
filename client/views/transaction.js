@@ -4,9 +4,9 @@ Template.transaction.helpers({
         var doc = Transactions.findOne(id);
         return doc;
     },
-    participants: function() {
+    members: function() {
         var id = FlowRouter.getParam("id");
-        return Participants.find({transactionId: id});
+        return Members.find({transactionId: id});
     }
 });
 
@@ -32,5 +32,5 @@ Template.transaction.onCreated(function () {
     var id = FlowRouter.getParam("id");
 
     this.subscribe("oneTransaction", id);
-    this.subscribe("participantsForTransaction", id);
+    this.subscribe("membersForTransaction", id);
 });

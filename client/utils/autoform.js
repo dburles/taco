@@ -13,7 +13,7 @@ AutoForm.hooks({
     },
     profileForm: {
         onSuccess: function () {
-            FlowRouter.go("/");
+            history.back();
         }
     }
 });

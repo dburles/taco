@@ -18,7 +18,7 @@ Template.profile.helpers({
 
 Template.profile.events({
     'click #cancelProfile': function () {
-        FlowRouter.go("/");
+        history.back();
     }
 });
 
@@ -30,7 +30,10 @@ Template.profile.onCreated(function () {
 });
 
 Template.profile.rendered = function(){
-    $('.redactor').redactor({
-        minHeight:180
-    });
+    setTimeout(function(){
+        $('.redactor').redactor({
+            minHeight:180
+        });
+    }, 500);
+
 };

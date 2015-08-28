@@ -20,6 +20,7 @@ callback-hook@1.0.3
 check@1.0.5
 chrismbeckett:toastr@2.1.2_1
 coffeescript@1.0.6
+cosio55:autoform-cloudinary@0.0.1
 cosmos:browserify@0.5.0
 dburles:collection-helpers@1.0.3
 dburles:mongo-collection-instances@0.3.4
@@ -63,6 +64,7 @@ mpowaga:string-template@0.1.0
 msavin:jetsetter@1.0.20
 msavin:mongol@0.7.2
 mystor:device-detection@0.2.0
+nekojira:cloudinary-jquery-upload@0.1.0
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3

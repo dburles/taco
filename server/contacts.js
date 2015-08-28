@@ -20,6 +20,7 @@ Meteor.publish("contactsSearch", function(searchText, groupName){
                     {lastName: new RegExp("^" + searchText + '.*', "i")}
             ];
     }
+    //Meteor._sleepForMs(5000);
     return Contacts.find(searchObject, {limit: 10, sort: {updatedAt: -1}});
 
 });
@@ -30,40 +31,19 @@ Meteor.publish("contactsSelected", function(selectedContacts){
 
 })
 
-Meteor.publish("oneContactByEmail", function(eml){
+Meteor.publish("singleContact", function(id){
 
-    return Contacts.find({ email: eml});
+    return Contacts.find({_id: id});
 
 })
 
-//Meteor.publish("contactsSearch", function(searchText, groupName){
-//
-//    searchText = searchText || "";
-//    //groupName = groupName || "";
-//
-//    var searchObject = {};
-//    if(groupName)
-//        searchObject.groups = groupName;
-//
-//    if(searchText.length < 3)
-//        return Contacts.find({groups:groupName}, {limit:10, sort: {updatedAt: -1}});
-//
-//    searchArr = searchText.split(" ");
-//
-//    if(searchArr.length == 2 && searchArr[1].length > 0)
-//        return Contacts.find({
-//            firstName: new RegExp("^" + searchArr[0] + '.*', "i"),
-//            lastName: new RegExp("^" + searchArr[1] + '.*', "i"),
-//            groups: groupName
-//        }, {limit:10, sort: {createdAt: -1}});
-//    else
-//        return Contacts.find({
-//
-//            $or:[
-//                {firstName: new RegExp("^" + searchText + '.*', "i")},
-//                {lastName: new RegExp("^" + searchText + '.*', "i")},],
-//            groups:groupName
-//
-//        }, {limit:10, sort: {createdAt: -1}});
-//})
+Meteor.publish("contactAndPartner", function(id){
+    return Contacts.find({$or:[{_id: id},{partnerId: id}]});
+})
 
+
+Meteor.startup(function () {
+    Contacts._ensureIndex({"groups": 1});
+    Contacts._ensureIndex({"firstName": 1});
+    Contacts._ensureIndex({"lastName": 1});
+});

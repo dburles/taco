@@ -4,12 +4,25 @@ var DateFormats = {
 };
 
 UI.registerHelper("formatDate", function(datetime, format) {
-    if (moment) {
+    if (moment && datetime) {
+        //debugger;
         f = DateFormats[format];
-        return moment(datetime).format(f);
+        var dt = new Date(datetime).toISOString();
+        return moment(dt).format(f);
     }
     else {
-        return datetime;
+        return "[No Date]";
+    }
+});
+
+UI.registerHelper("fromNow", function(datetime) {
+    if (moment && datetime) {
+        //debugger;
+        var dt = new Date(datetime).toISOString();
+        return moment(dt).fromNow();
+    }
+    else {
+        return "[No Date]";
     }
 });
 

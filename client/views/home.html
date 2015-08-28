@@ -7,8 +7,8 @@
 
             <div class="dropdown drop-heading">
                 <div href="#" class="dropdown-toggle" id="titleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <h1 class="ellipsis margin-right-10" style="display: inline">
-                        <i class="fa fa-pie-chart coloured small-right-margin"></i>{{title}}
+                    <h1 class="ellipsis margin-right-5" style="display: inline">
+                        <i class="fa fa-pie-chart color-blue small-right-margin"></i>{{title}}
                     </h1>
                     <i class="fa fa-2x fa-caret-down light-text inline-block"></i>
                 </div>
@@ -143,7 +143,7 @@
 
             {{#each contacts}}
 
-            <div class="selectable-box {{selectedBox}}">
+            <div class="selectable-box {{selectedBox}} contact cursor-default">
                 <div class="dropdown" style="background-color:#f5f5f5">
                     <div class="pull-right dropdown-toggle" style="padding:12px;width:50px;" data-toggle="dropdown"
                          aria-haspopup="true" aria-expanded="false">
@@ -172,7 +172,7 @@
                         <i class="fa fa-check-circle fa-2x {{selectedTick}}"></i>
                     </div>
 
-                    <div class="" style="padding:10px 15px;border-bottom:solid 1px #ddd">
+                    <div class="clickable" style="padding:10px 15px;border-bottom:solid 1px #ddd">
                         {{fullName}}
                         {{#if partnerId}}
                             <span class="light-text"> & {{partnerFullName}}</span>
@@ -184,7 +184,7 @@
 
                 <!--Content Part-->
 
-                <div class="" style="padding:15px;">
+                <div class="clickable" style="padding:15px;">
                     {{#if mobile}}
                         <span class="grey">M&nbsp;</span>{{mobile}}
                     {{/if}}
@@ -200,19 +200,20 @@
                     {{#each groups}}
                         <span class="label {{labelClass}}">{{this}}</span>
                     {{/each}}
+                    {{fromNow this.updatedAt}} Raw: {{this.updatedAt}}
                 </div>
             </div>
 
             {{/each}}
 
 
-            {{#if Template.subscriptionsReady}}
-                {{#if emptyCollection contacts}}
-                    No records found in {{title}}
-                {{/if}}
-            {{else}}
-                {{> loader}}
-            {{/if}}
+            <!--{{#if Template.subscriptionsReady}}-->
+                <!--{{#if emptyCollection contacts}}-->
+                    <!--No records found in {{title}}-->
+                <!--{{/if}}-->
+            <!--{{else}}-->
+                <!--{{> loader}}-->
+            <!--{{/if}}-->
 
         </div>
     </div>

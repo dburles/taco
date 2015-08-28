@@ -1,6 +1,13 @@
 <template name="main">
     <div class="container">
         {{> Template.dynamic template=content}}
+        {{#if Template.subscriptionsReady}}
+            {{#if emptyCollection contacts}}
+                No records found in {{title}}
+            {{/if}}
+        {{else}}
+            {{> loader}}
+        {{/if}}
     {{> footer}}
     </div>
 </template>

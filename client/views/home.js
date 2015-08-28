@@ -8,7 +8,7 @@ Template.home.helpers({
         return groupName;
     },
     contacts: function() {
-        return Contacts.find();
+        return Contacts.find({}, {limit: 10, sort: {updatedAt: -1}});
     },
     allGroups: function () {
         return [{name: "Agents"},{name: "Solicitors"},{name: "Clients"},{name: "Accountants"},{name: "Builders"}]
@@ -23,7 +23,7 @@ Template.home.helpers({
         //var thisId = this._id;
         //var selectedContacts = Session.get("selectedContacts");
         //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
-        return (SelectedContacts.findOne({_id:this._id})) ? "green": "light-text";
+        return (SelectedContacts.findOne({_id:this._id})) ? "color-blue": "light-text";
     },
     selectedContactsCount: function() {
         //var selectedContacts = Session.get("selectedContacts");
@@ -223,10 +223,14 @@ Template.home.events({
 
 
     },
+    'click .clickable': function(e, t){
+            FlowRouter.go("/contacts/" + this._id)
+    },
     'click #viewSelectedMenu': function (e, t) {
         e.preventDefault();
         //Session.set("action", "newContact");
-        Session.set("searchText", "selected");
+        //Session.set("searchText", "selected");
+        FlowRouter.setQueryParams({search:"selected"});
     },
     'click #clearSelectionMenu': function (e, t) {
         e.preventDefault();
@@ -239,34 +243,34 @@ Template.home.events({
 
 });
 
-Template.home.onCreated(function () {
-
-    // Use this.subscribe inside onCreated callback
-
-    var self = this;
-
-    self.autorun(function () {
-        var searchText = FlowRouter.getQueryParam("search"); //Session.get("searchText");
-        var groupName = FlowRouter.getQueryParam("group");
-
-        if(searchText == "selected"){
-
-            //var selectedContacts = Session.get("selectedContacts");
-            var selectedContacts = [];
-            SelectedContacts.find().forEach(function (contact) {
-                selectedContacts.push(contact._id);
-            });
-            self.subscribe('contactsSelected', selectedContacts);
-        }
-        else {
-            self.subscribe('contactsSearch', searchText, groupName);
-
-        }
-    });
-
-
-
-});
+//Template.home.onCreated(function () {
+//
+//    // Use this.subscribe inside onCreated callback
+//
+//    var self = this;
+//
+//    self.autorun(function () {
+//        var searchText = FlowRouter.getQueryParam("search"); //Session.get("searchText");
+//        var groupName = FlowRouter.getQueryParam("group");
+//
+//        if(searchText == "selected"){
+//
+//            //var selectedContacts = Session.get("selectedContacts");
+//            var selectedContacts = [];
+//            SelectedContacts.find().forEach(function (contact) {
+//                selectedContacts.push(contact._id);
+//            });
+//            self.subscribe('contactsSelected', selectedContacts);
+//        }
+//        else {
+//            self.subscribe('contactsSearch', searchText, groupName);
+//
+//        }
+//    });
+//
+//
+//
+//});
 
 Template.home.rendered = function(){
     //$('[data-toggle="tooltip"]').tooltip();

@@ -21,6 +21,16 @@
             {{#with profile}}
                 {{logThis}}
                 {{#autoForm collection="Profiles" id="profileForm" type="update" doc=this}}
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-user light-text fa-2x pull-right"></i>
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="picture" label=false placeholder="Picture" width="50" height="50"}}
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-xs-2">
                             <i class="fa fa-user light-text fa-2x pull-right"></i>
@@ -93,7 +103,7 @@
 
                     <hr/>
 
-                    {{> afQuickField name="emailSignature" class="redactor"}}
+                    {{> afQuickField name="emailSignature" class="redactor" style="display:none"}}
 
                     <div class="button-row" style="margin-top: -10px">
                         <button id="saveProfile" type="submit" class="btn btn-primary btn-fixed">Save</button>
