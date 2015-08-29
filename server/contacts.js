@@ -38,6 +38,7 @@ Meteor.publish("singleContact", function(id){
 })
 
 Meteor.publish("contactAndPartner", function(id){
+
     return Contacts.find({$or:[{_id: id},{partnerId: id}]});
 })
 

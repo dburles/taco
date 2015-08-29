@@ -1,49 +1,76 @@
 <template name="contact">
 
-    {{#if Template.subscriptionsReady}}
-
-    {{else}}
-        {{> loader}}
-    {{/if}}
-
     {{#with contact}}
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 margin-top-10 margin-bottom-10">
             <h1 class="ellipsis">
                 <a href="/">
                 <i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>{{firstName}} {{lastName}}
+
             </h1>
-            {{#with partner}}
-                {{logThis}}
-                Partner {{firstName}} {{lastName}}
-            {{/with}}
-        </div>
-    </div>
-    {{/with}}
-    <div class="row">
-        <div class="col-md-6">
-            <h2 class="inline-block no-margin margin-bottom-5">Transactions</h2> <button class="btn btn-primary pull-right margin-top-5">New Transaction</button>
-            {{> contactMembers}}
+
         </div>
     </div>
 
+    <div class="row">
+
+        <div class="col-sm-4">
+            {{> contactInfo}}
+            {{> contactGroups}}
+            <div>
+                <h2 class="inline-block no-margin margin-bottom-5">Transactions</h2>
+                <!-- Split button -->
+                <div class="btn-group pull-right margin-top-10">
+                    <button type="button" class="btn btn-primary">New</button>
+                    {{#if partner}}
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">New Transaction with {{partnerFirstName}}</a></li>
+                        <li><a href="#">New Individual Transaction</a></li>
+                    </ul>
+                    {{/if}}
+                </div>
+
+            </div>
+            {{> contactMembers}}
+        </div>
+        <div class="col-sm-4">
+            {{#with partner}}
+                <a href="/contacts/{{_id}}" class="plain">
+                    <h2 class="inline-block">{{firstName}} {{lastName}}</h2>&nbsp;
+                    <i class="fa fa-2x fa-caret-right light-text inline-block"></i>
+                </a><br/>
+                (partner)<br/>
+                {{> contactInfo}}
+                {{> contactGroups}}
+
+            {{/with}}
+
+        </div>
+    </div>
+    {{/with}}
 
 </template>
 
 <template name="contactMembers">
     {{#each members}}
+        <a href="/transactions/{{transactionId}}">
         <div class="panel panel-default">
             <div class="panel-heading">{{contactName}}</div>
             <div class="panel-body">
                 {{transactionName}}
             </div>
         </div>
+        </a>
     {{/each}}
-        {{#if Template.subscriptionsReady}}
-            {{#if emptyCollection members}}
-                No records found.
-            {{/if}}
-        {{else}}
-            {{> loader}}
+    {{#if Template.subscriptionsReady}}
+        {{#if emptyCollection members}}
+            No records found.
         {{/if}}
+    {{else}}
+        {{> loader}}
+    {{/if}}
 </template>

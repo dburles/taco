@@ -4,13 +4,23 @@ body, p, td {
     color:#2E2E2E;
 }
 
-a.plain:hover{
-    text-decoration: none;
+/*a.plain:hover{*/
+    /*text-decoration: none !important;*/
+    /*color: inherit;*/
+/*}*/
+
+/*a.plain{*/
+    /*text-decoration: none !important;*/
+    /*color: inherit;*/
+/*}*/
+
+a:hover{
+    text-decoration: none !important;
     color: inherit;
 }
 
-a.plain:{
-    text-decoration: none;
+a{
+    text-decoration: none !important;
     color: inherit;
 }
 
@@ -37,7 +47,7 @@ h1, h2, h3 {
     width: auto;
     word-wrap: normal;
     zoom: 1;
-    margin-top:10px;
+    margin:0px;
 
 }
 

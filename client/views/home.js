@@ -290,6 +290,17 @@ SelectedContacts.getOne = function() {
 
 
 
+Template.contactGroups.helpers({
+
+    labelClass: function() {
+        if(this == "Clients")
+            return "label-primary";
+        else
+            return "label-light";
+    }
+
+});
+
 
 
 
