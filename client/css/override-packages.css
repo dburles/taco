@@ -25,3 +25,9 @@
     box-shadow: none !important;
 }
 
+/*User accounts*/
+
+#at-signUp {
+    color:orange;
+    text-decoration: underline;
+}

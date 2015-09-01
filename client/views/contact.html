@@ -28,8 +28,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">New Transaction with {{partnerFirstName}}</a></li>
-                        <li><a href="#">New Individual Transaction</a></li>
+                        <li><a id="newJointTransactionMenu" href="#">New Transaction with {{partnerFirstName}}</a></li>
+                        <li><a id="newIndividualTransactionMenu" href="#">New Individual Transaction</a></li>
                     </ul>
                     {{/if}}
                 </div>
@@ -57,9 +57,10 @@
 
 <template name="contactMembers">
     {{#each members}}
-        <a href="/transactions/{{transactionId}}">
-        <div class="panel panel-default">
-            <div class="panel-heading">{{contactName}}</div>
+        <a href="/transactions/{{transactionId}}" class="plain">
+        <div class="panel panel-default hover-box">
+            <!--<div class="panel-heading">{{contactName}}</div>-->
+            <a class="pull-right btn btn-primary margin-right-10 margin-top-10" href="/checklist/{{transactionId}}">Checklist</a>
             <div class="panel-body">
                 {{transactionName}}
             </div>

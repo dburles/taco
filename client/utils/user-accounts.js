@@ -1,14 +1,14 @@
+//
 AccountsTemplates.configure({
+
     defaultLayout: 'main',
     //defaultLayoutRegions: {
     //    nav: 'myNav',
     //    footer: 'myFooter'
     //},
-    defaultContentRegion: 'main'
-});
+    defaultContentRegion: 'content',
 
 
-AccountsTemplates.configure({
     // Behavior
     confirmPassword: true,
     enablePasswordChange: true,
@@ -54,34 +54,27 @@ AccountsTemplates.configure({
         socialIcons: {
             "meteor-developer": "fa fa-rocket"
         },
+
         title: {
+            signIn: "Snap CRM",
+
             forgotPwd: "Recover Your Password"
-        }
-    }
-});
 
-AccountsTemplates.configure({
-    texts: {
-        title: {
-            signIn: "Snap CRM"
-        }
-    }
-});
 
-AccountsTemplates.configure({
-    texts: {
+        },
         errors: {
             accountsCreationDisabled: "Client side accounts creation is disabled!!!",
             cannotRemoveService: "Cannot remove the only active service!",
             captchaVerification: "Captcha verification failed!",
-            loginForbidden: "error.accounts.Login forbidden",
+            loginForbidden: "Login Failed",
             mustBeLoggedIn: "Please login to continue",
-            pwdMismatch: "error.pwdsDontMatch",
+            pwdMismatch: "Passwords don't match",
             validationErrors: "Validation Errors",
-            verifyEmailFirst: "Please verify your email first. Check the email and follow the link!",
+            verifyEmailFirst: "Please verify your email first. Check the email and follow the link!"
         }
     }
 });
+
 
 AccountsTemplates.configureRoute('signIn', {
     name: 'signIn',
@@ -90,11 +83,12 @@ AccountsTemplates.configureRoute('signIn', {
     redirect: '/'
 });
 
-FlowRouter.triggers.enter([AccountsTemplates.ensureSignedIn]);
+//FlowRouter.triggers.enter([AccountsTemplates.ensureSignedIn]);
 
+FlowRouter.triggers.enter([AccountsTemplates.ensureSignedIn], {
+    except: [ 'signIn', 'signUp', 'forgotPwd', 'signin',
+        'resetPwd', 'verifyEmail', 'resendVerificationEmail',
+        'checklist'
+    ]
+});
 
-
-//...old from iron router....
-//Router.plugin('ensureSignedIn', {
-//    except: ['/', "root", "application", 'atSignIn', 'atSignUp', 'atForgotPassword']
-//});
