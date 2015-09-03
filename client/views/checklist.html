@@ -10,63 +10,86 @@
     <div class="row">
         <div class="col-sm-12 margin-top-10 margin-bottom-10">
             <h1 class="ellipsis">
-                <a href="/">
-                <i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>{{client}}
+                <!--<a href="/">-->
+                <!--<i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>-->
+                {{client}}
             </h1>
         </div>
     </div>
     {{/with}}
 
     <div class="row">
-        <div class="col-sm-5">
-            <div class="sortable source list-group" id="types">
-                {{#each activities}}
+        <table style="width:100%">
+            <tr>
+                <td style="width:40%;vertical-align:text-top;padding: 0px 10px;" class="{{responsiveClass 'left'}}">
 
-                <div class="client-document list-group-item well well-sm">
-                    {{title}}
-                </div>
-                {{/each}}
-            </div>
-            <textarea placeholder="Add Item..." class="form-control" name="txtAdd" id="txtAdd" rows="2"></textarea>
-        </div>
-        <div class="col-sm-7">
-            {{#each tasks}}
-                <div class="padding-5 hover-box border-white">
-                    <div class="checkbox no-margin" >
-                        <label>
-                            <input class="task-checkbox" type="checkbox" {{checkedIfComplete}}> {{title}}
-                        </label>
-                    </div>
-                </div>
 
-            {{/each}}
-            {{#each comments}}
-                <div class="padding-5 hover-box border-white">
-                    {{title}}
-                </div>
-            {{/each}}
-            <br/>
-            <div class="btn-group margin-bottom-5" role="group" aria-label="...">
-                <button id="commentButton" type="button" class="btn btn-default">
-                    <i class="fa fa-comment"></i>
-                </button>
-                <button id="taskButton" type="button" class="btn btn-default">
-                    <i class="fa fa-check-square-o"></i>
-                </button>
-                <button id="documentButton" type="button" class="btn btn-default">
-                    <i class="fa fa-list"></i>
-                </button>
-            </div>
 
-            <textarea placeholder="Add {{queryParam 'add'}}..." class="form-control" name="txtComment" id="txtComment" rows="2"></textarea>
-        </div>
+
+
+                            <ul class="list-group">
+                                {{#each activities}}
+
+                                <li class="list-group-item client-document hover-box">
+                                    <i class="pull-right fa fa-chevron-right color-grey margin-top-5"></i>
+                                    {{title}}
+
+                                </li>
+                                {{/each}}
+                                <li class="list-group-item client-document hover-box">
+                                    <textarea style="" placeholder="Add Item..." class="form-control" name="txtAdd" id="txtAdd" rows="2"></textarea>
+                                </li>
+                            </ul>
+
+
+
+
+
+
+                </td>
+                <td style="width:60%;vertical-align:text-top;padding: 0px 10px;" class="{{responsiveClass 'right'}}">
+                    {{> activityDetail}}
+                </td>
+            </tr>
+        </table>
     </div>
+</template>
 
 
+<template name="activityDetail">
+
+    {{#with document}}
+        <h2><a id="back-to-list" href=""><i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>{{title}}</h2>
 
 
+    {{#each tasks}}
+        <div class="padding-5 hover-box border-white">
+            <div class="checkbox no-margin" >
+                <label>
+                    <input class="task-checkbox" type="checkbox" {{checkedIfComplete}}> {{title}}
+                </label>
+            </div>
+        </div>
 
+    {{/each}}
+    {{#each comments}}
+        <div class="padding-5 hover-box border-white">
+            {{title}}
+        </div>
+    {{/each}}
+    <br/>
+    <!--<div class="btn-group margin-bottom-5" role="group" aria-label="...">-->
+        <!--<button id="commentButton" type="button" class="btn btn-default">-->
+            <!--<i class="fa fa-comment"></i>-->
+        <!--</button>-->
+        <!--<button id="taskButton" type="button" class="btn btn-default">-->
+            <!--<i class="fa fa-check-square-o"></i>-->
+        <!--</button>-->
+        <!--<button id="documentButton" type="button" class="btn btn-default">-->
+            <!--<i class="fa fa-list"></i>-->
+        <!--</button>-->
+    <!--</div>-->
 
-
-
+    <textarea placeholder="Add {{queryParam 'add'}}..." class="form-control" name="txtComment" id="txtComment" rows="2"></textarea>
+    {{/with}}
 </template>

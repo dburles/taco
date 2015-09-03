@@ -31,6 +31,19 @@ Template.checklist.helpers({
             return "checked"
         else
             return "";
+    },
+    responsiveClass: function(side) {
+        var doc = FlowRouter.getQueryParam("doc");
+        if(doc)
+            if(side == 'left')
+                return 'hide-on-mobile';
+            else
+                return '';
+        else
+            if(side == 'left')
+                return '';
+            else
+                return 'hide-on-mobile';
     }
 });
 
@@ -82,8 +95,19 @@ Template.checklist.events({
     'click .task-checkbox': function (e, t) {
         var status = (e.target.checked) ? "Completed": "";
         Activities.update({_id:this._id}, {$set: {status: status}});
-    }
-});
+    },
+    'click .expand-activity': function (e, t) {
+
+        //if($(e.target).hasClass("dropup")) {
+        //    alert('already up');
+        //}
+        //else
+        //{
+        //    $(e.target).addClass("dropup");
+        //    var el = t.find('.activity-item');
+        //    Blaze.render(Template.activityDetail, e.target);
+        //}
+    }});
 
 Template.checklist.onCreated(function () {
     //debugger
@@ -102,4 +126,49 @@ Template.checklist.onCreated(function () {
 
     this.subscribe("oneTransaction", id);
     this.subscribe("activities", id); //clientDocuments
+});
+
+
+
+Template.activityDetail.helpers({
+    document: function () {
+        var id = FlowRouter.getQueryParam("doc");
+        var doc = Activities.findOne(id);
+        return doc;
+    },
+    activities: function() {
+        var id = FlowRouter.getParam("id");
+        return Activities.find({transactionId: id, type: "Client Document", parentId: null});
+    },
+    tasks: function() {
+        var id = FlowRouter.getQueryParam("doc");
+        return Activities.find({
+            $and: [
+                {parentId:id},
+                {parentId:{$ne:null}},
+                {type:'Task'}
+            ]});
+    },
+    comments: function() {
+        var id = FlowRouter.getQueryParam("doc");
+        return Activities.find({
+            $and: [
+                {parentId:id},
+                {parentId:{$ne:null}},
+                {type:'Comment'}
+            ]});
+    },
+    checkedIfComplete: function() {
+        if(this.status == "Completed")
+            return "checked"
+        else
+            return "";
+    }
+});
+
+Template.activityDetail.events({
+
+    'click #back-to-list': function (e, t) {
+        FlowRouter.setQueryParams({doc:null});
+    }
 });
