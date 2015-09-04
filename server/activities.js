@@ -8,5 +8,12 @@ Meteor.publish("clientDocuments", function(transactionId){
     });
 })
 
-Sortable.collections = ['activities'];
+Meteor.publish("stagesForTransaction", function(transactionId){
+    return Activities.find({
+        transactionId: transactionId,
+        type: 'Stage'
+    });
+})
+
+
 
