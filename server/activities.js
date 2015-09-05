@@ -15,5 +15,13 @@ Meteor.publish("stagesForTransaction", function(transactionId){
     });
 })
 
+Meteor.publish("stepsForStage", function(stageId){
+    //Meteor._sleepForMs(3000);
+    return Activities.find({
+        stageId: stageId,
+        type: 'Step'
+    });
+})
+
 
 

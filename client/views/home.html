@@ -193,13 +193,13 @@
             {{/each}}
 
 
-            <!--{{#if Template.subscriptionsReady}}-->
-                <!--{{#if emptyCollection contacts}}-->
-                    <!--No records found in {{title}}-->
-                <!--{{/if}}-->
-            <!--{{else}}-->
-                <!--{{> loader}}-->
-            <!--{{/if}}-->
+            {{#if Template.subscriptionsReady}}
+                {{#if emptyCollection contacts}}
+                    No records found in {{title}}
+                {{/if}}
+            {{else}}
+                {{> loader}}
+            {{/if}}
 
         </div>
     </div>

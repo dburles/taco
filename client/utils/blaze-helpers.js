@@ -66,6 +66,10 @@ UI.registerHelper('logThis', function() {
     console.log(this);
 });
 
+UI.registerHelper('queryParamExists', function(param) {
+    return (FlowRouter.getQueryParam(param));
+});
+
 
 
 

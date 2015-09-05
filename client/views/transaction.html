@@ -1,10 +1,6 @@
 <template name="transaction">
 
-    {{#if Template.subscriptionsReady}}
 
-    {{else}}
-        {{> loader}}
-    {{/if}}
 
     {{#with transaction}}
     <div class="row">
@@ -20,11 +16,11 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <ul id="stage-tabs" class="nav nav-tabs">
+                <ul id="stage-tabs" class="sortable-activities nav nav-tabs">
                     {{#each stages}}
                         <li class="stage-tab {{isTabActive}}" role="presentation"><a  href="#">{{title}}</a></li>
                     {{/each}}
-                    <li role="presentation">
+                    <li role="presentation" class="unsortable">
                         {{#if addingStage}}
                             <input type="text" style="margin-top:4px;" class="form-control" id="add-stage-text"/>
                         {{else}}
@@ -41,44 +37,13 @@
 
             <div class="col-sm-4">
 
-                <ul class="tiles tiles-light">
-                    <li>
-                        <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
-                        Conditionally Approved by Lender
-                    </li>
-                    <li class="active">
-                        <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
-                        Valuation Ordered
-                    </li>
-                    <li>
-                        Valuation Back
-                        <div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
-                                 aria-valuemin="0" aria-valuemax="100" style="width:10%">
-                                <span class="sr-only">70% Complete</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        Conditions Satisfied
-                        <div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="30"
-                                 aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                                <span class="sr-only">70% Complete</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+            {{> transactionSteps}}
 
             </div>
             <div class="col-sm-6">
 
                 <h3 style="margin-top: 0">Valuation Ordered</h3>
 
-
-                    <!--{{#afModal class="btn btn-primary" collection="Contacts" operation="insert"}}-->
-                <!--Add a new Contact-->
-                    <!--{{/afModal}}-->
 
                 <img class="img-rounded img-thumbnail pull-left" style="width:50px;height:50px" src="/images/matt.ireland.jpg" alt=""/>
 
@@ -183,22 +148,49 @@
                         {{contactName}}
                     </li>
                     {{/each}}
-                    <!--<li>-->
-                        <!--<i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>-->
-                        <!--Peter Smith-->
-                    <!--</li>-->
-                    <!--<li class="active">-->
-                        <!--<i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>-->
-                        <!--Michael Van Handerflop-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>-->
-                        <!--Mark Zuckerberg-->
-                    <!--</li>-->
+
                 </ul>
 
             </div>
         </div>
     {{/with}}
 
+    {{#if Template.subscriptionsReady}}
+
+    {{else}}
+        {{> loader}}
+    {{/if}}
+
+</template>
+
+<template name="transactionSteps">
+
+
+    <ul id="steps" class="sortable-activities tiles tiles-light">
+
+        {{#each steps}}
+            <li class="step-item hover-box">
+                {{#if completed}}
+                    <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
+                {{/if}}
+                {{title}}
+                <div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="30"
+                         aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                        <span class="sr-only">70% Complete</span>
+                    </div>
+                </div>
+            </li>
+        {{/each}}
+        {{#if queryParamExists 'stage'}}
+        <li class="unsortable">
+            <input placeholder="Add a step..." type="text" style="margin-top:4px;" class="form-control" id="add-step-text"/>
+        </li>
+        {{/if}}
+    </ul>
+    {{#if Template.subscriptionsReady}}
+
+    {{else}}
+        {{> loader}}
+    {{/if}}
 </template>
