@@ -42,101 +42,7 @@
             </div>
             <div class="col-sm-6">
 
-                <h3 style="margin-top: 0">Valuation Ordered</h3>
-
-
-                <img class="img-rounded img-thumbnail pull-left" style="width:50px;height:50px" src="/images/matt.ireland.jpg" alt=""/>
-
-                <div class="btn-toolbar">
-                    <div class="btn-group">
-                        <button class="btn btn-primary btn-default">
-                            W
-                        </button>
-                        <button class="btn btn-default">
-                            T
-                        </button>
-                        <button class="btn btn-default">
-                            F
-                        </button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="btn btn-default">
-                            M
-                        </button>
-                        <button class="btn btn-default">
-                            T
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                </div>
-
-
-
-
-                <ul class="tiles bottom-margin">
-                    <li>
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default btn-fixed">Send</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Complete</a></li>
-                                <li><a href="#">Not Applicable</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Edit Task</a></li>
-                            </ul>
-                        </div>
-                        Email Client with Update
-                        <span class="label label-danger">Overdue</span>
-                    </li>
-                    <li>
-                        <i class="fa fa-2x green fa-check-circle pull-right"></i>
-                        Email Agent with Update
-                    </li>
-                    <li>
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-default btn-fixed">Upload</button>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Complete</a></li>
-                                <li><a href="#">Not Applicable</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Edit Task</a></li>
-                            </ul>
-                        </div>
-                        Upload Val to Register
-                    </li>
-                </ul>
-
-                <textarea placeholder="Add a comment..." class="form-control" name="txtComment" id="txtComment" rows="2"></textarea>
-
-                <ul class="tiles bottom-margin">
-                    <li>
-                        <img class="img-rounded small-right-margin pull-left" style="width:30px;height:30px" src="/images/matt.ireland.jpg" alt=""/>
-                        Completed Task: Email Agent with Update
-                        <span class="text-muted"> - Today</span>
-
-                    </li>
-                    <li>
-                        <img class="img-rounded small-right-margin pull-left" style="width:30px;height:30px" src="/images/matt.ireland.jpg" alt=""/>
-                        Just chasing up client to find out who the agent is for the purchase of Rutherford St. To send email tomorrow.
-                        <span class="text-muted"> - Yesterday</span>
-
-                    </li>
-                    <li>
-                        <img class="img-rounded small-right-margin pull-left" style="width:30px;height:30px" src="/images/matt.ireland.jpg" alt=""/>
-                        Valuation due Thursday. Spoke to agent and booked in today.
-                        <span class="text-muted"> - 2 days ago</span>
-
-                    </li>
-                </ul>
+            {{> transactionDetail}}
 
             </div>
             <div class="col-sm-2">
@@ -169,18 +75,24 @@
     <ul id="steps" class="sortable-activities tiles tiles-light">
 
         {{#each steps}}
-            <li class="step-item hover-box">
-                {{#if completed}}
-                    <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
-                {{/if}}
-                {{title}}
-                <div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="30"
-                         aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                        <span class="sr-only">70% Complete</span>
+            {{#if isSection}}
+                <li class="step-item color-white background-grey" style="border-top: solid 5px white">
+                    {{title}}
+                </li>
+            {{else}}
+                <li class="step-item tile hover-box {{isStepActive}}">
+                    {{#if completed}}
+                        <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
+                    {{/if}}
+                    {{title}}
+                    <div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="30"
+                             aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                            <span class="sr-only">70% Complete</span>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            {{/if}}
         {{/each}}
         {{#if queryParamExists 'stage'}}
         <li class="unsortable">
@@ -193,4 +105,92 @@
     {{else}}
         {{> loader}}
     {{/if}}
+</template>
+
+<template name="transactionDetail">
+    {{#with step}}
+        {{logThis}}
+        <h3 style="margin-top: 0">{{title}}</h3>
+    {{/with}}
+
+
+    <img class="img-rounded img-thumbnail pull-left" style="width:50px;height:50px" src="/images/matt.ireland.jpg" alt=""/>
+
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button class="btn btn-primary btn-default">
+                W
+            </button>
+            <button class="btn btn-default">
+                T
+            </button>
+            <button class="btn btn-default">
+                F
+            </button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default">
+                M
+            </button>
+            <button class="btn btn-default">
+                T
+            </button>
+            <button class="btn btn-default">
+                <span class="caret"></span>
+            </button>
+        </div>
+    </div>
+
+
+
+
+    <ul class="tiles bottom-margin">
+
+        {{#each tasks}}
+        <li>
+            {{#if completed}}
+                <div class="btn-group pull-right">
+
+                    <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-2x fa-check-circle color-green"></i>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a class="outstanding-menu" href="">Mark as Outstanding</a></li>
+                    </ul>
+                </div>
+
+            {{else}}
+            <div class="btn-group pull-right">
+
+                <button id="activity-action" type="button" class="btn btn-default btn-fixed">Done</button>
+                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
+                    <!--<span class="caret"></span>-->
+                    <!--<span class="sr-only">Toggle Dropdown</span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu" role="menu">-->
+                    <!--<li><a href="#">Complete</a></li>-->
+                    <!--<li><a href="#">Not Applicable</a></li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li><a href="#">Edit Task</a></li>-->
+                <!--</ul>-->
+            </div>
+            {{/if}}
+            {{title}}
+        </li>
+        {{/each }}
+    </ul>
+    {{#if queryParamExists 'step'}}
+        <textarea placeholder="Add a comment..." class="form-control margin-bottom-10" id="comment-text" rows="2"></textarea>
+    {{/if}}
+    <ul class="tiles bottom-margin">
+        {{#each comments}}
+        <li>
+            <img class="img-rounded small-right-margin pull-left" style="width:30px;height:30px" src="/images/matt.ireland.jpg" alt=""/>
+            {{description}}
+            <span class="text-muted"> - {{fromNow updatedAt}}</span>
+
+        </li>
+        {{/each}}
+    </ul>
 </template>

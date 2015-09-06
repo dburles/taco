@@ -39,7 +39,7 @@ Template.transaction.events({
     },
     'click .stage-tab': function (e,t) {
         e.preventDefault();
-        FlowRouter.setQueryParams({stage:this._id, action:null});
+        FlowRouter.setQueryParams({stage:this._id, action:null, step:null});
     },
     'keypress #add-stage-text': function (e, t) {
 
@@ -58,37 +58,10 @@ Template.transaction.events({
                 });
 
             e.target.value = "";
-            FlowRouter.setQueryParams({action: null, stage:stageId});
+            FlowRouter.setQueryParams({action: null, stage:stageId, step:null});
         }
     }
-    //'keypress #add-step-text': function (e, t) {
-    //
-    //        if (e.which === 13) {
-    //            var id = FlowRouter.getParam("id");
-    //
-    //            var stageId = FlowRouter.getQueryParam("stage");
-    //            var stepName = e.target.value;
-    //            var stepId;
-    //
-    //            if (stepName)
-    //                stepId = Activities.insert({
-    //                    transactionId: id,
-    //                    stageId: stageId,
-    //                    title: stepName,
-    //                    type: ['Step'],
-    //                    order: Date.now()
-    //                });
-    //
-    //            e.target.value = "";
-    //            FlowRouter.setQueryParams({step: stepId});
-    //
-    //        }
-    //
-    //},
-    //'click .step-item': function (e,t) {
-    //    e.preventDefault();
-    //    FlowRouter.setQueryParams({step:this._id});
-    //}
+
 });
 
 Template.transaction.onCreated(function () {
@@ -170,6 +143,13 @@ Template.transactionSteps.helpers({
         var stageId = FlowRouter.getQueryParam("stage");
         var csr = Activities.find({stageId:stageId, type:'Step'}, {sort: {order: 1}});
         return csr;
+    },
+    isStepActive: function(){
+        var stepId = FlowRouter.getQueryParam("step");
+        return (this._id == stepId) ? "active": "";
+    },
+    isSection: function(){
+        return (this.type.indexOf('Section') > -1);
     }
 });
 
@@ -178,20 +158,24 @@ Template.transactionSteps.events({
     'keypress #add-step-text': function (e, t) {
 
         if (e.which === 13) {
-            var id = FlowRouter.getParam("id");
 
-            var stageId = FlowRouter.getQueryParam("stage");
+            var act = {};
             var stepName = e.target.value;
-            var stepId;
+            if(stepName.indexOf('-') == 0) {
+                act.title = stepName.replace("- ", "").replace("-", "");
+                act.type = ['Step', 'Section'];
+            } else {
+                act.title = stepName;
+                act.type = ['Step'];
+            }
+
+            act.transactionId = FlowRouter.getParam("id");
+            act.stageId = FlowRouter.getQueryParam("stage");
+            act.order = Date.now();
 
             if (stepName)
-                stepId = Activities.insert({
-                    transactionId: id,
-                    stageId: stageId,
-                    title: stepName,
-                    type: ['Step'],
-                    order: Date.now()
-                });
+                activityId = Activities.insert(act);
+
 
             e.target.value = "";
             FlowRouter.setQueryParams({step: stepId});
@@ -258,4 +242,85 @@ Template.transactionSteps.onRendered(function () {
             }
         });
     },100)
+});
+
+
+
+
+
+
+Template.transactionDetail.helpers({
+
+    step: function() {
+        var stepId = FlowRouter.getQueryParam("step");
+        var doc = Activities.findOne(stepId);
+        return doc;
+    },
+    comments: function() {
+        var stepId = FlowRouter.getQueryParam("step");
+        var csr = Activities.find({stepId:stepId, type:'Comment'},{sort:{createdAt:-1}});
+        return csr;
+    },
+    tasks: function() {
+        var stepId = FlowRouter.getQueryParam("step");
+        var csr = Activities.find({stepId:stepId, type:'Task'},{sort:{createdAt:1}});
+        return csr;
+    }
+});
+
+Template.transactionDetail.events({
+    'keypress #comment-text': function (e, t) {
+
+        if (e.which === 13) {
+
+            var act = {};
+            var comment = e.target.value;
+            if(comment.indexOf('-') == 0) {
+                act.title = comment.replace("- ", "").replace("-", "");
+                act.type = ['Task'];
+            } else {
+                act.description = comment;
+                act.title = "to do later";
+                act.type = ['Comment'];
+            }
+
+            act.transactionId = FlowRouter.getParam("id");
+            act.stageId = FlowRouter.getQueryParam("stage");
+            act.stepId = FlowRouter.getQueryParam("step");
+
+
+
+            if (comment)
+                activityId = Activities.insert(act);
+
+            e.target.value = "";
+            e.preventDefault();
+
+        }
+
+    },
+    'click #activity-action': function (e,t){
+        Activities.update({_id: this._id},{$set:{completed:true}});
+    },
+    'click .outstanding-menu': function (e,t){
+        Activities.update({_id: this._id},{$set:{completed:false}});
+    }
+
+});
+//
+Template.transactionDetail.onCreated(function () {
+
+
+
+    var self = this;
+    self.autorun(function(){
+        var stepId = FlowRouter.getQueryParam("step");
+        self.subscribe('activitiesForStep', stepId);
+
+    })
+
+});
+//
+Template.transactionDetail.onRendered(function () {
+
 });

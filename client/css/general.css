@@ -75,7 +75,15 @@ h1 {
 }
 
 
+.btn-transparent{
+    background-color: transparent;
+    border-color: transparent;
+    padding:4px;
+}
 
+.btn-transparent:hover{
+    border: solid 1px #c0c0c0;
+}
 
 
 
@@ -167,22 +175,26 @@ h1 {
 }
 
 .tiles > li{
-    list-style-type: none;
+    padding:10px;
     padding: 10px;
     margin:0px;
+    list-style-type: none;
 }
 
-.tiles-light > li{
+.tiles > .tile {
+}
+
+.tiles-light > .tile {
     background-color: #F2F2F2;
     border: solid 1px #F2F2F2;
 }
 
-.tiles-light > li:hover{
+.tiles-light > .tile:hover{
     background-color: white;
     border: solid 1px #F2F2F2;
 }
 
-.tiles-light > li.active{
+.tiles-light > .tile.active{
     background-color: white;
     border-right: solid 1px white;
 

@@ -23,5 +23,12 @@ Meteor.publish("stepsForStage", function(stageId){
     });
 })
 
+Meteor.publish("activitiesForStep", function(stepId){
+    //Meteor._sleepForMs(3000);
+    return Activities.find({
+        stepId: stepId
+    });
+})
+
 
 

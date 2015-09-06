@@ -9,7 +9,8 @@
 .color-green{
     /*color:#01DF01;*/
     /*color:rgb(60, 118, 61)*/
-    color:#01DF3A;
+    /*color:#01DF3A;*/
+    color:#088A08;
 }
 
 
@@ -18,10 +19,19 @@
     color: #A4A4A4;
 }
 
+.color-white {
+    /*color:#01DF01;*/
+    color: white;
+}
+
 .border-grey{
     border: solid 1px #A4A4A4;
 }
 
 .border-white{
     border: solid 1px #FFFFFF;
+}
+
+.background-grey{
+    background-color: #A4A4A4;
 }

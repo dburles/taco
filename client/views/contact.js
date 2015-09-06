@@ -1,4 +1,28 @@
+function newTransaction(ctx, partner) {
+    SelectedContacts.clear();
+    SelectedContacts.insert({
+        _id:ctx._id,
+        firstName:ctx.firstName,
+        lastName:ctx.lastName,
+        email:ctx.email
+    });
+    if(partner)
+        SelectedContacts.insert({
+            _id:ctx.partner._id,
+            firstName:ctx.partner.firstName,
+            lastName:ctx.partner.lastName,
+            email:ctx.partner.email
+        });
 
+    var transactionContext = {
+        clientNames: ctx.fullName(),  //dont need this i think?
+        transaction: {
+            client: ctx.fullName() + (partner ? (' & ' + ctx.partner.fullName()): '')
+        }
+    }
+
+    Modal.show('transactionModal', transactionContext);
+}
 
 Template.contact.helpers({
     contact: function () {
@@ -20,47 +44,17 @@ Template.contact.events({
     },
     'click #newIndividualTransactionMenu': function (e, t) {
         e.preventDefault();
-        SelectedContacts.clear();
-        SelectedContacts.insert({
-            _id:this._id,
-            firstName:this.firstName,
-            lastName:this.lastName,
-            email:this.email
-        });
-        var transactionContext = {
-            clientNames: this.fullName(),  //dont need this i think?
-            transaction: {
-                client: this.fullName()
-            }
-        }
-
-        Modal.show('transactionModal', transactionContext);
+        newTransaction(this, null);
     },
     'click #newJointTransactionMenu': function (e, t) {
         e.preventDefault();
-        SelectedContacts.clear();
-        SelectedContacts.insert({
-            _id:this._id,
-            firstName:this.firstName,
-            lastName:this.lastName,
-            email:this.email
-        });
         var partner = Template.instance().partner
-
-        SelectedContacts.insert({
-            _id:this.partner._id,
-            firstName:this.partner.firstName,
-            lastName:this.partner.lastName,
-            email:this.partner.email
-        });
-        var transactionContext = {
-            clientNames: this.fullName(),  //dont need this i think?
-            transaction: {
-                client: this.fullName() + ' & ' + this.partner.fullName()
-            }
-        }
-
-        Modal.show('transactionModal', transactionContext);
+        newTransaction(this, partner);
+    },
+    'click #newTransactionButton': function (e, t) {
+        e.preventDefault();
+        var partner = Template.instance().partner
+        newTransaction(this, partner);
     }
 });
 
