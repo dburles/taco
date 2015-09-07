@@ -4,16 +4,17 @@ Template.checklist.helpers({
         var doc = Transactions.findOne(id);
         return doc;
     },
-    activities: function() {
+    steps: function() {
         var id = FlowRouter.getParam("id");
-        return Activities.find({transactionId: id, type: "Client Document", parentId: null});
+
+        return Activities.find({transactionId: id});
     },
     tasks: function() {
         var id = FlowRouter.getQueryParam("doc");
         return Activities.find({
             $and: [
-                {parentId:id},
-                {parentId:{$ne:null}},
+                {stepId:id},
+                {stepId:{$ne:null}},
                 {type:'Task'}
             ]});
     },
@@ -21,8 +22,8 @@ Template.checklist.helpers({
         var id = FlowRouter.getQueryParam("doc");
         return Activities.find({
             $and: [
-                {parentId:id},
-                {parentId:{$ne:null}},
+                {stepId:id},
+                {stepId:{$ne:null}},
                 {type:'Comment'}
             ]});
     },
@@ -125,7 +126,7 @@ Template.checklist.onCreated(function () {
     var id = FlowRouter.getParam("id");
 
     this.subscribe("oneTransaction", id);
-    this.subscribe("activities", id); //clientDocuments
+    this.subscribe("stepsForStageName", id, "Checklist"); //clientDocuments
 });
 
 
@@ -144,8 +145,8 @@ Template.activityDetail.helpers({
         var id = FlowRouter.getQueryParam("doc");
         return Activities.find({
             $and: [
-                {parentId:id},
-                {parentId:{$ne:null}},
+                {stepId:id},
+                {stepId:{$ne:null}},
                 {type:'Task'}
             ]});
     },
@@ -153,8 +154,8 @@ Template.activityDetail.helpers({
         var id = FlowRouter.getQueryParam("doc");
         return Activities.find({
             $and: [
-                {parentId:id},
-                {parentId:{$ne:null}},
+                {stepId:id},
+                {stepId:{$ne:null}},
                 {type:'Comment'}
             ]});
     },

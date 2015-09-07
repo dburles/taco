@@ -265,6 +265,31 @@ Template.transactionDetail.helpers({
         var stepId = FlowRouter.getQueryParam("step");
         var csr = Activities.find({stepId:stepId, type:'Task'},{sort:{createdAt:1}});
         return csr;
+    },
+    statusCompleted: function() {
+        return (this.status == "Completed");
+    },
+    upcomingDays: function (){
+        var today = new Date();
+        var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+        var dt = new Date(today);
+        var arr = [];
+        for(var i = 0; i < 7; i++){
+            dt.setDate(today.getDate()+i);
+            var initial = days[dt.getDay()];
+            var weekend = (dt.getDay() == 0 || dt.getDay() == 6);
+            arr.push({date: dt, initial: initial, weekend:weekend})
+        }
+
+        return arr;
+        //return [{date:'aaaaa', initial:'W'},{date:'aaaaa', initial:'T'},{date:'aaaaa', initial:'F'}, {date:'aaaaa', initial:'S', weekend:true}, {date:'aaaaa', initial:'S', weekend: true}, {date:'aaaaa', initial:'M'}, {date:'aaaaa', initial:'T'}];
+    },
+    dayClass: function (){
+        var classString = '';
+        if(this.weekend)
+           classString += ' background-grey';
+
+        return classString;
     }
 });
 
@@ -300,10 +325,10 @@ Template.transactionDetail.events({
 
     },
     'click #activity-action': function (e,t){
-        Activities.update({_id: this._id},{$set:{completed:true}});
+        Activities.update({_id: this._id},{$set:{status:'Completed'}});
     },
     'click .outstanding-menu': function (e,t){
-        Activities.update({_id: this._id},{$set:{completed:false}});
+        Activities.update({_id: this._id},{$set:{status:'Outstanding'}});
     }
 
 });
