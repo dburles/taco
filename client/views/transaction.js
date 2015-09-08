@@ -1,3 +1,22 @@
+
+
+function compareDates(d1, d2){
+    //debugger;
+
+    if(!d1 || !d2) {
+        console.log('Compare dates failed');
+        return false;
+    }
+
+    var same = (d1.getYear() == d2.getYear() &&
+    d1.getMonth() == d2.getMonth() &&
+    d1.getDate() == d2.getDate());
+
+    console.log('Comparing ' + d1 + ' with ' + d2 + '. Same is ' + same);
+
+    return same;
+}
+
 Template.transaction.helpers({
     transaction: function () {
         var id = FlowRouter.getParam("id");
@@ -336,23 +355,6 @@ Template.transactionDetail.helpers({
 
 });
 
-function compareDates(d1, d2){
-    //debugger;
-
-    if(!d1 || !d2) {
-        console.log('Compare dates failed');
-        return false;
-    }
-
-    var same = (d1.getYear() == d2.getYear() &&
-    d1.getMonth() == d2.getMonth() &&
-    d1.getDate() == d2.getDate());
-
-    console.log('Comparing ' + d1 + ' with ' + d2 + '. Same is ' + same);
-
-    return same;
-}
-
 Template.transactionDetail.events({
     'keypress #comment-text': function (e, t) {
 
@@ -391,18 +393,21 @@ Template.transactionDetail.events({
         Activities.update({_id: this._id},{$set:{status:'Outstanding'}});
     },
     'click .day-button': function (e,t){
-        //var dateStr = e.target.attributes['data-date'];
-        //var dateArr = dateStr.split("-");
-        //
-        //var dt = new Date(parseInt(dateArr[2]), parseInt(dateArr[1]) - 1, parseInt(dateArr[0]));
-        //dt.setHours(0,0,0,0);
+
         var dt = this.date;
         var id = FlowRouter.getQueryParam('step');
         //console.log(id);
 
 
         Activities.update({_id: id},{$set:{due:dt}});
+        setTimeout(function(){
+            $('.datepicker').datepicker('update');
+        },200);
+
         toastr.success('updated date to ' + dt + ' for id ' + id);
+    },
+    'click #date-expand': function(e,t){
+        $('.datepicker').show();
     }
 
 });
@@ -421,5 +426,17 @@ Template.transactionDetail.onCreated(function () {
 });
 //
 Template.transactionDetail.onRendered(function () {
+    setTimeout(function(){
+        $('.datepicker').datepicker({
+            format: "dd MM yyyy",
+            autoclose: true
+        }).on('changeDate', function(e){
+            console.log(e);
+            var id = FlowRouter.getQueryParam('step');
+
+            Activities.update({_id: id},{$set:{due: e.date}});
+            $(this).hide();
+        });;
+    }, 2000)
 
 });
