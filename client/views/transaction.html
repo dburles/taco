@@ -111,15 +111,14 @@
     {{#with step}}
         {{logThis}}
         <h3 style="margin-top: 0">{{title}}</h3>
-    {{/with}}
+
 
 
     <img class="img-rounded img-thumbnail pull-left" style="width:50px;height:50px" src="/images/matt.ireland.jpg" alt=""/>
-
-    <div class="btn-toolbar">
+        &nbsp;
         <div class="btn-group">
             {{#each upcomingDays}}
-                <button class="btn btn-default {{dayClass}}">
+                <button class="day-button btn btn-default {{dayClass}}">
                     {{initial}}
                 </button>
             {{/each}}
@@ -127,9 +126,7 @@
                 <span class="caret"></span>
             </button>
         </div>
-    </div>
-
-
+    {{/with}}
 
 
     <ul class="tiles bottom-margin">

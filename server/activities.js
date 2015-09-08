@@ -16,8 +16,7 @@ Meteor.publish("stagesForTransaction", function(transactionId){
 })
 
 Meteor.publish("stepsForStage", function(stageId){
-    if(!stageId)
-        return null;
+
     //Meteor._sleepForMs(3000);
     return Activities.find({
         stageId: stageId,
@@ -41,9 +40,7 @@ Meteor.publish("stepsForStageName", function(transactionId, stageName){
 })
 
 Meteor.publish("activitiesForStep", function(stepId){
-    //Meteor._sleepForMs(3000);
-    if(!stepId)
-        return null;
+
 
     return Activities.find({
         stepId: stepId

@@ -269,29 +269,89 @@ Template.transactionDetail.helpers({
     statusCompleted: function() {
         return (this.status == "Completed");
     },
-    upcomingDays: function (){
+    upcomingDays: function (when){
         var today = new Date();
-        var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+        var days = ['S', 'M', 'T', 'W', 'T', 'F', '-']
         var dt = new Date(today);
         var arr = [];
         for(var i = 0; i < 7; i++){
             dt.setDate(today.getDate()+i);
-            var initial = days[dt.getDay()];
-            var weekend = (dt.getDay() == 0 || dt.getDay() == 6);
-            arr.push({date: dt, initial: initial, weekend:weekend})
-        }
+            var dt1 = new Date(dt.getTime());
 
-        return arr;
-        //return [{date:'aaaaa', initial:'W'},{date:'aaaaa', initial:'T'},{date:'aaaaa', initial:'F'}, {date:'aaaaa', initial:'S', weekend:true}, {date:'aaaaa', initial:'S', weekend: true}, {date:'aaaaa', initial:'M'}, {date:'aaaaa', initial:'T'}];
+            var dayOfWeek = dt.getDay();
+            if(dayOfWeek > 0){
+                var initial = days[dt.getDay()];
+                arr.push({date: dt1, initial: initial});
+            }
+        }
+        return arr
     },
+    //upcomingDaySelector: function (){
+    //
+    //    var today = new Date();
+    //    var due;
+    //    Tracker.autorun(function () {
+    //        due = this.due;
+    //    });
+    //
+    //    today.setHours(0,0,0,0);
+    //    var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+    //    var dt = new Date(today);
+    //    var arr = [];
+    //
+    //    var str = '<div class="btn-toolbar">';
+    //    str += '<div class="btn-group">';
+    //
+    //    for(var i = 0; i < 7; i++){
+    //        dt.setDate(today.getDate()+i);
+    //        var dayNum = dt.getDay();
+    //        var initial = days[dayNum];
+    //        if(dayNum == 0) {
+    //            //do nothing
+    //        }
+    //        else if(dayNum == 6){
+    //            str += '</div>';
+    //            str += '<div class="btn-group">'
+    //        }
+    //        else {
+    //            if( compareDates(due, dt))
+    //                str += '<button data-date="' + moment().add(i, 'days').format('DD-MM-YYYY') + '" class="day-button btn btn-primary">'
+    //            else
+    //                str += '<button data-date="' + moment().add(i, 'days').format('DD-MM-YYYY') + '" class="day-button btn btn-default">'
+    //            str += initial;
+    //            str += '</button>'
+    //        }
+    //    }
+    //    str += '</div></div>';
+    //
+    //    return Spacebars.SafeString(str);
+    //},
     dayClass: function (){
         var classString = '';
-        if(this.weekend)
-           classString += ' background-grey';
+        if(compareDates(this.date, Template.parentData(1).due ))
+           classString += 'btn-primary';
 
         return classString;
     }
+
 });
+
+function compareDates(d1, d2){
+    //debugger;
+
+    if(!d1 || !d2) {
+        console.log('Compare dates failed');
+        return false;
+    }
+
+    var same = (d1.getYear() == d2.getYear() &&
+    d1.getMonth() == d2.getMonth() &&
+    d1.getDate() == d2.getDate());
+
+    console.log('Comparing ' + d1 + ' with ' + d2 + '. Same is ' + same);
+
+    return same;
+}
 
 Template.transactionDetail.events({
     'keypress #comment-text': function (e, t) {
@@ -329,6 +389,20 @@ Template.transactionDetail.events({
     },
     'click .outstanding-menu': function (e,t){
         Activities.update({_id: this._id},{$set:{status:'Outstanding'}});
+    },
+    'click .day-button': function (e,t){
+        //var dateStr = e.target.attributes['data-date'];
+        //var dateArr = dateStr.split("-");
+        //
+        //var dt = new Date(parseInt(dateArr[2]), parseInt(dateArr[1]) - 1, parseInt(dateArr[0]));
+        //dt.setHours(0,0,0,0);
+        var dt = this.date;
+        var id = FlowRouter.getQueryParam('step');
+        //console.log(id);
+
+
+        Activities.update({_id: id},{$set:{due:dt}});
+        toastr.success('updated date to ' + dt + ' for id ' + id);
     }
 
 });

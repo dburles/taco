@@ -70,6 +70,8 @@ UI.registerHelper('queryParamExists', function(param) {
     return (FlowRouter.getQueryParam(param));
 });
 
-
+UI.registerHelper('equals', function (a, b) {
+    return a === b;
+});
 
 
