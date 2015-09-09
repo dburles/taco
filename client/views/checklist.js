@@ -6,11 +6,12 @@ Template.checklist.helpers({
     },
     steps: function() {
         var id = FlowRouter.getParam("id");
-
-        return Activities.find({transactionId: id});
+        return Activities.find({transactionId: id,
+            $and: [{type: 'Step'},
+                {type: 'Public'}]});
     },
     tasks: function() {
-        var id = FlowRouter.getQueryParam("doc");
+        var id = FlowRouter.getQueryParam("step");
         return Activities.find({
             $and: [
                 {stepId:id},
@@ -19,12 +20,13 @@ Template.checklist.helpers({
             ]});
     },
     comments: function() {
-        var id = FlowRouter.getQueryParam("doc");
+        var id = FlowRouter.getQueryParam("step");
         return Activities.find({
             $and: [
                 {stepId:id},
                 {stepId:{$ne:null}},
-                {type:'Comment'}
+                {type:'Comment'},
+                {type:'Public'}
             ]});
     },
     checkedIfComplete: function() {
@@ -45,6 +47,9 @@ Template.checklist.helpers({
                 return '';
             else
                 return 'hide-on-mobile';
+    },
+    isSection: function(){
+        return (this.type.indexOf('Section') > -1);
     }
 });
 
@@ -66,15 +71,14 @@ Template.checklist.events({
     'keypress #txtComment': function (e, t) {
         if (e.which === 13) {
             var id = FlowRouter.getParam("id");
-            var parentId = FlowRouter.getQueryParam("doc")
-            var activityType = FlowRouter.getQueryParam("add") || "Comment";
-            var activityTypes = ['Client Document', activityType];
+            var stepId = FlowRouter.getQueryParam("step")
 
             Activities.insert({
                 transactionId: id,
-                parentId: parentId,
-                title: e.target.value,
-                type: activityTypes
+                stepId: stepId,
+                title: 'to do later',
+                description: e.target.value,
+                type: ['Comment', 'Public']
             })
 
             e.target.value = "";
@@ -82,16 +86,7 @@ Template.checklist.events({
         }
     },
     'click .client-document': function (e, t) {
-        FlowRouter.setQueryParams({doc:this._id});
-    },
-    'click #taskButton': function (e, t) {
-        FlowRouter.setQueryParams({add:'Task'});
-    },
-    'click #commentButton': function (e, t) {
-        FlowRouter.setQueryParams({add:'Comment'});
-    },
-    'click #documentButton': function (e, t) {
-        FlowRouter.setQueryParams({add:'Document'});
+        FlowRouter.setQueryParams({step:this._id});
     },
     'click .task-checkbox': function (e, t) {
         var status = (e.target.checked) ? "Completed": "";
@@ -126,14 +121,14 @@ Template.checklist.onCreated(function () {
     var id = FlowRouter.getParam("id");
 
     this.subscribe("oneTransaction", id);
-    this.subscribe("stepsForStageName", id, "Checklist"); //clientDocuments
+    this.subscribe("stepsForTransactionByType", id, "Public"); //clientDocuments
 });
 
 
 
 Template.activityDetail.helpers({
     document: function () {
-        var id = FlowRouter.getQueryParam("doc");
+        var id = FlowRouter.getQueryParam("step");
         var doc = Activities.findOne(id);
         return doc;
     },
@@ -142,7 +137,7 @@ Template.activityDetail.helpers({
         return Activities.find({transactionId: id, type: "Client Document", parentId: null});
     },
     tasks: function() {
-        var id = FlowRouter.getQueryParam("doc");
+        var id = FlowRouter.getQueryParam("step");
         return Activities.find({
             $and: [
                 {stepId:id},
@@ -151,7 +146,7 @@ Template.activityDetail.helpers({
             ]});
     },
     comments: function() {
-        var id = FlowRouter.getQueryParam("doc");
+        var id = FlowRouter.getQueryParam("step");
         return Activities.find({
             $and: [
                 {stepId:id},
@@ -170,6 +165,6 @@ Template.activityDetail.helpers({
 Template.activityDetail.events({
 
     'click #back-to-list': function (e, t) {
-        FlowRouter.setQueryParams({doc:null});
+        FlowRouter.setQueryParams({step:null});
     }
 });

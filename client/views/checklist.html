@@ -21,27 +21,25 @@
     <div class="row">
         <table style="width:100%">
             <tr>
-                <td style="width:40%;vertical-align:text-top;padding: 0px 10px;" class="{{responsiveClass 'left'}}">
+                <td style="width:40%;vertical-align:text-top;padding: 0px 20px;" class="{{responsiveClass 'left'}}">
 
-                            <ul class="list-group">
-                                {{#each steps}}
-
-                                <li class="list-group-item client-document hover-box">
+                    <ul class="list-group">
+                        {{#each steps}}
+                            {{#if isSection}}
+                                <li style="padding:5px 15px" class="list-group-item background-grey color-white">
+                                    {{title}}
+                                </li>
+                            {{else}}
+                                <li style="padding:15px" class="list-group-item client-document hover-box">
                                     <i class="pull-right fa fa-chevron-right color-grey margin-top-5"></i>
                                     {{title}}
-
                                 </li>
-                                {{/each}}
-
-                            </ul>
-
-
-
-
-
+                            {{/if}}
+                        {{/each}}
+                    </ul>
 
                 </td>
-                <td style="width:60%;vertical-align:text-top;padding: 0px 10px;" class="{{responsiveClass 'right'}}">
+                <td style="width:60%;vertical-align:text-top;padding: 0px 20px;" class="{{responsiveClass 'right'}}">
                     {{> activityDetail}}
                 </td>
             </tr>
@@ -68,7 +66,7 @@
     {{/each}}
     {{#each comments}}
         <div class="padding-5 hover-box border-white">
-            {{title}}
+            {{description}}
         </div>
     {{/each}}
     <br/>
@@ -84,6 +82,6 @@
         <!--</button>-->
     <!--</div>-->
 
-    <textarea placeholder="Add {{queryParam 'add'}}..." class="form-control" name="txtComment" id="txtComment" rows="2"></textarea>
+    <textarea placeholder="Add Comment..." class="form-control" name="txtComment" id="txtComment" rows="2"></textarea>
     {{/with}}
 </template>

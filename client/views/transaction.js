@@ -65,16 +65,18 @@ Template.transaction.events({
         if (e.which === 13) {
             var id = FlowRouter.getParam("id");
 
-            var stageName = e.target.value;
+            var stageObj = {};
+            stageObj.transactionId = id;
+            stageObj.title = e.target.value;
+            stageObj.type = ['Stage'];
+            stageObj.order = Date.now();
+
+            if(stageObj.title.indexOf('Client') >-1)
+                stageObj.type.push('Public');
 
             var stageId;
-            if (stageName)
-                stageId = Activities.insert({
-                    transactionId: id,
-                    title: stageName,
-                    type: ['Stage'],
-                    order: Date.now()
-                });
+            if (e.target.value)
+                stageId = Activities.insert(stageObj);
 
             e.target.value = "";
             FlowRouter.setQueryParams({action: null, stage:stageId, step:null});
@@ -178,6 +180,9 @@ Template.transactionSteps.events({
 
         if (e.which === 13) {
 
+            var stageDoc = Activities.findOne(FlowRouter.getQueryParam("stage"));
+
+
             var act = {};
             var stepName = e.target.value;
             if(stepName.indexOf('-') == 0) {
@@ -188,8 +193,11 @@ Template.transactionSteps.events({
                 act.type = ['Step'];
             }
 
+            if(stageDoc.type.indexOf('Public') > -1)
+                act.type.push('Public');
+
             act.transactionId = FlowRouter.getParam("id");
-            act.stageId = FlowRouter.getQueryParam("stage");
+            act.stageId = stageDoc._id;
             act.order = Date.now();
 
             if (stepName)
@@ -377,8 +385,10 @@ Template.transactionDetail.events({
             act.transactionId = FlowRouter.getParam("id");
             act.stageId = FlowRouter.getQueryParam("stage");
             act.stepId = FlowRouter.getQueryParam("step");
-
-
+            debugger;
+            var stepObj = Activities.findOne(act.stepId);
+            if(stepObj.type.indexOf('Public' > -1))
+                act.type.push('Public');
 
             if (comment)
                 activityId = Activities.insert(act);

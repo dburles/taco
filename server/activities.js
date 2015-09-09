@@ -24,6 +24,14 @@ Meteor.publish("stepsForStage", function(stageId){
     });
 })
 
+Meteor.publish("stepsForTransactionByType", function(transactionId, type){
+
+    return Activities.find({
+        transactionId: transactionId,
+        type: type
+    });
+})
+
 Meteor.publish("stepsForStageName", function(transactionId, stageName){
 
     var doc = Activities.findOne({transactionId: transactionId, title:stageName});
@@ -46,6 +54,8 @@ Meteor.publish("activitiesForStep", function(stepId){
         stepId: stepId
     });
 })
+
+
 
 
 
