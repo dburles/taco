@@ -112,29 +112,30 @@
         {{logThis}}
         <h3 style="margin-top: 0">{{title}}</h3>
 
-
-
-    <img class="img-rounded img-thumbnail pull-left" style="width:50px;height:50px" src="/images/matt.ireland.jpg" alt=""/>
-        &nbsp;
-
-        <div class="btn-group">
-            {{#each upcomingDays}}
-                <button class="day-button btn btn-default {{dayClass}}">
-                    {{initial}}
-                </button>
-            {{/each}}
-            <button id="date-expand" class="btn btn-default">
-                <span class="caret"></span>
-            </button>
-        </div>
-        <div class="datepicker" data-date="{{formatDate due 'short'}}" style="margin-left:65px;display:none"></div>
-
+        <table>
+            <tr>
+                <td  valign="top">
+                    <img class="img-rounded img-thumbnail pull-left" style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                         alt=""/>
+                </td>
+                <td style="padding-left: 4px">
+                    <div class="btn-group">
+                        {{#each upcomingDays}}
+                            <button class="day-button btn btn-default {{dayClass}}">
+                                {{initial}}
+                            </button>
+                        {{/each}}
+                        <button id="date-expand" class="btn btn-default">
+                            <span class="caret"></span>
+                        </button>
+                    </div>
+                    <div class="datepicker" data-date="{{formatDate due 'short'}}" style="display:none"></div>
+                    <div class="color-grey" style="padding-top: 4px">Due {{fromNow due}}</div>
+                </td>
+            </tr>
+        </table>
     {{/with}}
-
-
-
-
-
+    <hr/>
 
     <ul class="tiles bottom-margin">
 

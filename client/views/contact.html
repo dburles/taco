@@ -18,21 +18,30 @@
             {{> contactInfo}}
             {{> contactGroups}}
             <div>
-                <h2 class="inline-block no-margin margin-bottom-5">Transactions</h2>
+                <table>
+                    <tr>
+                        <td>
+                            <h2 class="inline-block no-margin margin-bottom-5">Transactions</h2>
+                        </td>
+                        <td>
+                            <div class="btn-group pull-right margin-top-10">
+                                <button id="newTransactionButton" type="button" class="btn btn-primary">New</button>
+                                {{#if partner}}
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a id="newJointTransactionMenu" href="#">New Transaction with {{partnerFirstName}}</a></li>
+                                        <li><a id="newIndividualTransactionMenu" href="#">New Individual Transaction</a></li>
+                                    </ul>
+                                {{/if}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
                 <!-- Split button -->
-                <div class="btn-group pull-right margin-top-10">
-                    <button id="newTransactionButton" type="button" class="btn btn-primary">New</button>
-                    {{#if partner}}
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a id="newJointTransactionMenu" href="#">New Transaction with {{partnerFirstName}}</a></li>
-                        <li><a id="newIndividualTransactionMenu" href="#">New Individual Transaction</a></li>
-                    </ul>
-                    {{/if}}
-                </div>
+
 
             </div>
             {{> contactMembers}}

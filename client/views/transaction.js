@@ -348,7 +348,10 @@ Template.transactionDetail.helpers({
     dayClass: function (){
         var classString = '';
         if(compareDates(this.date, Template.parentData(1).due ))
-           classString += 'btn-primary';
+           classString += 'btn-primary ';
+
+        if(this.initial == '-')
+            classString += 'dodgy-hide'
 
         return classString;
     }
@@ -395,6 +398,7 @@ Template.transactionDetail.events({
     'click .day-button': function (e,t){
 
         var dt = this.date;
+        dt.setHours(8,0,0,0);
         var id = FlowRouter.getQueryParam('step');
         //console.log(id);
 
@@ -404,7 +408,7 @@ Template.transactionDetail.events({
             $('.datepicker').datepicker('update');
         },200);
 
-        toastr.success('updated date to ' + dt + ' for id ' + id);
+        //toastr.success('updated date to ' + dt + ' for id ' + id);
     },
     'click #date-expand': function(e,t){
         $('.datepicker').show();
@@ -433,7 +437,7 @@ Template.transactionDetail.onRendered(function () {
         }).on('changeDate', function(e){
             console.log(e);
             var id = FlowRouter.getQueryParam('step');
-
+            var dt = e.date.setHours(8);
             Activities.update({_id: id},{$set:{due: e.date}});
             $(this).hide();
         });;
