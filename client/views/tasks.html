@@ -1,0 +1,218 @@
+<template name="tasks">
+
+    <!--Heading Bar-->
+
+    <div class="row margin-bottom-10">
+        <div class="col-sm-12">
+
+            <div class="dropdown hover-box drop-heading">
+                <div href="#" class="dropdown-toggle" id="titleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <h1 class="ellipsis margin-right-5" style="display: inline">
+                        <i class="fa fa-pie-chart color-blue small-right-margin"></i>{{title}}
+                    </h1>
+                    <i class="fa fa-2x fa-caret-down light-text inline-block"></i>
+                </div>
+
+                <ul class="dropdown-menu pull-right" aria-labelledby="titleDropdown">
+                    <li><a class="dueTasksMenu" href="#">Show Due Tasks</a></li>
+                    <li><a class="allTasksMenu" href="#">Show All Tasks</a></li>
+                    <li><a class="overdueTasksMenu" href="#">Show Overdue Tasks</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+
+            <!--Search Bar-->
+
+            <div class="input-group margin-bottom-10">
+                <input id="txtTaskSearch" type="text" value="{{searchText}}" placeholder="Search..." class="form-control">
+                    <div class="input-group-addon"><i id="clearSearchButton" class="fa fa-times"></i></div>
+            </div>
+
+            <!--Button Bar-->
+
+            <div class="bottom-margin above-top" id="buttonBar" style="padding-bottom: 10px; padding-top:10px; background-color: white; z-index:100;">
+
+                <!--Selection Dropdown-->
+
+                <div class="btn-group" data-toggle="tooltip" title="Selection">
+                    <!--{{#if selectedTasksCount}}-->
+                        <!--<button class="btn btn-default"><i class="fa fa-times"></i></button>-->
+                    <!--{{/if}}-->
+                    <button class="btn btn-default dropdown-toggle" id="selectionDropdownButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{#if selectedTasksCount}}
+                            <i class="fa fa-checked-square-o"></i>
+                            <span class="label label-as-badge label-primary">{{selectedTasksCount}}</span>
+                        {{else}}
+                            <i class="fa fa-square-o"></i>
+                        {{/if}}
+                        &nbsp;<span class="caret"></span>
+                    </button>
+
+
+                    <ul class="dropdown-menu" aria-labelledby="selectionDropdownButton">
+
+                        {{#if selectedTasksCount}}
+                            <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
+                            <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
+                        {{else}}
+                            <li><a href="#">Click tasks to select them</a></li>
+                        {{/if}}
+
+                        {{#if oneSelectedTask}}
+                            {{#if partnerId}}
+                                <li class="divider"></li>
+                                <li><a id="divorceMenu" href="#">Divorce</a></li>
+                            {{/if}}
+                        {{/if}}
+                        {{#if selectedTasksCount}}
+                            <li class="divider"></li>
+                            <li><a id="addToGroupMenu" href="#">Add <label class="label label-primary">{{selectedTasksCount}}</label> to Group</a></li>
+                            <li><a id="removeFromGroupMenu" href="#">Remove <label class="label label-primary">{{selectedTasksCount}}</label> from Group</a></li>
+                        {{/if}}
+                    </ul>
+                </div>&nbsp;
+
+                <!--Communicate Dropdown -->
+
+                {{#if selectedTasksCount}}
+                <div class="btn-group">
+                    <button id="emailTaskButton" class="btn btn-default" data-toggle="tooltip" title="Email Tasks"><i class="fa fa-envelope"></i></button>
+                    {{#if oneSelectedTask}}
+                        <button id="callTaskButton" type="button" class="btn btn-default"><i class="fa fa-phone"></i></button>
+                    {{/if}}
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">SendSMS</a></li>
+                        <li><a href="#">Send Fax</a></li>
+                    </ul>
+                </div>&nbsp;
+                {{/if}}
+
+                {{#if twoSelectedTasks}}
+                <button id="createCoupleButton" class="btn btn-danger">
+                    <i class="fa fa-heart"></i>
+                </button>&nbsp;
+                {{/if}}
+
+                <button id="addTaskButton" class="btn btn-primary">
+                    {{#if selectedTasksCount}}
+                            <i class="fa fa-plus"></i>
+                    {{else}}
+                        Add Task
+                    {{/if}}
+                </button>
+
+                <!--<button class="btn btn-default">-->
+                    <!--<i class="fa fa-filter"></i>-->
+                <!--</button>-->
+
+                <!--{{#if selectedTasksCount}}-->
+                    <!--<div class="dropdown" style="display: inline-block">-->
+                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"-->
+                                <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+                            <!--{{selectedTasksCount}} Selected-->
+                            <!--<span class="caret"></span>-->
+                        <!--</button>-->
+
+                        <!--<ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">-->
+                            <!--{{#if twoSelectedTasks}}-->
+                                <!--<li><a id="createCoupleMenu" href="#">Create Couple</a></li>-->
+                            <!--{{/if}}-->
+                            <!--<li><a href="#">New Transaction</a></li>-->
+                            <!--<li><a href="#">Send Email</a></li>-->
+                            <!--<li><a id="viewSelectedMenu" href="#">View Selected</a></li>-->
+                            <!--<li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+
+                <!--{{/if}}-->
+            </div>
+
+            <!--Loop through Tasks...-->
+
+            {{#each tasks}}
+                <a class="plain" href="/transactions/{{transactionId}}?stage={{stageId}}&step={{_id}}">
+
+            <div class="hover-box selectable-box {{selectedBox}} Task cursor-default" title="Updated {{fromNow this.updatedAt}}">
+                <div class="dropdown" style="background-color:#f5f5f5">
+                    <div class="pull-right dropdown-toggle" style="padding:12px;width:50px;" data-toggle="dropdown"
+                         aria-haspopup="true" aria-expanded="false">
+
+                        <i class="fa fa-chevron-down pull-right glow-text"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a id="newTransactionMenu" href="#">New Transaction</a></li>
+                        {{#if partnerId}}
+                            <li><a id="newJointTransactionMenu" href="#">Joint Transaction</a></li>
+                        {{/if}}
+                        <li><a id="editTaskMenu" href="#">Edit Task</a></li>
+                        <li class="divider"></li>
+                        <li><a id="emailTaskMenu" href="#">Send Email</a></li>
+                        <li><a id="callTaskMenu" href="#">Call</a></li>
+                        <li><a id="sendSMSMenu" href="#">Send SMS</a></li>
+                        {{#if partnerId}}
+                            <li class="divider"></li>
+                            <li><a id="divorceMenu" href="#">Divorce</a></li>
+                        {{/if}}
+                    </ul>
+
+                    <!--Header Part-->
+
+                    <div title="Select Task" class=" selectable pull-left" style="padding:5px 7px;height:40px;display: inline-block">
+                        <i class="fa fa-check-circle fa-2x {{selectedTick}}"></i>
+                    </div>
+
+                    <div class="clickable" style="padding:10px 15px;border-bottom:solid 1px #ddd">
+                        {{title}}
+                    </div>
+
+
+                </div>
+
+                <!--Content Part-->
+                <div class="clickable" style="padding:15px;">
+                    {{> TaskInfo this}}
+                    {{> TaskGroups this}}
+                </div>
+            </div>
+                </a>
+
+            {{/each}}
+
+
+            {{#if Template.subscriptionsReady}}
+                {{#if emptyCollection Tasks}}
+                    No records found in {{title}}
+                {{/if}}
+            {{else}}
+                {{> loader}}
+            {{/if}}
+
+        </div>
+    </div>
+
+
+</template>
+
+<template name="TaskInfo">
+    {{title}}
+</template>
+
+<template name="TaskGroups">
+    <!--{{#each groups}}-->
+        <!--<span class="label {{labelClass}}">{{this}}</span>-->
+    <!--{{/each}}-->
+</template>
+
+

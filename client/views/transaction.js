@@ -201,7 +201,7 @@ Template.transactionSteps.events({
             act.order = Date.now();
 
             if (stepName)
-                activityId = Activities.insert(act);
+                stepId = Activities.insert(act);
 
 
             e.target.value = "";
@@ -385,7 +385,7 @@ Template.transactionDetail.events({
             act.transactionId = FlowRouter.getParam("id");
             act.stageId = FlowRouter.getQueryParam("stage");
             act.stepId = FlowRouter.getQueryParam("step");
-            debugger;
+
             var stepObj = Activities.findOne(act.stepId);
             if(stepObj.type.indexOf('Public' > -1))
                 act.type.push('Public');
@@ -421,7 +421,10 @@ Template.transactionDetail.events({
         //toastr.success('updated date to ' + dt + ' for id ' + id);
     },
     'click #date-expand': function(e,t){
-        $('.datepicker').show();
+        if($('.datepicker').is(":visible"))
+            $('.datepicker').hide(200);
+        else
+            $('.datepicker').show(200);
     }
 
 });

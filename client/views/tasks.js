@@ -1,42 +1,39 @@
 emailSending = {};
 
-Template.home.helpers({
+Template.tasks.helpers({
     title: function() {
-        var groupName = FlowRouter.getQueryParam("group");
-        if(!groupName)
-            groupName = "Contacts"
-        return groupName;
+        var viewName = FlowRouter.getQueryParam("view");
+        if(!viewName)
+            viewName = "Due"
+        return viewName + ' Tasks';
     },
-    contacts: function() {
-        return Contacts.find({}, {limit: 10, sort: {updatedAt: -1}});
-    },
-    allGroups: function () {
-        return [{name: "Agents"},{name: "Solicitors"},{name: "Clients"},{name: "Accountants"},{name: "Builders"}]
+    tasks: function() {
+        return Activities.find({type:'Step'}, {limit: 100, sort: {due: -1}});
     },
     selectedBox: function() {
         //var thisId = this._id;
-        //var selectedContacts = Session.get("selectedContacts");
-        //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
-        return (SelectedContacts.findOne({_id:this._id})) ? "selected-box": "";
+        //var SelectedActivities = Session.get("SelectedActivities");
+        //return (SelectedActivities.indexOf(thisId) > -1) ? "selected-box": "";
+        return (SelectedActivities.findOne({_id:this._id})) ? "selected-box": "";
     },
     selectedTick: function() {
         //var thisId = this._id;
-        //var selectedContacts = Session.get("selectedContacts");
-        //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
-        return (SelectedContacts.findOne({_id:this._id})) ? "color-blue": "light-text";
+        //var SelectedActivities = Session.get("SelectedActivities");
+        //return (SelectedActivities.indexOf(thisId) > -1) ? "selected-box": "";
+        return (SelectedActivities.findOne({_id:this._id})) ? "color-blue": "light-text";
     },
-    selectedContactsCount: function() {
-        //var selectedContacts = Session.get("selectedContacts");
-        //return selectedContacts.length;
-        return SelectedContacts.find().count();
+    SelectedActivitiesCount: function() {
+        //var SelectedActivities = Session.get("SelectedActivities");
+        //return SelectedActivities.length;
+        return SelectedActivities.find().count();
     },
-    twoSelectedContacts: function() {
-        //var selectedContacts = Session.get("selectedContacts");
-        return SelectedContacts.find().count() == 2 ? true : false;
+    twoSelectedActivities: function() {
+        //var SelectedActivities = Session.get("SelectedActivities");
+        return SelectedActivities.find().count() == 2 ? true : false;
     },
-    oneSelectedContact: function() {
-        //var selectedContacts = Session.get("selectedContacts");
-        return SelectedContacts.find().count() == 1 ? true : false;
+    oneSelectedTask: function() {
+        //var SelectedActivities = Session.get("SelectedActivities");
+        return SelectedActivities.find().count() == 1 ? true : false;
     },
     searchText: function() {
 
@@ -52,14 +49,14 @@ Template.home.helpers({
 });
 
 
-Template.home.events({
+Template.tasks.events({
 
 
     //Search bar events
 
-    'keyup #txtContactSearch': function (e, t) {
+    'keyup #txtTaskSearch': function (e, t) {
         event.preventDefault();
-        var searchText = $("#txtContactSearch").val();
+        var searchText = $("#txtTaskSearch").val();
         if(searchText === "")
             searchText = null;
         Session.set("searchText", searchText);
@@ -80,31 +77,31 @@ Template.home.events({
         //debugger;
         FlowRouter.setQueryParams({group: null})
     },
-    'click #addContactButton': function (e, t) {
+    'click #addTaskButton': function (e, t) {
         e.preventDefault();
-        //Session.set("action", "newContact");
-        //Session.set("editingContact");
-        //Modal.show('contactModal');
-        var contactModalData = {
+        //Session.set("action", "newTask");
+        //Session.set("editingTask");
+        //Modal.show('TaskModal');
+        var TaskModalData = {
             formType: "insert",
-            contact: null
+            Task: null
         }
 
-        Modal.show('contactModal', contactModalData);
+        Modal.show('TaskModal', TaskModalData);
     },
 
     'dblclick .selectable': function (e, t) {
         e.preventDefault();
-        Meteor.call('latestTransactionForContact', function(err, result){
+        Meteor.call('latestTransactionForTask', function(err, result){
             if(result)
                 FlowRouter.go('/transactions/' + result);
         })
 
     },
 
-    'click #callContactButton': function (e, t) {
+    'click #callTaskButton': function (e, t) {
         e.preventDefault();
-        Session.set("oneContact", this);
+        Session.set("oneTask", this);
         Modal.show('callModal');
     },
     'click #sendSMSMenu': function (e, t) {
@@ -114,8 +111,8 @@ Template.home.events({
     },
     'click #newTransactionMenu': function (e, t) {
         e.preventDefault();
-        SelectedContacts.clear();
-        SelectedContacts.insert({
+        SelectedActivities.clear();
+        SelectedActivities.insert({
             _id:this._id,
             firstName:this.firstName,
             lastName:this.lastName,
@@ -149,14 +146,14 @@ Template.home.events({
 
     'click #newJointTransactionMenu': function (e, t) {
         e.preventDefault();
-        SelectedContacts.clear();
-        SelectedContacts.insert({
+        SelectedActivities.clear();
+        SelectedActivities.insert({
             _id:this._id,
             firstName:this.firstName,
             lastName:this.lastName,
             email:this.email
         });
-        SelectedContacts.insert({
+        SelectedActivities.insert({
             _id:this.partnerId,
             firstName:this.partnerFirstName,
             lastName:this.partnerLastName,
@@ -171,17 +168,17 @@ Template.home.events({
 
         Modal.show('transactionModal', transactionContext);
     },
-    'click #editContactMenu': function (e, t) {
+    'click #editTaskMenu': function (e, t) {
         e.preventDefault();
 
-        var contactModalData = {
+        var TaskModalData = {
             formType: "update",
-            contact: this
+            Task: this
         }
 
-        Modal.show('contactModal', contactModalData);
+        Modal.show('TaskModal', TaskModalData);
     },
-    'click #emailContactButton': function (e, t) {
+    'click #emailTaskButton': function (e, t) {
         e.preventDefault();
         var emailId = Emails.insert({
             subject: "test subject"
@@ -191,45 +188,44 @@ Template.home.events({
     },
     'click #createCoupleButton': function (e, t) {
         e.preventDefault();
-        //Session.set("action", "newContact");
-        //var selectedContacts = Session.get("selectedContacts");
-        if(SelectedContacts.find().count() == 2){
-            var selectedContactsArray = SelectedContacts.find().fetch();
-            Meteor.call('createCouple', selectedContactsArray[0]._id, selectedContactsArray[1]._id)
+        //Session.set("action", "newTask");
+        //var SelectedActivities = Session.get("SelectedActivities");
+        if(SelectedActivities.find().count() == 2){
+            var SelectedActivitiesArray = SelectedActivities.find().fetch();
+            Meteor.call('createCouple', SelectedActivitiesArray[0]._id, SelectedActivitiesArray[1]._id)
         }
     },
     'click #divorceMenu': function (e, t) {
         e.preventDefault();
-        var contactId = this._id;
+        var TaskId = this._id;
         bootbox.confirm("Are you sure you want to bust these 2 up?", function(result) {
             if(result)
-                Meteor.call('divorce', contactId);
+                Meteor.call('divorce', TaskId);
         });
 
     },
     'click .selectable': function(e, t){
         e.preventDefault();
-        if(SelectedContacts.findOne({_id:this._id}))
-            SelectedContacts.remove(this._id)
+        if(SelectedActivities.findOne({_id:this._id}))
+            SelectedActivities.remove(this._id)
         else {
-            SelectedContacts.insert({
+            SelectedActivities.insert({
                 _id: this._id,
                 firstName: this.firstName,
                 lastName: this.lastName,
                 email: this.email
             })
-            //FlowRouter.setQueryParams({contact: this._id})
+            //FlowRouter.setQueryParams({Task: this._id})
         }
 
 
-
     },
-    'click .clickable': function(e, t){
-            FlowRouter.go("/contacts/" + this._id)
-    },
+    //'click .clickable': function(e, t){
+    //        FlowRouter.go("/Tasks/" + this._id)
+    //},
     'click #viewSelectedMenu': function (e, t) {
         e.preventDefault();
-        //Session.set("action", "newContact");
+        //Session.set("action", "newTask");
         //Session.set("searchText", "selected");
         FlowRouter.setQueryParams({search:"selected"});
     },
@@ -237,14 +233,14 @@ Template.home.events({
         e.preventDefault();
         if(Session.get("searchText") == "selected")
             Session.set("searchText");
-        //Session.set("selectedContacts", []);
-        //var contactCursor = ;
-        SelectedContacts.clear();
+        //Session.set("SelectedActivities", []);
+        //var TaskCursor = ;
+        SelectedActivities.clear();
     }
 
 });
 
-Template.home.onCreated(function () {
+Template.tasks.onCreated(function () {
 
     // Use this.subscribe inside onCreated callback
 
@@ -252,44 +248,32 @@ Template.home.onCreated(function () {
 
     self.autorun(function () {
         var searchText = FlowRouter.getQueryParam("search"); //Session.get("searchText");
-        var groupName = FlowRouter.getQueryParam("group");
+        var viewName = FlowRouter.getQueryParam("view");
 
-        if(searchText == "selected"){
-
-            //var selectedContacts = Session.get("selectedContacts");
-            //var selectedContacts = [];
-            SelectedContacts.find().forEach(function (contact) {
-                selectedContacts.push(contact._id);
-            });
-            self.subscribe('contactsSelected', selectedContacts);
-        }
-        else {
-            self.subscribe('contactsSearch', searchText, groupName);
-
-        }
+        self.subscribe('tasksSearch', searchText, viewName);
     });
 
 });
 
-Template.home.rendered = function(){
+Template.tasks.rendered = function(){
     //$('[data-toggle="tooltip"]').tooltip();
     $("#buttonBar").sticky({topSpacing:0});
 }
 
-SelectedContacts.clear = function(){
-    SelectedContacts.find().forEach(function (contact) {
-        SelectedContacts.remove(contact._id);
+SelectedActivities.clear = function(){
+    SelectedActivities.find().forEach(function (Task) {
+        SelectedActivities.remove(Task._id);
     });
 }
 
-SelectedContacts.getOne = function() {
-    var doc = SelectedContacts.find().fetch()[0]
+SelectedActivities.getOne = function() {
+    var doc = SelectedActivities.find().fetch()[0]
     return doc;
 }
 
 
 
-Template.contactGroups.helpers({
+Template.TaskGroups.helpers({
 
     labelClass: function() {
         if(this == "Clients")
@@ -299,24 +283,3 @@ Template.contactGroups.helpers({
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-//var selectedContacts = Session.get("selectedContacts");
-//if(!selectedContacts)
-//    selectedContacts = [];
-//
-//var ind = selectedContacts.indexOf(this._id);
-//if(ind === -1)
-//    selectedContacts.push(this._id);
-//else
-//    selectedContacts.splice(ind,1);
-//
-//Session.set("selectedContacts", selectedContacts);

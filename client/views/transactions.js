@@ -30,24 +30,24 @@ Template.transactions.events({
         emailSending = Emails.findOne(emailId);
         Modal.show('emailModal');
     },
-    'click .select-contact': function(e, t){
-        var selectedContacts = Session.get("selectedContacts");
-        if(!selectedContacts)
-            selectedContacts = [];
+    //'click .select-contact': function(e, t){
+    //    var selectedContacts = Session.get("selectedContacts");
+    //    if(!selectedContacts)
+    //        selectedContacts = [];
+    //
+    //    if(e.target.checked) {
+    //        if(selectedContacts.indexOf(this._id) === -1)
+    //            selectedContacts.push(this._id);
+    //
+    //    } else {
+    //        var ind = selectedContacts.indexOf(this._id);
+    //        if(ind > -1)
+    //            selectedContacts.splice(ind,1);
+    //    }
+    //
+    //    Session.set("selectedContacts", selectedContacts);
 
-        if(e.target.checked) {
-            if(selectedContacts.indexOf(this._id) === -1)
-                selectedContacts.push(this._id);
-
-        } else {
-            var ind = selectedContacts.indexOf(this._id);
-            if(ind > -1)
-                selectedContacts.splice(ind,1);
-        }
-
-        Session.set("selectedContacts", selectedContacts);
-
-    },
+    //},
     'click #newTransactionButton': function (e, t) {
         event.preventDefault();
         Modal.show('transactionModal');
