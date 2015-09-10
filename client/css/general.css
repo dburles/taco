@@ -94,10 +94,12 @@ h1 {
 }
 
 .dodgy-hide{
-    margin:0px;
-    padding:0px;
-    border-top:none;
-    border-bottom:none;
+    margin-right:0px;
+    margin-left:0px;
+    padding-right:0px;
+    padding-left:0px;
+    border-top:solid 1px transparent;
+    border-bottom:solid 1px transparent;
     width:7px;
     color:white;
 }

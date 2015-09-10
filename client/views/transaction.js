@@ -171,6 +171,17 @@ Template.transactionSteps.helpers({
     },
     isSection: function(){
         return (this.type.indexOf('Section') > -1);
+    },
+    bars: function(){
+        var html = '<table style="width:100%;border-spacing: 5px;border-collapse:separate"><tr>'
+        for(var col = 1; col <= this.taskCount; col ++){
+            var colHtml = '<td class="background-blue" style="height:2px;"></td>';
+            if(col > this.taskCompletedCount)
+                colHtml = colHtml.replace('blue', 'light-blue');
+            html += colHtml;
+        }
+        html += '</tr></table>';
+        return Spacebars.SafeString(html);
     }
 });
 
@@ -295,74 +306,8 @@ Template.transactionDetail.helpers({
     },
     statusCompleted: function() {
         return (this.status == "Completed");
-    },
-    upcomingDays: function (when){
-        var today = new Date();
-        var days = ['S', 'M', 'T', 'W', 'T', 'F', '-']
-        var dt = new Date(today);
-        var arr = [];
-        for(var i = 0; i < 7; i++){
-            dt.setDate(today.getDate()+i);
-            var dt1 = new Date(dt.getTime());
-
-            var dayOfWeek = dt.getDay();
-            if(dayOfWeek > 0){
-                var initial = days[dt.getDay()];
-                arr.push({date: dt1, initial: initial});
-            }
-        }
-        return arr
-    },
-    //upcomingDaySelector: function (){
-    //
-    //    var today = new Date();
-    //    var due;
-    //    Tracker.autorun(function () {
-    //        due = this.due;
-    //    });
-    //
-    //    today.setHours(0,0,0,0);
-    //    var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-    //    var dt = new Date(today);
-    //    var arr = [];
-    //
-    //    var str = '<div class="btn-toolbar">';
-    //    str += '<div class="btn-group">';
-    //
-    //    for(var i = 0; i < 7; i++){
-    //        dt.setDate(today.getDate()+i);
-    //        var dayNum = dt.getDay();
-    //        var initial = days[dayNum];
-    //        if(dayNum == 0) {
-    //            //do nothing
-    //        }
-    //        else if(dayNum == 6){
-    //            str += '</div>';
-    //            str += '<div class="btn-group">'
-    //        }
-    //        else {
-    //            if( compareDates(due, dt))
-    //                str += '<button data-date="' + moment().add(i, 'days').format('DD-MM-YYYY') + '" class="day-button btn btn-primary">'
-    //            else
-    //                str += '<button data-date="' + moment().add(i, 'days').format('DD-MM-YYYY') + '" class="day-button btn btn-default">'
-    //            str += initial;
-    //            str += '</button>'
-    //        }
-    //    }
-    //    str += '</div></div>';
-    //
-    //    return Spacebars.SafeString(str);
-    //},
-    dayClass: function (){
-        var classString = '';
-        if(compareDates(this.date, Template.parentData(1).due ))
-           classString += 'btn-primary ';
-
-        if(this.initial == '-')
-            classString += 'dodgy-hide'
-
-        return classString;
     }
+
 
 });
 
@@ -371,8 +316,15 @@ Template.transactionDetail.events({
 
         if (e.which === 13) {
 
-            var act = {};
+
             var comment = e.target.value;
+            e.target.value = "";
+            e.preventDefault();
+
+            if (!comment)
+                return;
+
+            var act = {};
             if(comment.indexOf('-') == 0) {
                 act.title = comment.replace("- ", "").replace("-", "");
                 act.type = ['Task'];
@@ -390,21 +342,84 @@ Template.transactionDetail.events({
             if(stepObj.type.indexOf('Public' > -1))
                 act.type.push('Public');
 
-            if (comment)
-                activityId = Activities.insert(act);
+            activityId = Activities.insert(act);
 
-            e.target.value = "";
-            e.preventDefault();
+            if(act.type.indexOf('Task') > -1)
+                Activities.update({_id:act.stepId},{$inc:{taskCount:1}});
 
         }
 
     },
     'click #activity-action': function (e,t){
         Activities.update({_id: this._id},{$set:{status:'Completed'}});
+        Activities.update({_id:this.stepId},{$inc:{taskCompletedCount:1}});
     },
     'click .outstanding-menu': function (e,t){
         Activities.update({_id: this._id},{$set:{status:'Outstanding'}});
+        Activities.update({_id:this.stepId},{$inc:{taskCompletedCount:-1}});
+    }
+
+});
+//
+Template.transactionDetail.onCreated(function () {
+
+
+
+    var self = this;
+    self.autorun(function(){
+        var stepId = FlowRouter.getQueryParam("step");
+        self.subscribe('activitiesForStep', stepId);
+
+    })
+
+});
+//
+Template.transactionDetail.onRendered(function () {
+    setTimeout(function(){
+        //removed the date init from here to its own helper
+    }, 2000)
+
+});
+
+
+
+
+
+
+Template.scheduler.helpers({
+
+    upcomingDays: function (when){
+        var today = new Date();
+        var days = ['S', 'M', 'T', 'W', 'T', 'F', '-']
+        var dt = new Date(today);
+        var arr = [];
+        for(var i = 0; i < 7; i++){
+            dt.setDate(today.getDate()+i);
+            var dt1 = new Date(dt.getTime());
+
+            var dayOfWeek = dt.getDay();
+            if(dayOfWeek > 0){
+                var initial = days[dt.getDay()];
+                arr.push({date: dt1, initial: initial});
+            }
+        }
+        return arr
     },
+
+    dayClass: function (){
+        var classString = '';
+        if(compareDates(this.date, Template.parentData(1).due ))
+            classString += 'btn-primary ';
+
+        if(this.initial == '-')
+            classString += 'dodgy-hide'
+
+        return classString;
+    }
+
+});
+
+Template.scheduler.events({
     'click .day-button': function (e,t){
 
         var dt = this.date;
@@ -426,34 +441,17 @@ Template.transactionDetail.events({
         else
             $('.datepicker').show(200);
     }
+})
 
-});
-//
-Template.transactionDetail.onCreated(function () {
-
-
-
-    var self = this;
-    self.autorun(function(){
-        var stepId = FlowRouter.getQueryParam("step");
-        self.subscribe('activitiesForStep', stepId);
-
-    })
-
-});
-//
-Template.transactionDetail.onRendered(function () {
-    setTimeout(function(){
-        $('.datepicker').datepicker({
-            format: "dd MM yyyy",
-            autoclose: true
-        }).on('changeDate', function(e){
-            console.log(e);
-            var id = FlowRouter.getQueryParam('step');
-            var dt = e.date.setHours(8);
-            Activities.update({_id: id},{$set:{due: e.date}});
-            $(this).hide();
-        });;
-    }, 2000)
-
-});
+Template.scheduler.onRendered(function(){
+    $('.datepicker').datepicker({
+        format: "dd MM yyyy",
+        autoclose: true
+    }).on('changeDate', function(e){
+        console.log(e);
+        var id = FlowRouter.getQueryParam('step');
+        var dt = e.date.setHours(8);
+        Activities.update({_id: id},{$set:{due: e.date}});
+        $(this).hide();
+    });;
+})

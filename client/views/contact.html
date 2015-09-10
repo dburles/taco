@@ -62,6 +62,12 @@
     </div>
     {{/with}}
 
+
+    {{#if Template.subscriptionsReady}}
+    {{else}}
+        {{> loader}}
+    {{/if}}
+
 </template>
 
 <template name="contactMembers">

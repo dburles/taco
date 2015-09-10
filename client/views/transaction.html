@@ -76,7 +76,7 @@
 
         {{#each steps}}
             {{#if isSection}}
-                <li class="color-white background-grey" style="border-top: solid 5px white">
+                <li class="color-white background-grey" style="padding-top:4px;padding-bottom:4px; border-top: solid 5px white">
                     {{title}}
                 </li>
             {{else}}
@@ -84,13 +84,16 @@
                     {{#if completed}}
                         <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
                     {{/if}}
-                    {{title}}
-                    <div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="30"
-                             aria-valuemin="0" aria-valuemax="100" style="width:70%">
-                            <span class="sr-only">70% Complete</span>
-                        </div>
-                    </div>
+                    {{title}}<br/>
+                    {{bars}}
+
+                    <!--<div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">-->
+                        <!--<div class="progress-bar" role="progressbar" aria-valuenow="30"-->
+                             <!--aria-valuemin="0" aria-valuemax="100" style="width:70%">-->
+                            <!--<span class="sr-only">70% Complete</span>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
                 </li>
             {{/if}}
         {{/each}}
@@ -119,23 +122,12 @@
                          alt=""/>
                 </td>
                 <td style="padding-left: 4px">
-                    <div class="btn-group">
-                        {{#each upcomingDays}}
-                            <button class="day-button btn btn-default {{dayClass}}">
-                                {{initial}}
-                            </button>
-                        {{/each}}
-                        <button id="date-expand" class="btn btn-default">
-                            <span class="caret"></span>
-                        </button>
-                    </div>
-                    <div class="datepicker" data-date="{{formatDate due 'short'}}" style="display:none"></div>
-                    <div class="color-grey" style="padding-top: 4px">Due {{fromNow due}}</div>
+                    {{> scheduler this}}
+
                 </td>
             </tr>
         </table>
     {{/with}}
-    <hr/>
 
     <ul class="tiles bottom-margin">
 
@@ -186,4 +178,19 @@
         </li>
         {{/each}}
     </ul>
+</template>
+
+<template name="scheduler">
+    <div class="btn-group">
+        {{#each upcomingDays}}
+            <button class="day-button btn btn-default {{dayClass}}">
+                {{initial}}
+            </button>
+        {{/each}}
+        <button id="date-expand" class="btn btn-default">
+            <span class="caret"></span>
+        </button>
+    </div>
+    <div class="datepicker" data-date="{{formatDate due 'short'}}" style="display:none"></div>
+    <div class="color-grey" style="padding-top: 4px">Due {{fromNow due}}</div>
 </template>
