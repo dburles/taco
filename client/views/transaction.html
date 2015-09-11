@@ -84,7 +84,9 @@
                     {{#if completed}}
                         <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
                     {{/if}}
-                    {{title}}<br/>
+                    {{title}}
+
+                    <br/>
                     {{bars}}
 
                     <!--<div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">-->
@@ -112,7 +114,9 @@
 
 <template name="transactionDetail">
     {{#with step}}
-        {{logThis}}
+        {{#if hasType 'Public'}}
+            <span class="label label-default">Public</span>
+        {{/if}}
         <h3 style="margin-top: 0">{{title}}</h3>
 
         <table>

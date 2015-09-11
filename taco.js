@@ -1,14 +1,4 @@
-AdminConfig = {
-  collections: {
-    Books: {
-      tableColumns: [
-        {label: 'Title', name: 'title'},
-        {label: 'Author', name: 'author'}
-      ]
-    }
 
-  }
-};
 
 
 

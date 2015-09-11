@@ -173,11 +173,18 @@ Template.transactionSteps.helpers({
         return (this.type.indexOf('Section') > -1);
     },
     bars: function(){
-        var html = '<table style="width:100%;border-spacing: 5px;border-collapse:separate"><tr>'
+        var html = '<table style="width:100%;border-spacing: 7px;border-collapse:separate; margin-left: -7px;"><tr>'
         for(var col = 1; col <= this.taskCount; col ++){
             var colHtml = '<td class="background-blue" style="height:2px;"></td>';
+
+            var today = new Date();
+            if(compareDates(this.due, today))
+                colHtml = colHtml.replace('blue', 'orange');
+            else if(DateHelpers.beforeToday(this.due))
+                colHtml = colHtml.replace('blue', 'red');
+
             if(col > this.taskCompletedCount)
-                colHtml = colHtml.replace('blue', 'light-blue');
+                colHtml = colHtml.replace('background', 'background-light');
             html += colHtml;
         }
         html += '</tr></table>';
@@ -291,16 +298,27 @@ Template.transactionDetail.helpers({
 
     step: function() {
         var stepId = FlowRouter.getQueryParam("step");
+
+        if(!stepId)
+            return null;
+
         var doc = Activities.findOne(stepId);
         return doc;
     },
     comments: function() {
         var stepId = FlowRouter.getQueryParam("step");
+        if(!stepId)
+            return null;
+
         var csr = Activities.find({stepId:stepId, type:'Comment'},{sort:{createdAt:-1}});
         return csr;
     },
     tasks: function() {
         var stepId = FlowRouter.getQueryParam("step");
+
+        if(!stepId)
+            return null;
+
         var csr = Activities.find({stepId:stepId, type:'Task'},{sort:{createdAt:1}});
         return csr;
     },
