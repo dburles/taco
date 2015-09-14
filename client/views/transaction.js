@@ -175,18 +175,17 @@ Template.transactionSteps.helpers({
     bars: function(){
         var html = '<table style="width:100%;border-spacing: 7px;border-collapse:separate; margin-left: -7px;"><tr>'
         for(var col = 1; col <= this.taskCount; col ++){
-            var colHtml = '<td class="background-blue" style="height:2px;"></td>';
-
-            var today = new Date();
-            if(compareDates(this.due, today))
-                colHtml = colHtml.replace('blue', 'orange');
-            else if(DateHelpers.beforeToday(this.due))
-                colHtml = colHtml.replace('blue', 'red');
+            var colHtml = '<td class="background-' + DateHelpers.colourForDate(this.due) + '" style="height:2px;"></td>';
 
             if(col > this.taskCompletedCount)
                 colHtml = colHtml.replace('background', 'background-light');
+
             html += colHtml;
         }
+
+        if(!this.taskCount)
+            html += '<td class="background-light-' + DateHelpers.colourForDate(this.due) + '" style="height:2px;"></td>';
+
         html += '</tr></table>';
         return Spacebars.SafeString(html);
     }
@@ -369,12 +368,10 @@ Template.transactionDetail.events({
 
     },
     'click #activity-action': function (e,t){
-        Activities.update({_id: this._id},{$set:{status:'Completed'}});
-        Activities.update({_id:this.stepId},{$inc:{taskCompletedCount:1}});
+        Meteor.call('completeTask', this)
     },
     'click .outstanding-menu': function (e,t){
-        Activities.update({_id: this._id},{$set:{status:'Outstanding'}});
-        Activities.update({_id:this.stepId},{$inc:{taskCompletedCount:-1}});
+        Meteor.call('uncompleteTask', this)
     }
 
 });
@@ -392,10 +389,56 @@ Template.transactionDetail.onCreated(function () {
 
 });
 //
-Template.transactionDetail.onRendered(function () {
-    setTimeout(function(){
-        //removed the date init from here to its own helper
-    }, 2000)
+Template.assignButton.onRendered(function () {
+
+
+    $("[data-toggle=popover]").popover({
+        html: true,
+        content: function() {
+            return $('#popover-content').html();
+        }
+    });
+
+});
+
+
+Template.stepChart.onRendered(function () {
+
+    Tracker.autorun(function(){
+
+        var stepId = FlowRouter.getQueryParam('step');
+        var step = Activities.findOne(stepId);
+
+        if(step.status == 'Completed') return;
+
+        var data = [
+            {
+                value: step.taskCompletedCount,
+                color:"#58ACFA",
+                highlight: "#58ACFA",
+                label: "Done"
+            },
+            {
+                value: step.taskCount - step.taskCompletedCount,
+                color: "#A9D0F5",
+                highlight: "#5AD3D1",
+                label: "Outstanding"
+            }
+        ];
+
+        var el = document.getElementById("myChart")
+        if(el) {
+            var ctx = el.getContext("2d");
+            //debugger;
+            var myPieChart = new Chart(ctx).Pie(data, {
+                animateRotate: false,
+                animateScale: false
+            });
+        }
+
+
+    })
+
 
 });
 

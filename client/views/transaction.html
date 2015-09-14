@@ -82,7 +82,7 @@
             {{else}}
                 <li class="step-item tile hover-box {{isStepActive}}">
                     {{#if completed}}
-                        <i class="fa fa-2x green fa-check-circle pull-right above-top"></i>
+                        <i  class="fa fa-2x green fa-check-circle pull-right above-top"></i>
                     {{/if}}
                     {{title}}
 
@@ -117,13 +117,26 @@
         {{#if hasType 'Public'}}
             <span class="label label-default">Public</span>
         {{/if}}
-        <h3 style="margin-top: 0">{{title}}</h3>
 
-        <table>
+        <div class="inline-block pull-right">
+            {{#if equals this.status 'Completed'}}
+                <i class="fa fa-4x fa-check-circle color-green" style="margin-right: 17px"></i>
+            {{else}}
+                {{> stepChart}}
+            {{/if}}
+        </div>
+        <h2 style="margin-top: 0">{{title}}</h2>
+
+
+        <table class="inline-block">
             <tr>
+
                 <td  valign="top">
-                    <img class="img-rounded img-thumbnail pull-left" style="width:50px;height:50px" src="/images/matt.ireland.jpg"
-                         alt=""/>
+
+                    {{> assignButton}}
+
+
+
                 </td>
                 <td style="padding-left: 4px">
                     {{> scheduler this}}
@@ -131,14 +144,20 @@
                 </td>
             </tr>
         </table>
+
+
+
+
     {{/with}}
+
+
 
     <ul class="tiles bottom-margin">
 
         {{#each tasks}}
         <li>
             {{#if statusCompleted}}
-                <div class="btn-group pull-right">
+                <div class="btn-group pull-right" style="padding-right:15px;">
 
                     <button type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-2x fa-check-circle color-green"></i>
@@ -197,4 +216,51 @@
     </div>
     <div class="datepicker" data-date="{{formatDate due 'short'}}" style="display:none"></div>
     <div class="color-grey" style="padding-top: 4px">Due {{fromNow due}}</div>
+</template>
+
+
+
+
+<template name="assignButton">
+
+    <button type="button" class="btn btn-default" data-toggle="popover" data-placement="bottom" data-html="true" title="Assign To" >
+        <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+             alt=""/>
+        <!--class="img-rounded img-thumbnail pull-left"-->
+
+    </button>
+
+
+
+
+    <div id="popover-content" class="hide">
+        <div>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+        </div>
+        <div>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+        </div>
+        <div>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+            <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
+                 alt=""/>
+        </div>
+    </div>
+</template>
+
+<template name="stepChart">
+    <canvas id="myChart" width="90" height="60"></canvas>
 </template>

@@ -26,7 +26,7 @@ textarea, input[type="text"], input[type="number"], input[type="password"] {
 
 
 
-h1, h2, h3 {
+h1, h2 {
     font-family: 'Segoe Light', 'Segoe UI Light', 'Segoe UI', 'Segoe WP Light', 'Roboto Light', Frutiger, 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
     font-weight: 100;
     height: auto;
