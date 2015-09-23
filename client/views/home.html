@@ -26,182 +26,170 @@
 
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-lg-9">
+            <div class="row">
+                <div class="col-sm-5">
 
-            <!--Search Bar-->
+                    <!--Search Bar-->
 
-            <div class="input-group margin-bottom-10">
-                <input id="txtContactSearch" type="text" value="{{searchText}}" placeholder="Search..." class="form-control">
-                    <div class="input-group-addon"><i id="clearSearchButton" class="fa fa-times"></i></div>
-            </div>
+                    <div class="input-group margin-bottom-10">
+                        <input id="txtContactSearch" type="text" value="{{searchText}}" placeholder="Search..." class="form-control">
+                        <div class="input-group-addon"><i id="clearSearchButton" class="fa fa-times"></i></div>
+                    </div>
 
-            <!--Button Bar-->
+                    <!--Button Bar-->
 
-            <div class="bottom-margin above-top" id="buttonBar" style="padding-bottom: 10px; padding-top:10px; background-color: white; z-index:100;">
+                    <div class="bottom-margin above-top" id="buttonBar" style="padding-bottom: 10px; padding-top:10px; background-color: white; z-index:100;">
 
-                <!--Selection Dropdown-->
+                        <!--Selection Dropdown-->
 
-                <div class="btn-group" data-toggle="tooltip" title="Selection">
-                    <!--{{#if selectedContactsCount}}-->
-                        <!--<button class="btn btn-default"><i class="fa fa-times"></i></button>-->
-                    <!--{{/if}}-->
-                    <button class="btn btn-default dropdown-toggle" id="selectionDropdownButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <div class="btn-group" data-toggle="tooltip" title="Selection">
+                        <!--{{#if selectedContactsCount}}-->
+                            <!--<button class="btn btn-default"><i class="fa fa-times"></i></button>-->
+                                <!--{{/if}}-->
+                            <button class="btn btn-default dropdown-toggle" id="selectionDropdownButton"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {{#if selectedContactsCount}}
+                                    <i class="fa fa-checked-square-o"></i>
+                                    <span class="label label-as-badge label-primary">{{selectedContactsCount}}</span>
+                                {{else}}
+                                    <i class="fa fa-square-o"></i>
+                                {{/if}}
+                                &nbsp;<span class="caret"></span>
+                            </button>
+
+
+                            <ul class="dropdown-menu" aria-labelledby="selectionDropdownButton">
+
+                                {{#if selectedContactsCount}}
+                                    <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
+                                    <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
+                                {{else}}
+                                    <li><a href="#">Click contacts to select them</a></li>
+                                {{/if}}
+
+                                {{#if oneSelectedContact}}
+                                    {{#if partnerId}}
+                                        <li class="divider"></li>
+                                        <li><a id="divorceMenu" href="#">Divorce</a></li>
+                                    {{/if}}
+                                {{/if}}
+                                {{#if selectedContactsCount}}
+                                    <li class="divider"></li>
+                                    <li><a id="addToGroupMenu" href="#">Add <label class="label label-primary">{{selectedContactsCount}}</label> to Group</a></li>
+                                    <li><a id="removeFromGroupMenu" href="#">Remove <label class="label label-primary">{{selectedContactsCount}}</label> from Group</a></li>
+                                {{/if}}
+                            </ul>
+                        </div>&nbsp;
+
+                        <!--Communicate Dropdown -->
+
                         {{#if selectedContactsCount}}
-                            <i class="fa fa-checked-square-o"></i>
-                            <span class="label label-as-badge label-primary">{{selectedContactsCount}}</span>
-                        {{else}}
-                            <i class="fa fa-square-o"></i>
-                        {{/if}}
-                        &nbsp;<span class="caret"></span>
-                    </button>
-
-
-                    <ul class="dropdown-menu" aria-labelledby="selectionDropdownButton">
-
-                        {{#if selectedContactsCount}}
-                            <li><a id="viewSelectedMenu" href="#">View Selected</a></li>
-                            <li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>
-                        {{else}}
-                            <li><a href="#">Click contacts to select them</a></li>
+                            <div class="btn-group">
+                                <button id="emailContactButton" class="btn btn-default" data-toggle="tooltip" title="Email Contacts"><i class="fa fa-envelope"></i></button>
+                                {{#if oneSelectedContact}}
+                                    <button id="callContactButton" type="button" class="btn btn-default"><i class="fa fa-phone"></i></button>
+                                {{/if}}
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">SendSMS</a></li>
+                                    <li><a href="#">Send Fax</a></li>
+                                </ul>
+                            </div>&nbsp;
                         {{/if}}
 
-                        {{#if oneSelectedContact}}
-                            {{#if partnerId}}
-                                <li class="divider"></li>
-                                <li><a id="divorceMenu" href="#">Divorce</a></li>
+                        {{#if twoSelectedContacts}}
+                            <button id="createCoupleButton" class="btn btn-danger">
+                                <i class="fa fa-heart"></i>
+                            </button>&nbsp;
+                        {{/if}}
+
+                        <button id="addContactButton" class="btn btn-primary">
+                            {{#if selectedContactsCount}}
+                                <i class="fa fa-plus"></i>
+                            {{else}}
+                                Add Contact
                             {{/if}}
+                        </button>
+
+
+                    </div>
+
+                    <!--Loop through contacts...-->
+
+                    {{#each contacts}}
+
+                        <div class="hover-box selectable-box {{selectedBox}} contact cursor-default" title="Updated {{fromNow this.updatedAt}}">
+                            <div class="dropdown" style="background-color:#f5f5f5;">
+                                <div class="pull-right dropdown-toggle" style="padding:12px;width:50px;" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="false">
+
+                                    <i class="fa fa-chevron-down pull-right glow-text"></i>
+                                </div>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <li><a id="newTransactionMenu" href="#">New Transaction</a></li>
+                                    {{#if partnerId}}
+                                        <li><a id="newJointTransactionMenu" href="#">Joint Transaction</a></li>
+                                    {{/if}}
+                                    <li><a id="editContactMenu" href="#">Edit Contact</a></li>
+                                    <li class="divider"></li>
+                                    <li><a id="emailContactMenu" href="#">Send Email</a></li>
+                                    <li><a id="callContactMenu" href="#">Call</a></li>
+                                    <li><a id="sendSMSMenu" href="#">Send SMS</a></li>
+                                    {{#if partnerId}}
+                                        <li class="divider"></li>
+                                        <li><a id="divorceMenu" href="#">Divorce</a></li>
+                                    {{/if}}
+                                </ul>
+
+                                <!--Header Part-->
+
+                                <div title="Select Contact" class=" selectable pull-left" style="padding:5px 7px;height:40px;display: inline-block">
+                                    <i class="fa fa-check-circle fa-2x {{selectedTick}}"></i>
+                                </div>
+
+                                <div class="clickable" style="padding:10px 15px;border-bottom:solid 1px #ddd">
+                                    {{fullName}}
+                                    {{#if partnerId}}
+                                        <span class="light-text"> & {{partnerFullName}}</span>
+                                    {{/if}}
+                                </div>
+
+
+                            </div>
+
+                            <!--Content Part-->
+
+                            <div class="clickable" style="padding:15px;">
+                                {{> contactInfo this}}
+                                {{> contactGroups this}}
+                            </div>
+                        </div>
+
+                    {{/each}}
+
+
+                    {{#if Template.subscriptionsReady}}
+                        {{#if emptyCollection contacts}}
+                            No records found in {{title}}
                         {{/if}}
-                        {{#if selectedContactsCount}}
-                            <li class="divider"></li>
-                            <li><a id="addToGroupMenu" href="#">Add <label class="label label-primary">{{selectedContactsCount}}</label> to Group</a></li>
-                            <li><a id="removeFromGroupMenu" href="#">Remove <label class="label label-primary">{{selectedContactsCount}}</label> from Group</a></li>
-                        {{/if}}
-                    </ul>
-                </div>&nbsp;
-
-                <!--Communicate Dropdown -->
-
-                {{#if selectedContactsCount}}
-                <div class="btn-group">
-                    <button id="emailContactButton" class="btn btn-default" data-toggle="tooltip" title="Email Contacts"><i class="fa fa-envelope"></i></button>
-                    {{#if oneSelectedContact}}
-                        <button id="callContactButton" type="button" class="btn btn-default"><i class="fa fa-phone"></i></button>
-                    {{/if}}
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">SendSMS</a></li>
-                        <li><a href="#">Send Fax</a></li>
-                    </ul>
-                </div>&nbsp;
-                {{/if}}
-
-                {{#if twoSelectedContacts}}
-                <button id="createCoupleButton" class="btn btn-danger">
-                    <i class="fa fa-heart"></i>
-                </button>&nbsp;
-                {{/if}}
-
-                <button id="addContactButton" class="btn btn-primary">
-                    {{#if selectedContactsCount}}
-                            <i class="fa fa-plus"></i>
                     {{else}}
-                        Add Contact
+                        {{> loader}}
                     {{/if}}
-                </button>
-
-                <!--<button class="btn btn-default">-->
-                    <!--<i class="fa fa-filter"></i>-->
-                <!--</button>-->
-
-                <!--{{#if selectedContactsCount}}-->
-                    <!--<div class="dropdown" style="display: inline-block">-->
-                        <!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"-->
-                                <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                            <!--{{selectedContactsCount}} Selected-->
-                            <!--<span class="caret"></span>-->
-                        <!--</button>-->
-
-                        <!--<ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">-->
-                            <!--{{#if twoSelectedContacts}}-->
-                                <!--<li><a id="createCoupleMenu" href="#">Create Couple</a></li>-->
-                            <!--{{/if}}-->
-                            <!--<li><a href="#">New Transaction</a></li>-->
-                            <!--<li><a href="#">Send Email</a></li>-->
-                            <!--<li><a id="viewSelectedMenu" href="#">View Selected</a></li>-->
-                            <!--<li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-
-                <!--{{/if}}-->
-            </div>
-
-            <!--Loop through contacts...-->
-
-            {{#each contacts}}
-
-            <div class="hover-box selectable-box {{selectedBox}} contact cursor-default" title="Updated {{fromNow this.updatedAt}}">
-                <div class="dropdown" style="background-color:#f5f5f5">
-                    <div class="pull-right dropdown-toggle" style="padding:12px;width:50px;" data-toggle="dropdown"
-                         aria-haspopup="true" aria-expanded="false">
-
-                        <i class="fa fa-chevron-down pull-right glow-text"></i>
-                    </div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li><a id="newTransactionMenu" href="#">New Transaction</a></li>
-                        {{#if partnerId}}
-                            <li><a id="newJointTransactionMenu" href="#">Joint Transaction</a></li>
-                        {{/if}}
-                        <li><a id="editContactMenu" href="#">Edit Contact</a></li>
-                        <li class="divider"></li>
-                        <li><a id="emailContactMenu" href="#">Send Email</a></li>
-                        <li><a id="callContactMenu" href="#">Call</a></li>
-                        <li><a id="sendSMSMenu" href="#">Send SMS</a></li>
-                        {{#if partnerId}}
-                            <li class="divider"></li>
-                            <li><a id="divorceMenu" href="#">Divorce</a></li>
-                        {{/if}}
-                    </ul>
-
-                    <!--Header Part-->
-
-                    <div title="Select Contact" class=" selectable pull-left" style="padding:5px 7px;height:40px;display: inline-block">
-                        <i class="fa fa-check-circle fa-2x {{selectedTick}}"></i>
-                    </div>
-
-                    <div class="clickable" style="padding:10px 15px;border-bottom:solid 1px #ddd">
-                        {{fullName}}
-                        {{#if partnerId}}
-                            <span class="light-text"> & {{partnerFullName}}</span>
-                        {{/if}}
-                    </div>
-
 
                 </div>
-
-                <!--Content Part-->
-
-                <div class="clickable" style="padding:15px;">
-                    {{> contactInfo this}}
-                    {{> contactGroups this}}
+                <div class="col-sm-7">
+                    <div style="height:100px" class="well">Chart Area</div>
                 </div>
             </div>
-
-            {{/each}}
-
-
-            {{#if Template.subscriptionsReady}}
-                {{#if emptyCollection contacts}}
-                    No records found in {{title}}
-                {{/if}}
-            {{else}}
-                {{> loader}}
-            {{/if}}
-
         </div>
+        <div class="col-lg-3">
+            <div class="well">Shortcut Area</div>
+        </div>
+
     </div>
 
 
@@ -228,4 +216,34 @@
     {{/each}}
 </template>
 
+
+
+
+
+<!--Removed from this file...-->
+
+<!--<button class="btn btn-default">-->
+<!--<i class="fa fa-filter"></i>-->
+<!--</button>-->
+
+        <!--{{#if selectedContactsCount}}-->
+<!--<div class="dropdown" style="display: inline-block">-->
+<!--<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"-->
+<!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
+<!--{{selectedContactsCount}} Selected-->
+<!--<span class="caret"></span>-->
+<!--</button>-->
+
+<!--<ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">-->
+        <!--{{#if twoSelectedContacts}}-->
+<!--<li><a id="createCoupleMenu" href="#">Create Couple</a></li>-->
+        <!--{{/if}}-->
+<!--<li><a href="#">New Transaction</a></li>-->
+<!--<li><a href="#">Send Email</a></li>-->
+<!--<li><a id="viewSelectedMenu" href="#">View Selected</a></li>-->
+<!--<li><a id="clearSelectionMenu" href="#">Clear Selection</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+
+        <!--{{/if}}-->
 

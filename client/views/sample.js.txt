@@ -1,0 +1,24 @@
+Template.$template$.helpers({
+    //contacts: function() {
+    //    var id = FlowRouter.getParam("id");
+    //    return Contacts.find({});
+    //}
+});
+
+Template.$template$.events({
+    //'click #clearSearchButton': function (e, t) {
+    //    event.preventDefault();
+    //}
+});
+
+Template.$template$.onCreated(function () {
+    //var self = this;
+    //self.autorun(function () {
+    //    var groupName = FlowRouter.getQueryParam("group");
+    //    self.subscribe('contactsSelected', selectedContacts);
+    //});
+});
+
+Template.$template$.onRendered(function () {
+    //do something...
+});

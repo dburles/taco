@@ -3,16 +3,15 @@
 
 
     {{#with transaction}}
+
     <div class="row">
         <div class="col-sm-12 margin-top-10 margin-bottom-10">
             <h1 class="ellipsis">
                 <a href="/">
-                <i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>{{client}}
+                <i class="fa fa-chevron-circle-left color-blue small-right-margin"></i></a>{{client}}
             </h1>
         </div>
     </div>
-
-    {{description}}
 
         <div class="row">
             <div class="col-sm-12">
@@ -33,39 +32,34 @@
         </div>
 
         <div class="row top-margin">
-
-
-            <div class="col-sm-4">
-
-            {{> transactionSteps}}
-
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-sm-5">
+                        {{#if queryParam 'stage'}}
+                            {{> transactionSteps}}
+                        {{else}}
+                            {{> transactionSummary}}
+                        {{/if}}
+                    </div>
+                    <div class="col-sm-7">
+                        {{#if queryParam 'step'}}
+                            {{> transactionDetail}}
+                        {{else}}
+                            {{> stageSummary}}
+                        {{/if}}
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6">
-
-            {{> transactionDetail}}
-
+            <div class="col-lg-3">
+                {{> transactionMembers}}
             </div>
-            <div class="col-sm-2">
 
-                <ul class="tiles tiles-dark">
-                    {{#each members}}
-                    <li>
-                        <i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>
-                        {{contactName}}
-                    </li>
-                    {{/each}}
-
-                </ul>
-
-            </div>
         </div>
     {{/with}}
 
-    {{#if Template.subscriptionsReady}}
-
-    {{else}}
+    {{#unless Template.subscriptionsReady}}
         {{> loader}}
-    {{/if}}
+    {{/unless}}
 
 </template>
 
@@ -88,14 +82,6 @@
 
                     <br/>
                     {{bars}}
-
-                    <!--<div class="progress" style="height:3px;background-color:#BDBDBD;margin-bottom:5px;margin-top: 3px">-->
-                        <!--<div class="progress-bar" role="progressbar" aria-valuenow="30"-->
-                             <!--aria-valuemin="0" aria-valuemax="100" style="width:70%">-->
-                            <!--<span class="sr-only">70% Complete</span>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
                 </li>
             {{/if}}
         {{/each}}
@@ -105,15 +91,14 @@
         </li>
         {{/if}}
     </ul>
-    {{#if Template.subscriptionsReady}}
-
-    {{else}}
-        {{> loader}}
-    {{/if}}
+    <!--{{#unless Template.subscriptionsReady}}-->
+        <!--{{> loader}}-->
+    <!--{{/unless}}-->
 </template>
 
 <template name="transactionDetail">
     {{#with step}}
+        {{logThis}}
         {{#if hasType 'Public'}}
             <span class="label label-default">Public</span>
         {{/if}}
@@ -130,23 +115,14 @@
 
         <table class="inline-block">
             <tr>
-
                 <td  valign="top">
-
                     {{> assignButton}}
-
-
-
                 </td>
                 <td style="padding-left: 4px">
                     {{> scheduler this}}
-
                 </td>
             </tr>
         </table>
-
-
-
 
     {{/with}}
 
@@ -172,16 +148,16 @@
             <div class="btn-group pull-right">
 
                 <button id="activity-action" type="button" class="btn btn-default btn-fixed">Done</button>
-                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
-                    <!--<span class="caret"></span>-->
-                    <!--<span class="sr-only">Toggle Dropdown</span>-->
-                <!--</button>-->
-                <!--<ul class="dropdown-menu" role="menu">-->
-                    <!--<li><a href="#">Complete</a></li>-->
-                    <!--<li><a href="#">Not Applicable</a></li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li><a href="#">Edit Task</a></li>-->
-                <!--</ul>-->
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Complete</a></li>
+                    <li><a href="#">Not Applicable</a></li>
+                    <li class="divider"></li>
+                    <li><a class="delete-activity-menu" href="#">Delete Task</a></li>
+                </ul>
             </div>
             {{/if}}
             {{title}}
@@ -191,16 +167,34 @@
     {{#if queryParamExists 'step'}}
         <textarea placeholder="Add a comment..." class="form-control margin-bottom-10" id="comment-text" rows="2"></textarea>
     {{/if}}
+
     <ul class="tiles bottom-margin">
         {{#each comments}}
         <li>
             <img class="img-rounded small-right-margin pull-left" style="width:30px;height:30px" src="/images/matt.ireland.jpg" alt=""/>
+
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-default btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="color-grey fa fa-chevron-down"></i>
+                    <!--<span class="sr-only">Toggle Dropdown</span>-->
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="delete-activity-menu" href="#">Delete Comment</a></li>
+                    <li><a class="edit-comment-menu" href="#">Edit Comment</a></li>
+                    <li><a class="convert-task-menu" href="#">Convert to Task</a></li>
+                </ul>
+            </div>
+
             {{description}}
             <span class="text-muted"> - {{fromNow updatedAt}}</span>
 
         </li>
         {{/each}}
     </ul>
+    {{#unless Template.subscriptionsReady}}
+        {{> loader}}
+    {{/unless}}
+
 </template>
 
 <template name="scheduler">
@@ -215,7 +209,7 @@
         </button>
     </div>
     <div class="datepicker" data-date="{{formatDate due 'short'}}" style="display:none"></div>
-    <div class="color-grey" style="padding-top: 4px">Due {{fromNow due}}</div>
+    <div style="color:{{colour due}};padding-top: 4px; padding-left:3px;">Due {{fromNow due}}</div>
 </template>
 
 
@@ -223,7 +217,7 @@
 
 <template name="assignButton">
 
-    <button type="button" class="btn btn-default" data-toggle="popover" data-placement="bottom" data-html="true" title="Assign To" >
+    <button type="button" class="btn btn-default" style="padding:2px;" data-toggle="popover" data-placement="bottom" data-html="true" title="Assign To" >
         <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
              alt=""/>
         <!--class="img-rounded img-thumbnail pull-left"-->
@@ -261,6 +255,54 @@
     </div>
 </template>
 
+<template name="transactionMembers">
+    <ul class="tiles tiles-dark margin-bottom-10">
+        {{#each members}}
+            <li>
+                <i class="fa fa-2x fa-user pull-left" style="margin-top: -5px"></i>
+
+
+                <div class="btn-group pull-right" style="margin-top: -5px">
+                    <button type="button" class="btn btn-default btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="color-white fa fa-chevron-down"></i>
+                        <!--<span class="sr-only">Toggle Dropdown</span>-->
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="remove-association-menu" href="#">Remove Association</a></li>
+                        <li><a class="edit-contact-menu" href="#">Edit Contact</a></li>
+                    </ul>
+                </div>
+
+                <b>{{contactName}}</b> | {{role}}
+            </li>
+        {{/each}}
+
+    </ul>
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add Contact <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="add-role-menu" href="#">Client</a></li>
+            <li><a class="add-role-menu" href="#">Agent</a></li>
+            <li><a class="add-role-menu" href="#">Solicitor</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a class="add-role-menu" href="#">Other</a></li>
+        </ul>
+    </div>
+
+</template>
+
 <template name="stepChart">
     <canvas id="myChart" width="90" height="60"></canvas>
 </template>
+
+<template name="stageSummary">
+    <h2>{{title}}</h2>
+    <p>{{description}}</p>
+</template>
+
+<template name="transactionSummary">
+    <div class="well">Transaction Overview Here...</div>
+</template>
+

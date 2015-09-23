@@ -1,31 +1,27 @@
 
 
-function compareDates(d1, d2){
-    //debugger;
-
-    if(!d1 || !d2) {
-        console.log('Compare dates failed');
-        return false;
-    }
-
-    var same = (d1.getYear() == d2.getYear() &&
-    d1.getMonth() == d2.getMonth() &&
-    d1.getDate() == d2.getDate());
-
-    console.log('Comparing ' + d1 + ' with ' + d2 + '. Same is ' + same);
-
-    return same;
-}
+//function compareDates(d1, d2){
+//    //debugger;
+//
+//    if(!d1 || !d2) {
+//        console.log('Compare dates failed');
+//        return false;
+//    }
+//
+//    var same = (d1.getYear() == d2.getYear() &&
+//    d1.getMonth() == d2.getMonth() &&
+//    d1.getDate() == d2.getDate());
+//
+//    //console.log('Comparing ' + d1 + ' with ' + d2 + '. Same is ' + same);
+//
+//    return same;
+//}
 
 Template.transaction.helpers({
     transaction: function () {
         var id = FlowRouter.getParam("id");
         var doc = Transactions.findOne(id);
         return doc;
-    },
-    members: function() {
-        var id = FlowRouter.getParam("id");
-        return Members.find({transactionId: id});
     },
     addingStage: function() {
         var action = FlowRouter.getQueryParam("action");
@@ -86,30 +82,20 @@ Template.transaction.events({
 });
 
 Template.transaction.onCreated(function () {
-    //debugger
-    //var dataContext = Template.currentData();
-    //this.subscribe("oneTransaction", dataContext._id);
-
-    //var self = this;
-    //// Use self.subscribe with the data context reactively
-    //self.autorun(function () {
-    //    var id = FlowRouter.getParam("id");
-    //
-    //    self.subscribe("oneTransaction", id);
-    //});
 
     var id = FlowRouter.getParam("id");
 
     this.subscribe("oneTransaction", id);
     this.subscribe("membersForTransaction", id);
     this.subscribe("stagesForTransaction", id);
+    this.subscribe("stepsForTransaction", id)
 
-    var self = this;
-    self.autorun(function(){
-        var stageId = FlowRouter.getQueryParam("stage");
-        self.subscribe("stepsForStage", stageId);
-
-    })
+    //var self = this;
+    //self.autorun(function(){
+    //    var stageId = FlowRouter.getQueryParam("stage");
+    //    self.subscribe("stepsForStage", stageId);
+    //
+    //})
 
 });
 
@@ -173,20 +159,42 @@ Template.transactionSteps.helpers({
         return (this.type.indexOf('Section') > -1);
     },
     bars: function(){
-        var html = '<table style="width:100%;border-spacing: 7px;border-collapse:separate; margin-left: -7px;"><tr>'
+        //var html = '<table style="width:100%;border-spacing: 7px;border-collapse:separate; margin-left: -7px;"><tr>'
+        //var html = '<table style="width:100%"><tr>'
+        //for(var col = 1; col <= this.taskCount; col ++){
+        //    var colHtml = '<td class="background-' + DateHelpers.colourForDate(this.due) + '" style="height:5px;"></td>';
+        //
+        //    if(col > this.taskCompletedCount)
+        //        colHtml = colHtml.replace('background', 'background-light');
+        //
+        //    html += colHtml;
+        //}
+        //
+        //if(!this.taskCount)
+        //    html += '<td class="background-light-' + DateHelpers.colourForDate(this.due) + '" style="height:5px;"></td>';
+        //
+        //html += '</tr></table>';
+
+        var html = '<div>';
+        //debugger;
+
+        var colourStr = 'background-light-' + DateHelpers.colourForDate(this.due);
+        if(this.status && this.status.indexOf('Completed') > -1)
+            colourStr = colourStr.replace("-light", "");
+
+        html += '<div class="' + colourStr + '" style="display:inline-block;height:7px;width:60px;border-radius:3px"></div>';
+
+
         for(var col = 1; col <= this.taskCount; col ++){
-            var colHtml = '<td class="background-' + DateHelpers.colourForDate(this.due) + '" style="height:2px;"></td>';
+            var tmpHtml = '<div class="background-' + DateHelpers.colourForDate(this.due) + '" style="display:inline-block;height:7px;width:20px;border-radius:3px;margin-left:5px;"></div>';
 
             if(col > this.taskCompletedCount)
-                colHtml = colHtml.replace('background', 'background-light');
+                tmpHtml = tmpHtml.replace('background', 'background-light');
 
-            html += colHtml;
+            html += tmpHtml;
         }
 
-        if(!this.taskCount)
-            html += '<td class="background-light-' + DateHelpers.colourForDate(this.due) + '" style="height:2px;"></td>';
-
-        html += '</tr></table>';
+        html += '</div>';
         return Spacebars.SafeString(html);
     }
 });
@@ -234,12 +242,12 @@ Template.transactionSteps.events({
 });
 
 Template.transactionSteps.onCreated(function () {
-    var self = this;
-    self.autorun(function(){
-        var stageId = FlowRouter.getQueryParam("stage");
-        self.subscribe("stepsForStage", stageId);
-
-    })
+    //var self = this;
+    //self.autorun(function(){
+    //    var stageId = FlowRouter.getQueryParam("stage");
+    //    self.subscribe("stepsForStage", stageId);
+    //
+    //})
 
 });
 
@@ -372,7 +380,21 @@ Template.transactionDetail.events({
     },
     'click .outstanding-menu': function (e,t){
         Meteor.call('uncompleteTask', this)
+    },
+    'click .delete-activity-menu': function (e,t){
+        e.preventDefault();
+        var self = this;
+        bootbox.confirm("Are you sure you want to delete?", function(result) {
+            if(result){
+                Meteor.call('deleteActivity', self)
+            }
+        });
+    },
+    'click .convert-task-menu': function (e,t){
+        e.preventDefault();
+        Meteor.call('convertToTask', this)
     }
+
 
 });
 //
@@ -409,12 +431,12 @@ Template.stepChart.onRendered(function () {
         var stepId = FlowRouter.getQueryParam('step');
         var step = Activities.findOne(stepId);
 
-        if(step.status == 'Completed') return;
+        if(step.status && steps.status == 'Completed') return;
 
         var data = [
             {
                 value: step.taskCompletedCount,
-                color:"#58ACFA",
+                color:"#337ab7",
                 highlight: "#58ACFA",
                 label: "Done"
             },
@@ -429,10 +451,14 @@ Template.stepChart.onRendered(function () {
         var el = document.getElementById("myChart")
         if(el) {
             var ctx = el.getContext("2d");
+            ctx.canvas.width = 90;
+            ctx.canvas.height = 60;
             //debugger;
             var myPieChart = new Chart(ctx).Pie(data, {
                 animateRotate: false,
-                animateScale: false
+                animateScale: false,
+                responsive: false,
+                maintainAspectRatio: false
             });
         }
 
@@ -469,13 +495,17 @@ Template.scheduler.helpers({
 
     dayClass: function (){
         var classString = '';
-        if(compareDates(this.date, Template.parentData(1).due ))
+        if(DateHelpers.compareDates(this.date, Template.parentData(1).due ))
             classString += 'btn-primary ';
 
         if(this.initial == '-')
             classString += 'dodgy-hide'
 
         return classString;
+    },
+
+    colour: function(due){
+        return DateHelpers.colourForDate(due);
     }
 
 });
@@ -515,4 +545,45 @@ Template.scheduler.onRendered(function(){
         Activities.update({_id: id},{$set:{due: e.date}});
         $(this).hide();
     });;
+})
+
+
+Template.transactionMembers.helpers({
+    members: function() {
+        var id = FlowRouter.getParam("id");
+        return Members.find({transactionId: id});
+    }
+});
+
+Template.transactionMembers.events({
+    'click .add-role-menu': function (e, t) {
+        e.preventDefault();
+
+        var role = e.target.innerText;
+        var group;
+
+        if(role != 'Other')
+            group = role + 's';
+        else
+            group = null;
+
+        FlowRouter.setQueryParams({group: group});
+
+        var contactSelectorData = {
+            formType: "insert",
+            role: role,
+            group:group
+        }
+
+        Modal.show('contactSelector', contactSelectorData);
+    },
+    'click .remove-association-menu': function (e, t) {
+        e.preventDefault();
+        var id = this._id;
+        bootbox.confirm("Are you sure you want to remove this contact from this transaction?", function(result) {
+            if(result)
+                Meteor.call('removeMember', id);
+        });
+
+    }
 })

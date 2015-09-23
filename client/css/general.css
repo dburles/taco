@@ -194,7 +194,6 @@ h1 {
 
 .tiles > li{
     padding:10px;
-    padding: 10px;
     margin:0px;
     list-style-type: none;
 }
@@ -205,6 +204,8 @@ h1 {
 .tiles-light > .tile {
     background-color: #F2F2F2;
     border: solid 1px #F2F2F2;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 .tiles-light > .tile:hover{
@@ -215,6 +216,8 @@ h1 {
 .tiles-light > .tile.active{
     background-color: white;
     border-right: solid 1px white;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 
 }
 

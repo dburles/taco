@@ -42,6 +42,14 @@ Meteor.methods({
             {multi:true}
         )
     },
+    'addContactToGroup': function(contactId, groupName){
+
+        Contacts.update(
+            { _id: contactId},
+            { $addToSet: { groups: groupName } },
+            {multi:true}
+        )
+    },
     'removeContactsFromGroup': function(contactArray, groupName){
 
         Contacts.update(

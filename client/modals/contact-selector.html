@@ -1,0 +1,71 @@
+<template name="contactSelector">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content" >
+
+                <!--<div class="modal-header">-->
+                <!--<h4 class="modal-title">Contact Details</h4>-->
+                <!--</div>-->
+
+              {{#autoForm collection="Contacts" id="createMemberForm" type='insert' doc=this.contact}}
+                  <div class="modal-body" style="height:450px;">
+
+                      <div class="row">
+                          <div class="col-sm-12">
+
+                              <!-- Nav tabs -->
+                              <ul class="nav nav-tabs bottom-margin" role="tablist">
+                                  <li role="presentation" class="active"><a href="#existing" aria-controls="existing" role="tab" data-toggle="tab">Existing {{role}}</a></li>
+                                  <li role="presentation"><a href="#new" aria-controls="new" role="tab" data-toggle="tab">Create {{role}}</a></li>
+                              </ul>
+
+                              <!-- Tab panes -->
+                              <div class="tab-content">
+
+                                  <!--Main Tab-->
+
+                                  <div role="tabpanel" class="tab-pane active" id="existing">
+                                      <input id="txtContactSearch" type="text" value="{{searchText}}" placeholder="Search..." class="form-control">
+                                        {{#each contacts}}
+                                            <div class="member padding-10 hover-box border-white">
+                                                {{fullName}}
+                                            </div>
+                                        {{/each}}
+                                          {{#unless Template.subscriptionsReady}}
+                                              {{> loader}}
+                                          {{/unless}}
+                                  </div>
+
+
+
+                                  <div role="tabpanel" class="tab-pane" id="new">
+                                      {{> afQuickField name="firstName" placeholder="First Name" label=false autofocus="autofocus"}}
+                                      {{> afQuickField name="lastName" placeholder="Last Name" label=false}}
+                                      {{> afQuickField name="email" placeholder="Email" label=false}}
+                                      {{> afQuickField name="mobile" placeholder="Mobile" label=false}}
+                                      {{> afQuickField name="work" placeholder="Work" label=false}}
+                                      {{> afQuickField name="home" placeholder="Home" label=false}}
+                                      <hr/>
+                                      <div class="button-bar">
+                                          <button id="saveContact" type="submit" class="btn btn-primary">Save and Select</button>
+                                          <button id="cancelContact" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                          </div>
+                      </div>
+
+                  </div>
+
+                  <!--<div class="modal-footer">-->
+
+                  <!--</div>-->
+
+              {{/autoForm}}
+
+            </div>
+        </div>
+    </div>
+</template>

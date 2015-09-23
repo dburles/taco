@@ -2,6 +2,10 @@
     margin:0px;
 }
 
+.no-padding{
+    padding:0px;
+}
+
 .small-right-margin{
     margin-right:10px;
 }
