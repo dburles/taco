@@ -76,8 +76,7 @@ Template.checklist.events({
             Activities.insert({
                 transactionId: id,
                 stepId: stepId,
-                title: 'to do later',
-                description: e.target.value,
+                text: e.target.value,
                 type: ['Comment', 'Public']
             })
 

@@ -63,11 +63,11 @@ Template.transaction.events({
 
             var stageObj = {};
             stageObj.transactionId = id;
-            stageObj.title = e.target.value;
+            stageObj.text = e.target.value;
             stageObj.type = ['Stage'];
             stageObj.order = Date.now();
 
-            if(stageObj.title.indexOf('Client') >-1)
+            if(stageObj.text.indexOf('Client') >-1)
                 stageObj.type.push('Public');
 
             var stageId;
@@ -211,10 +211,10 @@ Template.transactionSteps.events({
             var act = {};
             var stepName = e.target.value;
             if(stepName.indexOf('-') == 0) {
-                act.title = stepName.replace("- ", "").replace("-", "");
+                act.text = stepName.replace("- ", "").replace("-", "");
                 act.type = ['Step', 'Section'];
             } else {
-                act.title = stepName;
+                act.text = stepName;
                 act.type = ['Step'];
             }
 
@@ -331,6 +331,14 @@ Template.transactionDetail.helpers({
     },
     statusCompleted: function() {
         return (this.status == "Completed");
+    },
+    formattedTaskText: function(){
+        var html = this.text;
+        if(this.status == 'Not Applicable')
+            html = '<span class="strikethrough color-grey">' + html + '</span>';
+
+        return Spacebars.SafeString(html);
+
     }
 
 
@@ -351,11 +359,10 @@ Template.transactionDetail.events({
 
             var act = {};
             if(comment.indexOf('-') == 0) {
-                act.title = comment.replace("- ", "").replace("-", "");
+                act.text = comment.replace("- ", "").replace("-", "");
                 act.type = ['Task'];
             } else {
-                act.description = comment;
-                act.title = "to do later";
+                act.text = comment;
                 act.type = ['Comment'];
             }
 
@@ -389,6 +396,10 @@ Template.transactionDetail.events({
                 Meteor.call('deleteActivity', self)
             }
         });
+    },
+    'click .not-applicable-menu': function (e,t){
+        e.preventDefault();
+        Meteor.call('notApplicable', this);
     },
     'click .convert-task-menu': function (e,t){
         e.preventDefault();

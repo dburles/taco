@@ -41,7 +41,7 @@ Meteor.publish("stepsForTransactionByType", function(transactionId, type){
 
 Meteor.publish("stepsForStageName", function(transactionId, stageName){
 
-    var doc = Activities.findOne({transactionId: transactionId, title:stageName});
+    var doc = Activities.findOne({transactionId: transactionId, text:stageName});
     if(!doc){
         console.log('Cant find stage')
         return;

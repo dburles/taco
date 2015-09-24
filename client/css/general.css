@@ -259,3 +259,6 @@ h1 {
     cursor:default;
 }
 
+.strikethrough{
+    text-decoration: line-through;
+}

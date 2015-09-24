@@ -83,4 +83,8 @@ UI.registerHelper('hasType', function (typeName) {
 
 });
 
+UI.registerHelper('statusIs', function (status) {
+    return (this.status == status)
+});
+
 

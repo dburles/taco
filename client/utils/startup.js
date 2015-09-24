@@ -1,4 +1,4 @@
-Meteor.startup(function(){
-    Helpers.addScope('Session', Session);
-    Session.set("selectedContacts", []);
-})
+//Meteor.startup(function(){
+//    Helpers.addScope('Session', Session);
+//    Session.set("selectedContacts", []);
+//})
