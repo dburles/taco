@@ -336,6 +336,8 @@ Template.transactionDetail.helpers({
         var html = this.text;
         if(this.status == 'Not Applicable')
             html = '<span class="strikethrough color-grey">' + html + '</span>';
+        if(this.type.indexOf('Important') > -1)
+            html = '<span class="label label-primary">Important</span>&nbsp;' + html;
 
         return Spacebars.SafeString(html);
 
@@ -387,6 +389,10 @@ Template.transactionDetail.events({
     },
     'click .outstanding-menu': function (e,t){
         Meteor.call('uncompleteTask', this)
+    },
+    'click .important-menu': function (e,t){
+        e.preventDefault();
+        Meteor.call('importantActivity', this)
     },
     'click .delete-activity-menu': function (e,t){
         e.preventDefault();

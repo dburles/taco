@@ -39,7 +39,19 @@ Meteor.methods({
     },
 
     convertToTask: function (comment) {
-        Activities.update({_id: comment._id},{$addToSet:{type:'Task'}, $removeFromSet:{type:'Comment'}});
+        Activities.update({_id: comment._id},{
+            $addToSet:{type:'Task'},
+            $set:{status:'Outstanding'}
+        });
+        Activities.update({_id: comment._id},{$pull:{type:'Comment'}});
+
         Activities.update({_id: comment.stepId}, {$inc: {taskCount: 1}});
+    },
+
+    importantActivity: function (activity) {
+        if(activity.type.indexOf('Important') < 0)
+            Activities.update({_id: activity._id},{$addToSet:{type:'Important'}});
+        else
+            Activities.update({_id: activity._id},{$pull:{type:'Important'}});
     }
 })

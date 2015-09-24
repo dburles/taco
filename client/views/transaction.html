@@ -132,6 +132,7 @@
 
         {{#each tasks}}
         <li>
+
             {{#if statusIs 'Completed'}}
                 <div class="btn-group pull-right" style="padding-right:15px;">
 
@@ -143,8 +144,9 @@
                         <li><a class="outstanding-menu" href="">Mark as Outstanding</a></li>
                     </ul>
                 </div>
-
+                {{formattedTaskText}} <span class="color-light-grey"> - {{fromNow updatedAt}}</span>
             {{/if}}
+
             {{#if statusIs 'Outstanding'}}
                 <div class="btn-group pull-right">
 
@@ -154,13 +156,16 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
+                        <li><a class="important-menu" href="#">Important</a></li>
                         <li><a href="#">Complete</a></li>
                         <li><a class="not-applicable-menu" href="#">Not Applicable</a></li>
                         <li class="divider"></li>
                         <li><a class="delete-activity-menu" href="#">Delete Task</a></li>
                     </ul>
                 </div>
+                {{formattedTaskText}}
             {{/if}}
+
             {{#if statusIs 'Not Applicable'}}
                 <div class="btn-group pull-right" style="padding-right:15px;">
 
@@ -172,8 +177,10 @@
                         <li><a class="outstanding-menu" href="">Mark as Outstanding</a></li>
                     </ul>
                 </div>
+                {{formattedTaskText}}
             {{/if}}
-            {{formattedTaskText}}
+
+
         </li>
         {{/each }}
     </ul>
@@ -186,7 +193,7 @@
         <li>
             <img class="img-rounded small-right-margin pull-left" style="width:30px;height:30px" src="/images/matt.ireland.jpg" alt=""/>
 
-            <div class="btn-group pull-right">
+            <div class="btn-group pull-right dropup">
                 <button type="button" class="btn btn-default btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="color-grey fa fa-chevron-down"></i>
                     <!--<span class="sr-only">Toggle Dropdown</span>-->
@@ -195,11 +202,16 @@
                     <li><a class="delete-activity-menu" href="#">Delete Comment</a></li>
                     <li><a class="edit-comment-menu" href="#">Edit Comment</a></li>
                     <li><a class="convert-task-menu" href="#">Convert to Task</a></li>
+                    <li><a class="important-menu" href="#">Important</a></li>
                 </ul>
             </div>
 
+            {{#if hasType 'Important'}}
+                <span class="label label-primary">Important</span>&nbsp;
+            {{/if}}
+
             {{text}}
-            <span class="text-muted"> - {{fromNow updatedAt}}</span>
+            <span class="color-light-grey"> - {{fromNow updatedAt}}</span>
 
         </li>
         {{/each}}
