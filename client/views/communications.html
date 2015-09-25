@@ -1,0 +1,117 @@
+<template name="communications">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="ellipsis margin-top-10"><i class="fa fa-pie-chart color-blue small-right-margin"></i>Communication Templates</h1>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-4">
+
+                <div class="well margin-top-10">
+                <input id="txtTransactionSearch" type="text" placeholder="Search..." class="form-control bottom-margin">
+
+                {{#each communications}}
+                    <a class="plain" href="/communications/{{_id}}">
+                        <div class="glow-box padding-10 margin-bottom-10 border-grey">
+                            {{name}}
+                        </div>
+                    </a>
+                {{/each}}
+
+                {{#unless Template.subscriptionsReady}}
+                    {{> loader}}
+                {{/unless}}
+
+                {{> autoformModals}}
+                {{#afModal class="btn btn-primary" collection="Communications" operation="insert"}}
+                    Add Template
+                {{/afModal}}
+                </div>
+
+            </div>
+            <div class="col-sm-8">
+                {{#with template}}
+                    {{#autoForm collection="Communications" id="communicationsForm" type="update" doc=this}}
+
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-2">-->
+                                <!--<i class="fa fa-user light-text fa-2x pull-right"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-10">-->
+                                <!--{{> afQuickField name="name" label=true placeholder=""}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-2">-->
+                                <!--<i class="fa fa-user light-text fa-2x pull-right"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-10">-->
+                                <!--{{> afQuickField name="role" label=false placeholder="Role"}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-2">-->
+
+                            <!--</div>-->
+                            <!--<div class="col-xs-10">-->
+                                <!--{{> afQuickField name="type" label=false placeholder="Type"}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-2">-->
+                                <!--<i style="font-size:170%" class="fa fa-envelope light-text fa-2x pull-right"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-10">-->
+                                <!--{{> afQuickField name="subject"  label=false placeholder="Subject"}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-2">-->
+                                <!--<i class="fa fa-phone light-text fa-2x pull-right"></i>-->
+                            <!--</div>-->
+                            <!--<div class="col-xs-10">-->
+                                <!--<div class="input-group margin-bottom-15">-->
+                                    <!--<div class="input-group-addon">M</div>-->
+                                    <!--{{> afFieldInput name="body" label=false placeholder="Body"}}-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+
+
+                                {{> afQuickField name="name" label=true placeholder=""}}
+
+
+                                {{> afQuickField name="role" label=true placeholder="Role"}}
+
+
+                                {{> afQuickField name="type" label=true placeholder="Type"}}
+
+                                {{> afQuickField name="subject"  label=true placeholder="Subject"}}
+
+                                {{> afQuickField name="body" label=true placeholder="Body"}}
+
+
+                        <div class="button-row" style="margin-top: -0px">
+                            <button id="saveProfile" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                            <button id="cancelProfile" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                        </div>
+
+
+                    {{/autoForm}}
+
+                {{/with}}
+
+            </div>
+        </div>
+
+</template>
+
+
