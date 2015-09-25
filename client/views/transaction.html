@@ -78,6 +78,9 @@
                     {{#if completed}}
                         <i  class="fa fa-2x green fa-check-circle pull-right above-top"></i>
                     {{/if}}
+                    {{#if hasType 'Important'}}
+                        <span class="label label-primary">Important</span>&nbsp;
+                    {{/if}}
                     {{text}}
 
                     <br/>
@@ -98,7 +101,6 @@
 
 <template name="transactionDetail">
     {{#with step}}
-        {{logThis}}
         {{#if hasType 'Public'}}
             <span class="label label-default">Public</span>
         {{/if}}
@@ -110,7 +112,23 @@
                 {{> stepChart}}
             {{/if}}
         </div>
-        <h2 style="margin-top: 0">{{text}}</h2>
+        <!--<h2 style="margin-top: 0">{{text}}</h2>-->
+
+
+        <div class="dropdown hover-box drop-heading">
+            <div href="#" class="dropdown-toggle" id="titleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <h2 class="ellipsis margin-right-5" style="display: inline">{{text}}</h2>
+                <i class="fa fa-2x fa-caret-down light-text inline-block"></i>
+            </div>
+
+            <ul class="dropdown-menu pull-right" aria-labelledby="titleDropdown">
+                <li><a class="important-menu" href="#">Important</a></li>
+            </ul>
+        </div>
+
+
+
+
 
 
         <table class="inline-block">
@@ -157,7 +175,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a class="important-menu" href="#">Important</a></li>
-                        <li><a href="#">Complete</a></li>
+                        <li><a class="promote-step-menu" href="#">Promote to Step</a></li>
                         <li><a class="not-applicable-menu" href="#">Not Applicable</a></li>
                         <li class="divider"></li>
                         <li><a class="delete-activity-menu" href="#">Delete Task</a></li>

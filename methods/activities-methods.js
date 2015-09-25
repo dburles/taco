@@ -48,6 +48,21 @@ Meteor.methods({
         Activities.update({_id: comment.stepId}, {$inc: {taskCount: 1}});
     },
 
+    promoteToStep: function (task) {
+        var parent = Activities.findOne(task.stepId);
+
+        Activities.update({_id: task._id},{
+            $addToSet:{type:'Step'},
+            $set:{
+                stepId:null,
+                order:parent.order + 100
+            }
+        });
+        Activities.update({_id: task._id},{$pull:{type:'Task'}});
+
+        Activities.update({_id: task.stepId}, {$inc: {taskCount: -1}});
+    },
+
     importantActivity: function (activity) {
         if(activity.type.indexOf('Important') < 0)
             Activities.update({_id: activity._id},{$addToSet:{type:'Important'}});

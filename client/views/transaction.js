@@ -373,7 +373,7 @@ Template.transactionDetail.events({
             act.stepId = FlowRouter.getQueryParam("step");
 
             var stepObj = Activities.findOne(act.stepId);
-            if(stepObj.type.indexOf('Public' > -1))
+            if(stepObj.type.indexOf('Public') > -1)
                 act.type.push('Public');
 
             activityId = Activities.insert(act);
@@ -409,7 +409,12 @@ Template.transactionDetail.events({
     },
     'click .convert-task-menu': function (e,t){
         e.preventDefault();
-        Meteor.call('convertToTask', this)
+        Meteor.call('convertToTask', this);
+    },
+    'click .promote-step-menu': function (e,t){
+        e.preventDefault();
+        Meteor.call('promoteToStep', this)
+        FlowRouter.setQueryParams({step: this._id});
     }
 
 
