@@ -451,6 +451,8 @@ Template.stepChart.onRendered(function () {
     Tracker.autorun(function(){
 
         var stepId = FlowRouter.getQueryParam('step');
+        if(!stepId) return;
+
         var step = Activities.findOne(stepId);
 
         if(step.status && steps.status == 'Completed') return;
