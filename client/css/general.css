@@ -262,3 +262,37 @@ h1 {
 .strikethrough{
     text-decoration: line-through;
 }
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 15px;
+}
+
+.btn-round {
+    background-color: #d23f31;
+    border-radius: 999em;
+    width: 34px;
+    height: 34px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    line-height: 1;
+    font-size: 30px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-round span {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -19px;
+    color: #FFF;
+}
