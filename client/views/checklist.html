@@ -27,12 +27,12 @@
                         {{#each steps}}
                             {{#if isSection}}
                                 <li style="padding:5px 15px" class="list-group-item background-grey color-white">
-                                    {{title}}
+                                    {{text}}
                                 </li>
                             {{else}}
                                 <li style="padding:15px" class="list-group-item client-document hover-box">
                                     <i class="pull-right fa fa-chevron-right color-grey margin-top-5"></i>
-                                    {{title}}
+                                    {{text}}
                                 </li>
                             {{/if}}
                         {{/each}}
@@ -51,14 +51,14 @@
 <template name="activityDetail">
 
     {{#with document}}
-        <h2><a id="back-to-list" href=""><i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>{{title}}</h2>
+        <h2><a id="back-to-list" href=""><i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>{{text}}</h2>
 
 
     {{#each tasks}}
         <div class="padding-5 hover-box border-white">
             <div class="checkbox no-margin" >
                 <label>
-                    <input class="task-checkbox" type="checkbox" {{checkedIfComplete}}> {{title}}
+                    <input class="task-checkbox" type="checkbox" {{checkedIfComplete}}> {{text}}
                 </label>
             </div>
         </div>

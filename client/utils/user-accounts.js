@@ -12,7 +12,7 @@ AccountsTemplates.configure({
     // Behavior
     confirmPassword: true,
     enablePasswordChange: true,
-    forbidClientAccountCreation: false,
+    forbidClientAccountCreation: true,  //disable for now...
     overrideLoginErrors: true,
     sendVerificationEmail: false,
     lowercaseUsername: false,

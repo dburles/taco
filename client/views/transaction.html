@@ -106,21 +106,22 @@
         {{/if}}
 
         <div class="row">
-            <div class="col-xs-11">
-                <div class="dropdown hover-box drop-heading" style="width: 100%">
-                    <div href="#" class="dropdown-toggle" id="titleDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <h2 class="ellipsis margin-right-5" style="width:100%">{{text}}
-                            <i class="fa fa-caret-down light-text inline-block"></i>
-                        </h2>
+            <div class="col-xs-10">
+                <!--<div id="step-heading" class="xdropdown hover-box drop-heading" style="width: 100%">-->
+                    <!--<div href="#" class="xdropdown-toggle" id="titleDropdown" data-toggle="xdropdown" aria-haspopup="true" aria-expanded="true">-->
+                        <!--<h2 class="ellipsis margin-right-5" style="width:100%" title="{{text}}">{{text}}-->
+                            <!--<i class="fa fa-caret-down light-text inline-block"></i>-->
+                        <!--</h2>-->
 
-                    </div>
+                    <!--</div>-->
 
-                    <ul class="dropdown-menu pull-right" aria-labelledby="titleDropdown">
-                        <li><a class="important-menu" href="#">Important</a></li>
-                    </ul>
-                </div>
+                    <!--<ul class="dropdown-menu pull-right" aria-labelledby="titleDropdown">-->
+                        <!--<li><a class="important-menu" href="#">Important</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+                <h2 class="drop-heading" id="step-heading">{{text}}</h2>
             </div>
-            <div class="col-xs-1">
+            <div class="col-xs-2">
                 <div class="inline-block pull-right">
                     {{#if equals this.status 'Completed'}}
                         <i class="fa fa-4x fa-check-circle color-green" style="margin-right: 17px"></i>

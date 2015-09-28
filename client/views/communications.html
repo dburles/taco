@@ -13,16 +13,12 @@
 
             <div class="well margin-top-10">
 
-                <input id="communication-search-text" type="text" placeholder="Search..." value="{{queryParam 'search'}}"
+                <input data-bind="change: typeSearch, value: searchText, delay: 300" id="communication-search-text" type="text" placeholder="Search..."
                        class="form-control margin-bottom-10">
-                <button id="add-template-button" class="btn btn-primary margin-bottom-10">Add Template</button>
+                <button data-bind="click add" id="add-template-button" class="btn btn-primary margin-bottom-10">Add Template</button>
 
                 {{#each communications}}
-                    <a class="plain" href="/communications/{{_id}}?search={{queryParam 'search'}}">
-                        <div class="hover-box selectable-box {{isSelected}} padding-10 margin-bottom-10 border-grey">
-                            {{name}}
-                        </div>
-                    </a>
+                        {{> communicationItem this}}
                 {{/each}}
 
                 {{#unless Template.subscriptionsReady}}
@@ -33,33 +29,7 @@
         </div>
         <div class="col-sm-8">
             {{#with template}}
-                {{#autoForm collection="Communications" id="communicationsForm" autosave=true type="update" doc=this}}
-
-
-                    {{> afQuickField name="name" label=true placeholder=""}}
-
-                    <div class="row">
-                        <div class="col-sm-6">{{> afQuickField name="role" label=true placeholder="Role"}}</div>
-                        <div class="col-sm-6">{{> afQuickField name="type" label=true placeholder="Type"}}</div>
-                    </div>
-
-                    {{> afQuickField name="subject"  label=true placeholder="Subject"}}
-                    {{> afQuickField name="body" label=false placeholder="Body" class="redactor"}}
-
-                {{/autoForm}}
-
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Template Options <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a id='delete-template-menu' href="#">Delete Template</a></li>
-                        <li><a id='clone-template-menu' href="#">Clone Template</a></li>
-                    </ul>
-                </div>
-
-                <div class="color-grey margin-top-10">Changes are saved automatically</div>
-
+                {{> communicationView this}}
             {{/with}}
 
         </div>
@@ -71,3 +41,39 @@
     {{> afQuickField name="body" label=false placeholder="Body" class="redactor"}}
 </template>
 
+<template name="communicationItem">
+    <a data-bind="attr: { href: viewPath }" class="plain" >
+        <div data-bind="text: name, class: {selected-box: isSelected}" class="hover-box selectable-box padding-10 margin-bottom-10 border-grey">
+        </div>
+    </a>
+</template>
+
+<template name="communicationView">
+    {{#autoForm collection="Communications" id="communicationsForm" autosave=true type="update" doc=this}}
+
+
+        {{> afQuickField name="name" label=true placeholder=""}}
+
+        <div class="row">
+            <div class="col-sm-6">{{> afQuickField name="role" label=true placeholder="Role"}}</div>
+            <div class="col-sm-6">{{> afQuickField name="type" label=true placeholder="Type"}}</div>
+        </div>
+
+        {{> afQuickField name="subject"  label=true placeholder="Subject"}}
+        {{> afQuickField name="body" label=false placeholder="Body" class="redactor"}}
+
+    {{/autoForm}}
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Template Options <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a data-bind="click: delete" id='delete-template-menu' href="#">Delete Template</a></li>
+            <li><a data-bind="click: clone" id='clone-template-menu' href="#">Clone Template</a></li>
+        </ul>
+    </div>
+
+    <div class="color-grey margin-top-10">Changes are saved automatically</div>
+
+</template>

@@ -29,5 +29,12 @@ AutoForm.hooks({
         onSuccess: function () {
             history.back();
         }
+    },
+
+    stepForm: {
+        onSuccess: function () {
+            Modal.hide("stepModal");
+            toastr.success("Step Saved");
+        }
     }
 });

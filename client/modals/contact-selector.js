@@ -5,6 +5,7 @@ Template.contactSelector.helpers({
     role: function() {
         return this.role;
     }
+
 });
 
 Template.contactSelector.events({

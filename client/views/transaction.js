@@ -44,9 +44,7 @@ Template.transaction.helpers({
 });
 
 Template.transaction.events({
-    'click button': function () {
-        //do something
-    },
+
     'click #add-stage-link': function (e,t) {
         e.preventDefault();
         FlowRouter.setQueryParams({action:'add-stage'});
@@ -415,6 +413,12 @@ Template.transactionDetail.events({
         e.preventDefault();
         Meteor.call('promoteToStep', this)
         FlowRouter.setQueryParams({step: this._id});
+    },
+    'click #step-heading': function () {
+        Modal.show('stepModal', this);
+    },
+    'click #cancel-step': function () {
+        Modal.hide('stepModal');
     }
 
 
