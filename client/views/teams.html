@@ -1,0 +1,67 @@
+<template name="teams">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="ellipsis margin-top-10"><i class="fa fa-pie-chart color-blue small-right-margin"></i>Teams</h1>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+
+            <div class="well margin-top-10">
+
+                <input data-bind="change: typeSearch, value: searchText, delay: 300" id="team-search-text" type="text" placeholder="Search..."
+                       class="form-control margin-bottom-10">
+                <button data-bind="click: add" id="add-template-button" class="btn btn-primary margin-bottom-10">Add Team</button>
+
+                {{#each teams}}
+                        {{> teamItem this}}
+                {{/each}}
+
+                {{#unless Template.subscriptionsReady}}
+                    {{> loader}}
+                {{/unless}}
+            </div>
+
+        </div>
+        <div class="col-sm-8">
+            {{#with team}}
+                {{> teamView this}}
+            {{/with}}
+
+        </div>
+    </div>
+
+</template>
+
+<template name="teamItem">
+    <a data-bind="attr: { href: viewPath }" class="plain" >
+        <div data-bind="text: name, class: {selected-box: isSelected}" class="hover-box selectable-box padding-10 margin-bottom-10 border-grey">
+        </div>
+    </a>
+</template>
+
+<template name="teamView">
+    {{#autoForm collection="Teams" id="teamsForm" autosave=true type="update" doc=this}}
+
+
+        {{> afQuickField name="name" label=true placeholder=""}}
+
+
+    {{/autoForm}}
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Team Options <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a data-bind="click: delete" id='delete-template-menu' href="#">Delete Team</a></li>
+            <li><a data-bind="click: clone" id='clone-template-menu' href="#">Clone Team</a></li>
+        </ul>
+    </div>
+
+    <div class="color-grey margin-top-10">Changes are saved automatically</div>
+
+</template>

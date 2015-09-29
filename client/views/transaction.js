@@ -504,18 +504,13 @@ Template.stepChart.onRendered(function () {
 Template.scheduler.helpers({
 
     upcomingDays: function (when){
-        var today = new Date();
         var days = ['S', 'M', 'T', 'W', 'T', 'F', '-']
-        var dt = new Date(today);
         var arr = [];
         for(var i = 0; i < 7; i++){
-            dt.setDate(today.getDate()+i);
-            var dt1 = new Date(dt.getTime());
-
-            var dayOfWeek = dt.getDay();
-            if(dayOfWeek > 0){
-                var initial = days[dt.getDay()];
-                arr.push({date: dt1, initial: initial});
+            var dt = moment().add(i, 'days');
+            if(dt.weekday() > 0){
+                var initial = days[dt.weekday()];
+                arr.push({date: dt.toDate(), initial: initial});
             }
         }
         return arr

@@ -18,5 +18,5 @@ Meteor.methods({
         doc._id = null;
 
         return Communications.insert(doc);
-    },
+    }
 })
