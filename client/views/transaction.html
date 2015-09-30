@@ -70,7 +70,7 @@
 
         {{#each steps}}
             {{#if isSection}}
-                <li class="color-white background-grey" style="padding-top:4px;padding-bottom:4px; border-top: solid 5px white">
+                <li class="color-white background-grey" style="padding-top:4px;padding-bottom:4px;">
                     {{text}}
                 </li>
             {{else}}
@@ -80,6 +80,9 @@
                     {{/if}}
                     {{#if hasType 'Important'}}
                         <span class="label label-primary">Important</span>&nbsp;
+                    {{/if}}
+                    {{#if hasType 'Public'}}
+                        <span class="label label-default">Public</span>&nbsp;
                     {{/if}}
                     {{text}}
 
@@ -119,15 +122,23 @@
                         <!--<li><a class="important-menu" href="#">Important</a></li>-->
                     <!--</ul>-->
                 <!--</div>-->
-                <h2 class="drop-heading ellipsis width-full" id="step-heading">{{text}}</h2>
+                <h2 class="drop-heading ellipsis max-width-full" id="step-heading">{{text}}</h2>
             </div>
             <div class="col-xs-2">
                 <div class="inline-block pull-right">
-                    {{#if equals this.status 'Completed'}}
-                        <i class="fa fa-4x fa-check-circle color-green" style="margin-right: 17px"></i>
-                    {{else}}
-                        {{> stepChart}}
-                    {{/if}}
+
+                    <button id="complete-step-button" style="margin-right: 17px" type="button" class="btn btn-transparent dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{#if equals visual 'chart'}}
+                            {{> stepChart}}
+                        {{else}}
+                            {{#if equals visual 'cross'}}
+                                <i class="fa fa-4x fa-times-circle color-grey"></i>
+                            {{else}}
+                                <i class="fa fa-4x fa-check-circle color-{{visual}}"></i>
+                            {{/if}}
+                        {{/if}}
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -343,13 +354,25 @@
 </template>
 
 <template name="stepChart">
-    <canvas id="myChart" width="90" height="60"></canvas>
+    <canvas id="myChart" width="60" height="60"></canvas>
 </template>
 
 <template name="stageSummary">
     <h2 class="ellipsis">{{title}}</h2>
     <p>{{description}}</p>
+
+    {{#with activeStage}}
+        {{#if hasType 'Public'}}
+                Steps in this stage will be <label class="sharing-label label label-default">Public</label> by default
+        {{else}}
+                Steps in this stage will be <label class="sharing-label label label-default">Private</label> by default
+        {{/if}}
+
+    {{/with}}
+
 </template>
+
+
 
 <template name="transactionSummary">
     <div class="well">Transaction Overview Here...</div>

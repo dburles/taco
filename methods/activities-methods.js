@@ -26,6 +26,15 @@ Meteor.methods({
             Activities.update({_id: step._id}, {$set: {status: 'Completed'}});
     },
 
+    toggleStepStatus: function (step) {
+        if(step.status == 'Completed')
+            Activities.update({_id: step._id},{$set:{status:'Not Applicable'}});
+        if(step.status == 'Not Applicable')
+            Activities.update({_id: step._id},{$set:{status:'Outstanding'}});
+        if(step.status == 'Outstanding')
+            Activities.update({_id: step._id},{$set:{status:'Completed'}});
+    },
+
     deleteActivity: function (activity) {
         var activity = Activities.findOne(activity);
 
@@ -68,5 +77,16 @@ Meteor.methods({
             Activities.update({_id: activity._id},{$addToSet:{type:'Important'}});
         else
             Activities.update({_id: activity._id},{$pull:{type:'Important'}});
+    },
+
+    shareActivity: function (activity) {
+        if(activity.type == null)
+            Activities.update({_id: activity._id},{$set:{type:[]}});
+
+        if(activity.type.indexOf('Public') < 0)
+            Activities.update({_id: activity._id},{$addToSet:{type:'Public'}});
+        else
+            Activities.update({_id: activity._id},{$pull:{type:'Public'}});
     }
+
 })

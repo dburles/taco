@@ -79,7 +79,10 @@ UI.registerHelper('equals', function (a, b) {
 });
 
 UI.registerHelper('hasType', function (typeName) {
-    return (this.type.indexOf(typeName) > -1)
+    if(this.type)
+        return (this.type.indexOf(typeName) > -1)
+    else
+        return false;
 
 });
 

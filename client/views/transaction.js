@@ -318,6 +318,7 @@ Template.transactionDetail.helpers({
         var csr = Activities.find({stepId:stepId, type:'Comment'},{sort:{createdAt:-1}});
         return csr;
     },
+
     tasks: function() {
         var stepId = FlowRouter.getQueryParam("step");
 
@@ -339,6 +340,15 @@ Template.transactionDetail.helpers({
 
         return Spacebars.SafeString(html);
 
+    },
+    visual: function() {
+        if (this.status == "Completed")
+            return "green";
+        if(this.status == "Not Applicable")
+            return "cross";
+        if(this.taskCount > 0 && this.taskCompletedCount < this.taskCount && this.taskCompletedCount > 0)
+            return "chart";
+        return 'grey';
     }
 
 
@@ -414,6 +424,10 @@ Template.transactionDetail.events({
         Meteor.call('promoteToStep', this)
         FlowRouter.setQueryParams({step: this._id});
     },
+    'click #complete-step-button': function (e,t){
+        e.preventDefault();
+        Meteor.call('toggleStepStatus', this)
+    },
     'click #step-heading': function () {
         Modal.show('stepModal', this);
     },
@@ -479,14 +493,16 @@ Template.stepChart.onRendered(function () {
         var el = document.getElementById("myChart")
         if(el) {
             var ctx = el.getContext("2d");
-            ctx.canvas.width = 90;
-            ctx.canvas.height = 60;
+            ctx.canvas.width = 50;
+            ctx.canvas.height = 50;
             //debugger;
             var myPieChart = new Chart(ctx).Pie(data, {
                 animateRotate: false,
                 animateScale: false,
                 responsive: false,
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                showTooltip: false,
+                tooltipTemplate: ""
             });
         }
 
@@ -610,3 +626,31 @@ Template.transactionMembers.events({
 
     }
 })
+
+
+Template.stageSummary.helpers({
+    activeStage: function() {
+        var stageId = FlowRouter.getQueryParam("stage");
+        var stage = Activities.findOne(stageId);
+        return stage;
+    }
+});
+
+Template.stageSummary.events({
+    'click .sharing-label': function (e, t) {
+        event.preventDefault();
+        Meteor.call('shareActivity', this);
+    }
+});
+
+Template.stageSummary.onCreated(function () {
+    //var self = this;
+    //self.autorun(function () {
+    //    var groupName = FlowRouter.getQueryParam("group");
+    //    self.subscribe('contactsSelected', selectedContacts);
+    //});
+});
+
+Template.stageSummary.onRendered(function () {
+    //do something...
+});

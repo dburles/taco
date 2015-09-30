@@ -304,3 +304,7 @@ h1 {
 .width-full{
     width:100%;
 }
+
+.max-width-full{
+    max-width:100%;
+}

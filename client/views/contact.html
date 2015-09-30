@@ -69,7 +69,15 @@
             <!--<div class="panel-heading">{{contactName}}</div>-->
             <a class="pull-right btn btn-default margin-right-10 margin-top-10" href="/checklist/{{transactionId}}">Checklist</a>
             <div class="panel-body">
-                {{transactionName}}
+
+
+                {{#if equals role 'Client'}}
+                    {{transactionName}}
+                {{else}}
+                    <span class='label background-orange'>{{role}}</span> for {{transactionClient}}<br/>
+                    {{transactionName}}
+                {{/if}}
+
             </div>
         </div>
         </a>
