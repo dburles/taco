@@ -31,7 +31,7 @@ Meteor.methods({
             Activities.update({_id: step._id},{$set:{status:'Not Applicable'}});
         if(step.status == 'Not Applicable')
             Activities.update({_id: step._id},{$set:{status:'Outstanding'}});
-        if(step.status == 'Outstanding')
+        if(!step.status || step.status == 'Outstanding')
             Activities.update({_id: step._id},{$set:{status:'Completed'}});
     },
 

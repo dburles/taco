@@ -1,22 +1,5 @@
 
 
-//function compareDates(d1, d2){
-//    //debugger;
-//
-//    if(!d1 || !d2) {
-//        console.log('Compare dates failed');
-//        return false;
-//    }
-//
-//    var same = (d1.getYear() == d2.getYear() &&
-//    d1.getMonth() == d2.getMonth() &&
-//    d1.getDate() == d2.getDate());
-//
-//    //console.log('Comparing ' + d1 + ' with ' + d2 + '. Same is ' + same);
-//
-//    return same;
-//}
-
 Template.transaction.helpers({
     transaction: function () {
         var id = FlowRouter.getParam("id");

@@ -89,23 +89,83 @@ if(Contacts.find().count() == 0){
         text: 'Most recent group certificate'
     })
 
-
-
-
-
-
-
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        type:['Step','Section'],
+        text: 'Contribution'
+    })
 
     Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        type:['Step'],
+        text: 'Last 3 months bank statements'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        type:['Step'],
+        text: 'Gifted Funds'
+    })
+
+    //stage 2...
+
+    var stageId = Activities.insert({
         transactionId:transactionId,
         type:['Stage'],
         text: 'Pre Submission'
     })
 
+    //steps...
+
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        type:['Step'],
+        text: 'Step One'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        type:['Step'],
+        text: 'Step Two'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        type:['Step','Section'],
+        text: 'Step Three'
+    })
+
+    //other stages
+
+
     Activities.insert({
         transactionId:transactionId,
         type:['Stage'],
         text: 'Submitted'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        type:['Stage'],
+        text: 'Conditional'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        type:['Stage'],
+        text: 'Approved'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        type:['Stage'],
+        text: 'Settled'
     })
 
     //second transaction...

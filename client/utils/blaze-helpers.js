@@ -91,3 +91,26 @@ UI.registerHelper('statusIs', function (status) {
 });
 
 
+
+//
+//UI.registerHelper('activityIcon', function (activity) {
+//    if(activity.status == 'Outstanding')
+//        return Spacebars.SafeString("<span>" + activity.text + "</span>")
+//    if(activity.status == 'Not Applicable')
+//        return Spacebars.SafeString('<span class="color-grey strikethrough">' + activity.text + '</span>')
+//    if(activity.status == 'Completed')
+//        return Spacebars.SafeString('<span class="color-grey">' + activity.text + '</span>')
+//});
+
+UI.registerHelper('activityText', function (activity) {
+
+    if(activity.status == 'Completed')
+        return Spacebars.SafeString('<span class="color-grey">' + activity.text + '</span>')
+    if(activity.status == 'Not Applicable')
+        return Spacebars.SafeString('<span class="color-grey strikethrough">' + activity.text + '</span>')
+
+
+    return Spacebars.SafeString("<span>" + activity.text + "</span>")
+});
+
+

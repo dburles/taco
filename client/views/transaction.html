@@ -75,8 +75,8 @@
                 </li>
             {{else}}
                 <li class="step-item tile hover-box {{isStepActive}}">
-                    {{#if completed}}
-                        <i  class="fa fa-2x green fa-check-circle pull-right above-top"></i>
+                    {{#if statusIs 'Completed'}}
+                        <i  class="fa fa-2x color-green fa-check-circle pull-right above-top"></i>
                     {{/if}}
                     {{#if hasType 'Important'}}
                         <span class="label label-primary">Important</span>&nbsp;
@@ -84,10 +84,11 @@
                     {{#if hasType 'Public'}}
                         <span class="label label-default">Public</span>&nbsp;
                     {{/if}}
-                    {{text}}
-
-                    <br/>
-                    {{bars}}
+                    {{activityText this}}
+                    {{#if statusIs 'Outstanding'}}
+                        <br/>
+                        {{bars}}
+                    {{/if}}
                 </li>
             {{/if}}
         {{/each}}
@@ -122,7 +123,7 @@
                         <!--<li><a class="important-menu" href="#">Important</a></li>-->
                     <!--</ul>-->
                 <!--</div>-->
-                <h2 class="drop-heading ellipsis max-width-full" id="step-heading">{{text}}</h2>
+                <h2 class="drop-heading ellipsis max-width-full" id="step-heading">{{activityText this}}</h2>
             </div>
             <div class="col-xs-2">
                 <div class="inline-block pull-right">
