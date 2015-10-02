@@ -31,6 +31,11 @@
                                 </li>
                             {{else}}
                                 <li style="padding:15px" class="list-group-item client-document hover-box">
+                                    {{#if statusIs 'Completed'}}
+                                        <i class="pull-left fa fa-2x fa-check-circle color-green above-top"></i>
+                                    {{else}}
+                                        <i class="pull-left fa fa-2x fa-file color-light-grey above-top"></i>
+                                    {{/if}}
                                     <i class="pull-right fa fa-chevron-right color-grey margin-top-5"></i>
                                     {{text}}
                                 </li>

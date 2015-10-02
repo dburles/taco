@@ -140,21 +140,10 @@ Template.transactionSteps.helpers({
         return (this.type.indexOf('Section') > -1);
     },
     bars: function(){
-        //var html = '<table style="width:100%;border-spacing: 7px;border-collapse:separate; margin-left: -7px;"><tr>'
-        //var html = '<table style="width:100%"><tr>'
-        //for(var col = 1; col <= this.taskCount; col ++){
-        //    var colHtml = '<td class="background-' + DateHelpers.colourForDate(this.due) + '" style="height:5px;"></td>';
-        //
-        //    if(col > this.taskCompletedCount)
-        //        colHtml = colHtml.replace('background', 'background-light');
-        //
-        //    html += colHtml;
-        //}
-        //
-        //if(!this.taskCount)
-        //    html += '<td class="background-light-' + DateHelpers.colourForDate(this.due) + '" style="height:5px;"></td>';
-        //
-        //html += '</tr></table>';
+
+        if(!this.due)
+            return "";
+
 
         var html = '<div>';
         //debugger;
@@ -331,7 +320,7 @@ Template.transactionDetail.helpers({
             return "cross";
         if(this.taskCount > 0 && this.taskCompletedCount < this.taskCount && this.taskCompletedCount > 0)
             return "chart";
-        return 'grey';
+        return 'light-grey';
     }
 
 

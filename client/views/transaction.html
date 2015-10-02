@@ -111,18 +111,6 @@
 
         <div class="row">
             <div class="col-xs-10">
-                <!--<div id="step-heading" class="xdropdown hover-box drop-heading" style="width: 100%">-->
-                    <!--<div href="#" class="xdropdown-toggle" id="titleDropdown" data-toggle="xdropdown" aria-haspopup="true" aria-expanded="true">-->
-                        <!--<h2 class="ellipsis margin-right-5" style="width:100%" title="{{text}}">{{text}}-->
-                            <!--<i class="fa fa-caret-down light-text inline-block"></i>-->
-                        <!--</h2>-->
-
-                    <!--</div>-->
-
-                    <!--<ul class="dropdown-menu pull-right" aria-labelledby="titleDropdown">-->
-                        <!--<li><a class="important-menu" href="#">Important</a></li>-->
-                    <!--</ul>-->
-                <!--</div>-->
                 <h2 class="drop-heading ellipsis max-width-full" id="step-heading">{{activityText this}}</h2>
             </div>
             <div class="col-xs-2">
@@ -133,7 +121,7 @@
                             {{> stepChart}}
                         {{else}}
                             {{#if equals visual 'cross'}}
-                                <i class="fa fa-4x fa-times-circle color-grey"></i>
+                                <i class="fa fa-4x fa-times-circle color-light-grey"></i>
                             {{else}}
                                 <i class="fa fa-4x fa-check-circle color-{{visual}}"></i>
                             {{/if}}

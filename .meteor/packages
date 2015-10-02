@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 insecure
 dburles:collection-helpers
 aldeed:collection2
@@ -17,7 +16,6 @@ msavin:mongol
 anti:fake
 yogiben:autoform-modals
 peppelg:bootstrap-3-modal
-msavin:jetsetter
 raix:handlebar-helpers
 aldeed:autoform
 chrismbeckett:toastr
@@ -41,3 +39,17 @@ rajit:bootstrap3-datepicker
 sach:flow-db-admin
 chart:chart
 jamiter:pluralize
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check

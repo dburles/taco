@@ -25,12 +25,7 @@ if(Contacts.find().count() == 0){
         })
     }
 
-    var contactId = Contacts.insert({
-        firstName: "John",
-        lastName: "Citizen",
-        email: "john@gmail.com",
-        updatedAt: new Date()
-    })
+
 
     //add 2 transactions...
 
@@ -40,11 +35,49 @@ if(Contacts.find().count() == 0){
         client: 'John Citizen'
     })
 
+    var contactId = Contacts.insert({
+        firstName: "Sally",
+        lastName: "Solicitor",
+        email: "sally.solicitor@gmail.com",
+        groups: ['Solicitors'],
+        updatedAt: new Date()
+    })
+
+    Members.insert({
+        role:'Solicitor',
+        contactId:contactId,
+        transactionId:transactionId
+    })
+
+    var contactId = Contacts.insert({
+        firstName: "Ronald",
+        lastName: "Realtorman",
+        email: "ronald.realtorman@gmail.com",
+        groups: ['Agents'],
+        updatedAt: new Date()
+    })
+
+    Members.insert({
+        role:'Agent',
+        contactId:contactId,
+        transactionId:transactionId
+    })
+
+    var contactId = Contacts.insert({
+        firstName: "John",
+        lastName: "Citizen",
+        email: "john@gmail.com",
+        groups: ['Clients'],
+        updatedAt: new Date()
+    })
+
     Members.insert({
         role:'Client',
         contactId:contactId,
         transactionId:transactionId
     })
+
+    //first stage...
 
     var stageId = Activities.insert({
         transactionId:transactionId,
@@ -137,7 +170,7 @@ if(Contacts.find().count() == 0){
     Activities.insert({
         transactionId:transactionId,
         stageId: stageId,
-        type:['Step','Section'],
+        type:['Step'],
         text: 'Step Three'
     })
 
