@@ -27,7 +27,14 @@ Template.transaction.helpers({
 });
 
 Template.transaction.events({
+    'click #transaction-heading': function () {
+        var transactionContext = {
+            //clientNames: ctx.fullName(),  //dont need this i think?
+            transaction: this
+        }
 
+        Modal.show('transactionModal', transactionContext);
+    },
     'click #add-stage-link': function (e,t) {
         e.preventDefault();
         FlowRouter.setQueryParams({action:'add-stage'});
@@ -327,6 +334,7 @@ Template.transactionDetail.helpers({
 });
 
 Template.transactionDetail.events({
+
     'keypress #comment-text': function (e, t) {
 
         if (e.which === 13) {

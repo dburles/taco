@@ -36,5 +36,12 @@ AutoForm.hooks({
             Modal.hide("stepModal");
             toastr.success("Step Saved");
         }
+    },
+
+    templateForm: {
+        onSuccess: function () {
+            Modal.hide("templateModal");
+            toastr.success("Template Saved");
+        }
     }
 });

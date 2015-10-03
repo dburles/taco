@@ -1,8 +1,8 @@
-<template name="stepModal">
+<template name="templateModal">
     <div class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                {{#autoForm collection="Activities" id="stepForm" type='update' doc=this}}
+                {{#autoForm collection="Activities" id="templateForm" type='update' doc=this}}
                     <div class="modal-body">
 
                         <div class="row">
@@ -10,7 +10,7 @@
 
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs bottom-margin" role="tablist">
-                                    <li role="presentation" class="active"><a href="#step" aria-controls="step" role="tab" data-toggle="tab">Step Details</a></li>
+                                    <li role="presentation" class="active"><a href="#filtering" aria-controls="step" role="tab" data-toggle="tab">Filtering</a></li>
                                     <li role="presentation"><a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">Advanced</a></li>
                                 </ul>
 
@@ -19,17 +19,14 @@
 
                                     <!--Main Tab-->
 
-                                    <div role="tabpanel" class="tab-pane active" id="step">
-                                        {{> afQuickField name="text" placeholder="Text" label=false autofocus="autofocus"}}
-
+                                    <div role="tabpanel" class="tab-pane active" id="filtering">
+                                        {{> afQuickField name="text" placeholder="Text" label=false readonly=true}}
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                {{> afQuickField name="type" type="select-checkbox" options=stepTypeOptions}}
+                                                {{> afQuickField name="importProfile"}}
                                             </div>
                                             <div class="col-sm-6">
-                                                <button type="button" id="template-button" class="btn btn-default">
-                                                    Template
-                                                </button>
+                                                {{> afQuickField name="excludeProfile"}}
                                             </div>
                                         </div>
                                     </div>
@@ -48,8 +45,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="save-step" type="submit" class="btn btn-primary btn-fixed">Save</button>
-                        <button id="cancel-step" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                        <button id="save-template" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                        <button id="cancel-template" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
                     </div>
 
                 {{/autoForm}}

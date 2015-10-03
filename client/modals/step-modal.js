@@ -11,6 +11,14 @@ Template.stepModal.helpers({
 Template.stepModal.events({
     'click #cancel-step': function (e, t) {
         Modal.hide('stepModal');
+    },
+    'click #template-button': function (e, t) {
+        var self = this;
+        Modal.hide('stepModal');
+        setTimeout(function(){
+            Modal.show('templateModal', self);
+        }, 500);
+
     }
 });
 
