@@ -11,7 +11,16 @@ Template.home.helpers({
         return Contacts.find({}, {limit: 10, sort: {updatedAt: -1}});
     },
     allGroups: function () {
-        return [{name: "Agents"},{name: "Solicitors"},{name: "Clients"},{name: "Accountants"},{name: "Builders"}]
+        return ApplicationHelpers.Groups().map(function(value){
+            return {name: value};
+        })
+    },
+    groupRole: function () {
+        var groupName = FlowRouter.getQueryParam('group');
+        if(groupName)
+            return pluralize(groupName, 1)
+        else
+            return 'Contact';
     },
     selectedBox: function() {
         //var thisId = this._id;
@@ -82,12 +91,15 @@ Template.home.events({
     },
     'click #addContactButton': function (e, t) {
         e.preventDefault();
-        //Session.set("action", "newContact");
-        //Session.set("editingContact");
-        //Modal.show('contactModal');
+
+        var contact = {};
+        var group = FlowRouter.getQueryParam('group');
+        if(group)
+            contact.groups = [group];
+
         var contactModalData = {
             formType: "insert",
-            contact: null
+            contact: contact
         }
 
         Modal.show('contactModal', contactModalData);
@@ -122,9 +134,9 @@ Template.home.events({
             email:this.email
         });
         var transactionContext = {
-            clientNames: this.fullName(),  //dont need this i think?
+            clientNames: this.name(),  //dont need this i think?
             transaction: {
-                client: this.fullName()
+                client: this.name()
             }
         }
 

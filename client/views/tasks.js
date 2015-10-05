@@ -119,9 +119,9 @@ Template.tasks.events({
             email:this.email
         });
         var transactionContext = {
-            clientNames: this.fullName(),  //dont need this i think?
+            clientNames: this.name(),  //dont need this i think?
             transaction: {
-                client: this.fullName()
+                client: this.name()
             }
         }
 

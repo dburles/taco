@@ -1,6 +1,8 @@
 Template.groupsModal.helpers({
     groups: function () {
-        return [{name: "Agents"},{name: "Solicitors"},{name: "Clients"},{name: "Accountants"},{name: "Builders"}]
+        return ApplicationHelpers.Groups().map(function(value){
+            return {name: value};
+        })
     },
     isAdding: function () {
         return this.mode == "Add";

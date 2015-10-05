@@ -26,12 +26,12 @@
                                   <!--Main Tab-->
 
                                   <div role="tabpanel" class="tab-pane active" id="home">
-                                    {{> afQuickField name="firstName" placeholder="First Name" label=false autofocus="autofocus"}}
-                                    {{> afQuickField name="lastName" placeholder="Last Name" label=false}}
-                                    {{> afQuickField name="email" placeholder="Email" label=false}}
-                                    {{> afQuickField name="mobile" placeholder="Mobile" label=false}}
-                                    {{> afQuickField name="work" placeholder="Work" label=false}}
-                                    {{> afQuickField name="home" placeholder="Home" label=false}}
+                                      {{> afQuickField name="firstName" placeholder="First Name" label=false autofocus="autofocus"}}
+                                      {{> afQuickField name="lastName" placeholder="Last Name" label=false}}
+                                      {{> afQuickField name="email" placeholder="Email" label=false}}
+                                      {{> afQuickField name="mobile" placeholder="Mobile" label=false}}
+                                      {{> afQuickField name="work" placeholder="Work" label=false}}
+                                      {{> afQuickField name="company" placeholder="Company" label=false}}
                                   </div>
 
 
@@ -43,7 +43,13 @@
                                       {{> afQuickField name="streetAddress" placeholder="Address (if different)" label=false}}
                                       {{> afQuickField name="cityStatePostcode" placeholder="City State Postcode" label=false}}
                                   </div>
-                                  <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                                  <div role="tabpanel" class="tab-pane" id="settings">
+                                      {{> afQuickField name="home" placeholder="Home number"}}
+                                      <b class="color-grey">Groups</b>
+                                      <div style="height:160px;overflow:scroll">
+                                          {{> afQuickField name="groups" label=false}}
+                                      </div>
+                                  </div>
                               </div>
 
                           </div>

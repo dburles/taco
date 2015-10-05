@@ -111,7 +111,7 @@
                             {{#if selectedContactsCount}}
                                 <i class="fa fa-plus"></i>
                             {{else}}
-                                Add Contact
+                                Add {{groupRole}}
                             {{/if}}
                         </button>
 
@@ -152,7 +152,7 @@
                                 </div>
 
                                 <div class="clickable" style="padding:10px 15px;border-bottom:solid 1px #ddd">
-                                    {{fullName}}
+                                    {{name}}
                                     {{#if partnerId}}
                                         <span class="light-text"> & {{partnerFullName}}</span>
                                     {{/if}}

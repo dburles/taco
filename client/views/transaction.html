@@ -132,11 +132,6 @@
             </div>
         </div>
 
-
-
-
-
-
         <table class="inline-block">
             <tr>
                 <td  valign="top">
@@ -332,9 +327,9 @@
             Add Contact <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li><a class="add-role-menu" href="#">Client</a></li>
-            <li><a class="add-role-menu" href="#">Agent</a></li>
-            <li><a class="add-role-menu" href="#">Solicitor</a></li>
+            {{#each roles}}
+                <li><a class="add-role-menu" href="#">{{name}}</a></li>
+            {{/each}}
             <li role="separator" class="divider"></li>
             <li><a class="add-role-menu" href="#">Other</a></li>
         </ul>

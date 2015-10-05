@@ -571,6 +571,9 @@ Template.transactionMembers.helpers({
     members: function() {
         var id = FlowRouter.getParam("id");
         return Members.find({transactionId: id});
+    },
+    roles: function() {
+        return ApplicationHelpers.Roles();
     }
 });
 
