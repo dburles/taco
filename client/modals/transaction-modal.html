@@ -4,10 +4,10 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                <h4 class="modal-title">{{clientNames}} (New Transation) {{logThis}}</h4>
+                <h4 class="modal-title">{{transaction.client}}</h4>
                 </div>
 
-              {{#autoForm collection="Transactions" id="transactionForm" type="insert" doc=this.transaction}}
+              {{#autoForm collection="Transactions" id="transactionForm" type=this.type doc=this.transaction}}
                   <div class="modal-body">
 
                       <div class="row">
@@ -26,7 +26,10 @@
 
                                   <div role="tabpanel" class="tab-pane active" id="transactionTab">
                                     {{> afQuickField name="title" placeholder="eg. Purchase investment unit with guarantor"}}
-                                  </div>
+                                    {{> afQuickField name="leadSource" optional=true}}
+                                    {{> afQuickField name="transactionProfiles" label=false optional=true}}
+
+                                    </div>
 
 
 

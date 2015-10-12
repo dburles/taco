@@ -18,9 +18,9 @@
 
 
 
-            {{#with profile}}
+            {{#with contact}}
                 {{logThis}}
-                {{#autoForm collection="Profiles" id="profileForm" type="update" doc=this}}
+                {{#autoForm collection="Contacts" id="profileForm" type="update" doc=this}}
 
                     <div class="row">
                         <div class="col-xs-2">
@@ -33,7 +33,7 @@
 
                     <div class="row">
                         <div class="col-xs-2">
-                            <i class="fa fa-user light-text fa-2x pull-right"></i>
+
                         </div>
                         <div class="col-xs-10">
                             {{> afQuickField name="firstName" label=false placeholder="First Name"}}
@@ -88,7 +88,7 @@
                             <i class="fa fa-google light-text fa-2x pull-right"></i>
                         </div>
                         <div class="col-xs-10">
-                            {{> afQuickField name="gmailAddress" label=false placeholder="Gmail Address"}}
+                            {{> afQuickField name="user.gmailAddress" label=false placeholder="Gmail Address"}}
                         </div>
                     </div>
 
@@ -97,19 +97,46 @@
 
                         </div>
                         <div class="col-xs-10">
-                            {{> afQuickField name="gmailPassword" label=false placeholder="Gmail Password"}}
+                            {{> afQuickField name="user.gmailPassword" label=false placeholder="Gmail Password"}}
                         </div>
                     </div>
 
                     <hr/>
 
-                    {{> afQuickField name="emailSignature" class="redactor" style="display:none"}}
+
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-share-alt light-text fa-2x pull-right"></i>
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="team" options=teamOptions}}
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    {{> afQuickField name="user.emailSignature" class="redactor" style="display:none"}}
+
+
+
+
 
                     <div class="button-row" style="margin-top: -10px">
                         <button id="saveProfile" type="submit" class="btn btn-primary btn-fixed">Save</button>
                         <button id="cancelProfile" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
                     </div>
 
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <i class="fa fa-share-alt light-text fa-2x pull-right"></i>
+                        </div>
+                        <div class="col-xs-10">
+                            {{> afQuickField name="user.teams"}}
+                        </div>
+                    </div>
 
                 {{/autoForm}}
 

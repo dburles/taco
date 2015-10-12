@@ -10,7 +10,7 @@ Meteor.methods({
         member.role = role;
 
         if(contact)
-            member.contactName = contact.name();
+            member.contactName = contact.name;
 
         if(transaction)
             member.transactionName = transaction.title;

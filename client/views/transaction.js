@@ -29,7 +29,7 @@ Template.transaction.helpers({
 Template.transaction.events({
     'click #transaction-heading': function () {
         var transactionContext = {
-            //clientNames: ctx.fullName(),  //dont need this i think?
+            type: 'update',
             transaction: this
         }
 
@@ -578,23 +578,42 @@ Template.transactionMembers.helpers({
 });
 
 Template.transactionMembers.events({
+    'click .edit-contact-menu': function (e, t) {
+
+        e.preventDefault();
+        //var contact = Contacts.findOne({_id: this.contactId});
+
+        Meteor.call('getContact', this.contactId, function(err, result){
+            if(result){
+                var contactModalData = {
+                    formType: "update",
+                    contact: result
+                }
+
+                Modal.show('contactModal', contactModalData);
+            }
+
+        })
+
+
+    },
     'click .add-role-menu': function (e, t) {
         e.preventDefault();
 
         var role = e.target.innerText;
-        var group;
+        var profile;
 
         if(role != 'Other')
-            group = role + 's';
+            profile = role;
         else
-            group = null;
+            profile = null;
 
-        FlowRouter.setQueryParams({group: group});
+        FlowRouter.setQueryParams({profile: profile});
 
         var contactSelectorData = {
             formType: "insert",
             role: role,
-            group:group
+            profile:profile
         }
 
         Modal.show('contactSelector', contactSelectorData);

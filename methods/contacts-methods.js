@@ -34,28 +34,35 @@ Meteor.methods({
             partnerEmail: null
         }});
     },
-    'addContactsToGroup': function(contactArray, groupName){
+    'addContactsToProfile': function(contactArray, profileName){
 
         Contacts.update(
             { _id: { $in: contactArray } },
-            { $addToSet: { groups: groupName } },
+            { $addToSet: { profiles: profileName } },
             {multi:true}
         )
     },
-    'addContactToGroup': function(contactId, groupName){
+    'addContactToProfile': function(contactId, profileName){
 
         Contacts.update(
             { _id: contactId},
-            { $addToSet: { groups: groupName } },
+            { $addToSet: { profiles: profileName } },
             {multi:true}
         )
     },
-    'removeContactsFromGroup': function(contactArray, groupName){
+    'removeContactsFromProfile': function(contactArray, profileName){
 
         Contacts.update(
             { _id: { $in: contactArray } },
-            { $pull: { groups: groupName } },
+            { $pull: { profiles: profileName } },
             {multi:true}
         )
+    },
+    getContact: function (id) {
+        //if(Meteor.isServer){
+            var contact = Contacts.findOne(id);
+            if(contact)
+                return contact;
+        //}
     }
 });

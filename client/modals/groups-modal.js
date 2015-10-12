@@ -1,6 +1,6 @@
-Template.groupsModal.helpers({
-    groups: function () {
-        return ApplicationHelpers.Groups().map(function(value){
+Template.profilesModal.helpers({
+    profiles: function () {
+        return ApplicationHelpers.ClientProfiles().map(function(value){
             return {name: value};
         })
     },
@@ -24,23 +24,23 @@ Template.groupsModal.helpers({
 });
 
 
-Template.groupsModal.events({
+Template.profilesModal.events({
     'click #cancelEmail': function (e, t) {
         e.preventDefault();
     },
-    'click .group-item': function (e, t) {
+    'click .profile-item': function (e, t) {
         e.preventDefault();
 
         var mode = Template.currentData().mode;
-        var methodName = (mode == "Add") ? 'addContactsToGroup' : 'removeContactsFromGroup'
+        var methodName = (mode == "Add") ? 'addContactsToProfile' : 'removeContactsFromProfile'
 
         var contactsArray = SelectedContacts.find().map(function(contact){
             return contact._id
         })
         Meteor.call(methodName, contactsArray, this.name);
-        Modal.hide('groupsModal')
+        Modal.hide('profilesModal')
 
-        var msg = (mode == "Add") ? 'Added to group' : 'Removed from group'
+        var msg = (mode == "Add") ? 'Added to profile' : 'Removed from profile'
         toastr.success(msg);
     }
 });

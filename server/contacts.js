@@ -1,11 +1,11 @@
-Meteor.publish("contactsSearch", function(searchText, groupName){
+Meteor.publish("contactsSearch", function(searchText, profileName){
 
     searchText = searchText || "";
 
     var searchObject = {};
 
-    if(groupName)
-        searchObject.groups = groupName;
+    if(profileName)
+        searchObject.profiles = profileName;
 
     if(searchText.length > 2) {
         searchArr = searchText.split(" ");
@@ -42,9 +42,27 @@ Meteor.publish("contactAndPartner", function(id){
     return Contacts.find({$or:[{_id: id},{partnerId: id}]});
 })
 
+Meteor.publish("contactForUser", function(){
+
+    return Contacts.find({_id:this.userId});
+})
+
 
 Meteor.startup(function () {
-    Contacts._ensureIndex({"groups": 1});
+    Contacts._ensureIndex({"profiles": 1});
     Contacts._ensureIndex({"firstName": 1});
     Contacts._ensureIndex({"lastName": 1});
 });
+
+Meteor.publish("userContact", function(userId){
+    var contacts = Contacts.find({_id:userId});
+    if(contacts.count() < 1)
+        Contacts.insert({
+            _id:userId,
+            firstName:'[Your First Name]',
+            lastName: '[Your Last Name]',
+            profiles:['User']
+        })
+    //Meteor._sleepForMs(5000);
+    return contacts;
+})

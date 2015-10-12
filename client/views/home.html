@@ -15,8 +15,8 @@
 
                 <ul class="dropdown-menu pull-right" aria-labelledby="titleDropdown">
                     <li><a class="groupAllMenuItem" href="#">Show All Contacts</a></li>
-                    {{#each allGroups}}
-                        <li><a class="groupMenuItem" href="#">{{this.name}}</a></li>
+                    {{#each allProfiles}}
+                        <li><a class="profileMenuItem" href="#">{{this.name}}s</a></li>
                     {{/each}}
                 </ul>
             </div>
@@ -76,8 +76,8 @@
                                 {{/if}}
                                 {{#if selectedContactsCount}}
                                     <li class="divider"></li>
-                                    <li><a id="addToGroupMenu" href="#">Add <label class="label label-primary">{{selectedContactsCount}}</label> to Group</a></li>
-                                    <li><a id="removeFromGroupMenu" href="#">Remove <label class="label label-primary">{{selectedContactsCount}}</label> from Group</a></li>
+                                    <li><a id="addToProfileMenu" href="#">Add <label class="label label-primary">{{selectedContactsCount}}</label> to Profile</a></li>
+                                    <li><a id="removeFromProfileMenu" href="#">Remove <label class="label label-primary">{{selectedContactsCount}}</label> from Profile</a></li>
                                 {{/if}}
                             </ul>
                         </div>&nbsp;
@@ -111,7 +111,7 @@
                             {{#if selectedContactsCount}}
                                 <i class="fa fa-plus"></i>
                             {{else}}
-                                Add {{groupRole}}
+                                Add {{profileRole}}
                             {{/if}}
                         </button>
 
@@ -165,7 +165,7 @@
 
                             <div class="clickable" style="padding:15px;">
                                 {{> contactInfo this}}
-                                {{> contactGroups this}}
+                                {{> contactProfiles this}}
                             </div>
                         </div>
 
@@ -210,8 +210,8 @@
     <div class="ellipsis">{{email}}</div>
 </template>
 
-<template name="contactGroups">
-    {{#each groups}}
+<template name="contactProfiles">
+    {{#each profiles}}
         <span class="label {{labelClass}}">{{this}}</span>
     {{/each}}
 </template>

@@ -15,7 +15,7 @@
 
                 <input data-bind="change: typeSearch, value: searchText, delay: 300" id="communication-search-text" type="text" placeholder="Search..."
                        class="form-control margin-bottom-10">
-                <button data-bind="click add" id="add-template-button" class="btn btn-primary margin-bottom-10">Add Template</button>
+                <button data-bind="click: add" id="add-template-button" class="btn btn-primary margin-bottom-10">Add Template</button>
 
                 {{#each communications}}
                         {{> communicationItem this}}

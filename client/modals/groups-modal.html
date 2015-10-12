@@ -1,4 +1,4 @@
-<template name="groupsModal">
+<template name="profilesModal">
     <div class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -14,14 +14,14 @@
 
                 <div class="modal-body">
                     <div class="simple-list">
-                    {{#each groups}}
-                        <div class="noselect group-item">
+                    {{#each profiles}}
+                        <div class="noselect profile-item">
                             {{name}}
                         </div>
                     {{/each}}
                     {{#if isAdding}}
                         <div class="noselect">
-                            <input id="newGroupText" class="form-control" type="text" placeholder="Create a new group"/>
+                            <input id="newProfileText" class="form-control" type="text" placeholder="Create a new profile"/>
                         </div>
                     {{/if}}
                     </div>

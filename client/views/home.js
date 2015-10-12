@@ -2,61 +2,51 @@ emailSending = {};
 
 Template.home.helpers({
     title: function() {
-        var groupName = FlowRouter.getQueryParam("group");
-        if(!groupName)
-            groupName = "Contacts"
-        return groupName;
+        var profileName = FlowRouter.getQueryParam("profile");
+        if(!profileName)
+            profileName = "Contacts"
+        return pluralize(profileName);
     },
     contacts: function() {
         return Contacts.find({}, {limit: 10, sort: {updatedAt: -1}});
     },
-    allGroups: function () {
-        return ApplicationHelpers.Groups().map(function(value){
-            return {name: value};
+    allProfiles: function () {
+        return ApplicationHelpers.ClientProfiles().map(function(value){
+            return {name: value.name};
         })
     },
-    groupRole: function () {
-        var groupName = FlowRouter.getQueryParam('group');
-        if(groupName)
-            return pluralize(groupName, 1)
+    profileRole: function () {
+        var profileName = FlowRouter.getQueryParam('profile');
+        if(profileName)
+            return profileName
         else
             return 'Contact';
     },
     selectedBox: function() {
-        //var thisId = this._id;
-        //var selectedContacts = Session.get("selectedContacts");
-        //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
         return (SelectedContacts.findOne({_id:this._id})) ? "selected-box": "";
     },
     selectedTick: function() {
-        //var thisId = this._id;
-        //var selectedContacts = Session.get("selectedContacts");
-        //return (selectedContacts.indexOf(thisId) > -1) ? "selected-box": "";
         return (SelectedContacts.findOne({_id:this._id})) ? "color-blue": "light-text";
     },
     selectedContactsCount: function() {
-        //var selectedContacts = Session.get("selectedContacts");
-        //return selectedContacts.length;
         return SelectedContacts.find().count();
     },
     twoSelectedContacts: function() {
-        //var selectedContacts = Session.get("selectedContacts");
         return SelectedContacts.find().count() == 2 ? true : false;
     },
     oneSelectedContact: function() {
-        //var selectedContacts = Session.get("selectedContacts");
         return SelectedContacts.find().count() == 1 ? true : false;
     },
     searchText: function() {
 
         return FlowRouter.getQueryParam("search"); //Session.get("searchText");
-    },
-    labelClass: function() {
-        if(this == "Clients")
-            return "label-primary";
-        else
-            return "label-light";
     }
+    //labelClass: function() {
+    //    if(this == "Client")
+    //        return "label-primary";
+    //    else
+    //        return "label-light";
+    //}
 
 });
 
@@ -79,23 +69,23 @@ Template.home.events({
         FlowRouter.setQueryParams({search:null});
         //Session.set("searchText");
     },
-    'click .groupMenuItem': function (e, t) {
+    'click .profileMenuItem': function (e, t) {
         event.preventDefault();
         //debugger;
-        FlowRouter.setQueryParams({group: this.name})
+        FlowRouter.setQueryParams({profile: this.name})
     },
-    'click .groupAllMenuItem': function (e, t) {
+    'click .profileAllMenuItem': function (e, t) {
         event.preventDefault();
         //debugger;
-        FlowRouter.setQueryParams({group: null})
+        FlowRouter.setQueryParams({profile: null})
     },
     'click #addContactButton': function (e, t) {
         e.preventDefault();
 
         var contact = {};
-        var group = FlowRouter.getQueryParam('group');
-        if(group)
-            contact.groups = [group];
+        var profile = FlowRouter.getQueryParam('profile');
+        if(profile)
+            contact.profiles = [profile];
 
         var contactModalData = {
             formType: "insert",
@@ -134,27 +124,27 @@ Template.home.events({
             email:this.email
         });
         var transactionContext = {
-            clientNames: this.name(),  //dont need this i think?
+            type: 'insert',
             transaction: {
-                client: this.name()
+                client: this.name
             }
         }
 
         Modal.show('transactionModal', transactionContext);
     },
 
-    'click #addToGroupMenu': function (e, t) {
+    'click #addToProfileMenu': function (e, t) {
         e.preventDefault();
 
-        Modal.show('groupsModal', {
+        Modal.show('profilesModal', {
             mode: "Add"
         });
     },
 
-    'click #removeFromGroupMenu': function (e, t) {
+    'click #removeFromProfileMenu': function (e, t) {
         e.preventDefault();
 
-        Modal.show('groupsModal', {
+        Modal.show('profilesModal', {
             mode: "Remove"
         });
     },
@@ -175,7 +165,7 @@ Template.home.events({
             email:this.partnerEmail
         });
         var transactionContext = {
-            clientNames: this.jointFullName(),
+            type: 'insert',
             transaction: {
                 client: this.jointFullName()
             }
@@ -264,7 +254,7 @@ Template.home.onCreated(function () {
 
     self.autorun(function () {
         var searchText = FlowRouter.getQueryParam("search"); //Session.get("searchText");
-        var groupName = FlowRouter.getQueryParam("group");
+        var profileName = FlowRouter.getQueryParam("profile");
 
         if(searchText == "selected"){
 
@@ -276,7 +266,7 @@ Template.home.onCreated(function () {
             self.subscribe('contactsSelected', selectedContacts);
         }
         else {
-            self.subscribe('contactsSearch', searchText, groupName);
+            self.subscribe('contactsSearch', searchText, profileName);
 
         }
     });
@@ -299,36 +289,13 @@ SelectedContacts.getOne = function() {
     return doc;
 }
 
-
-
-Template.contactGroups.helpers({
+Template.contactProfiles.helpers({
 
     labelClass: function() {
-        if(this == "Clients")
+        if(this == "Client")
             return "label-primary";
         else
             return "label-light";
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-//var selectedContacts = Session.get("selectedContacts");
-//if(!selectedContacts)
-//    selectedContacts = [];
-//
-//var ind = selectedContacts.indexOf(this._id);
-//if(ind === -1)
-//    selectedContacts.push(this._id);
-//else
-//    selectedContacts.splice(ind,1);
-//
-//Session.set("selectedContacts", selectedContacts);

@@ -38,11 +38,11 @@ Template.contactSelector.events({
 Template.contactSelector.onCreated(function () {
     var self = this;
 
-    var group = FlowRouter.getQueryParam('group');// this.data.group;
+    var profile = FlowRouter.getQueryParam('profile');// this.data.group;
 
     self.autorun(function () {
         var searchText = FlowRouter.getQueryParam("search");
-        self.subscribe('contactsSearch', searchText, group);
+        self.subscribe('contactsSearch', searchText, profile);
     })
 });
 

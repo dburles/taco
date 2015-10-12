@@ -1,15 +1,67 @@
 if (Meteor.users.find().count() === 0) {
-    Accounts.createUser({
+    var userId = Accounts.createUser({
         username: 'matt@ireland.mx',
         email: 'matt@ireland.mx',
         password: 'maver1ck'
     });
-}
 
-
-if(Contacts.find().count() == 0){
+    var contactId = Contacts.insert({
+        _id: userId,
+        firstName: "Matt",
+        lastName: "Ireland",
+        email: "matt@ireland.mx",
+        mobile: "0413 999951",
+        profiles: ['User'],
+        updatedAt: new Date(),
+        team: 'Mortgage Choice Buderim',
+        user:{
+            teams:['Mortgage Choice Buderim','Mortgage Choice Miami']
+        }
+    })
 
     console.log("Seeding Contacts...")
+
+    Teams.insert({
+        name: 'Mortgage Choice Buderim',
+        contactProfiles:[
+            {name:'User', transactionRole:true},
+            {name:'Client', transactionRole:true},
+            {name:'Solicitor', transactionRole:true},
+            {name:'Agent', transactionRole:true},
+            {name:'Guarantor', transactionRole:true},
+            {name:'Supplier', transactionRole:true}
+        ],
+        transactionProfiles:[
+            {name:'Mortgage', category:'Mortgage'},
+            {name:'Purchase', category:'Mortgage'},
+            {name:'Refinance', category:'Mortgage'},
+            {name:'First Home', category:'Mortgage'},
+            {name:'Guarantor', category:'Mortgage'},
+            {name:'Construction', category:'Mortgage'}
+        ],
+        leadSourceTypes:['Client Referral','Business Referral','Personal Referral','Local Marketing','Head Office']
+    })
+
+    Teams.insert({
+        name: 'Mortgage Choice Miami',
+        contactProfiles:[
+            {name:'User', transactionRole:true},
+            {name:'Client', transactionRole:true},
+            {name:'Solicitor', transactionRole:true},
+            {name:'Agent', transactionRole:true},
+            {name:'Guarantor', transactionRole:true},
+            {name:'Supplier', transactionRole:true}
+        ],
+        transactionProfiles:[
+            {name:'Mortgage', category:'Mortgage'},
+            {name:'Purchase', category:'Mortgage'},
+            {name:'Refinance', category:'Mortgage'},
+            {name:'First Home', category:'Mortgage'},
+            {name:'Guarantor', category:'Mortgage'},
+            {name:'Construction', category:'Mortgage'}
+        ],
+        leadSourceTypes:['Client Referral','Business Referral','Personal Referral','Local Marketing','Head Office']
+    })
 
     var tempUser;
     for(var n=1;n<500;n++){
@@ -21,6 +73,7 @@ if(Contacts.find().count() == 0){
             mobile: "04" + NumberHelpers.randomNumber(11,99) + " " + NumberHelpers.randomNumber(100, 999).toString() + " " + NumberHelpers.randomNumber(100, 999).toString(),
             home: Fake.fromArray(["02", "03", "07", "08"]) + " " + NumberHelpers.randomNumber(1000, 9999).toString() + " " + NumberHelpers.randomNumber(1000, 9999).toString(),
             work: Fake.fromArray(["02", "03", "07", "08"]) + " " + NumberHelpers.randomNumber(1000, 9999).toString() + " " + NumberHelpers.randomNumber(1000, 9999).toString(),
+            profiles:['Client'],
             updatedAt: new Date()
         })
     }
@@ -36,10 +89,28 @@ if(Contacts.find().count() == 0){
     })
 
     var contactId = Contacts.insert({
+        email: "assessmentmail@anz.com",
+        profiles: ['Supplier'],
+        company: 'ANZ'
+    })
+
+    var contactId = Contacts.insert({
+        email: "tpbpaperless@cba.com.au",
+        profiles: ['Supplier'],
+        company: 'CBA'
+    })
+
+    var contactId = Contacts.insert({
+        email: "brokerdocs@westpac.com.au",
+        profiles: ['Supplier'],
+        company: 'Westpac'
+    })
+
+    var contactId = Contacts.insert({
         firstName: "Sally",
         lastName: "Solicitor",
         email: "sally.solicitor@gmail.com",
-        groups: ['Solicitors'],
+        profiles: ['Solicitor'],
         updatedAt: new Date()
     })
 
@@ -53,7 +124,7 @@ if(Contacts.find().count() == 0){
         firstName: "Ronald",
         lastName: "Realtorman",
         email: "ronald.realtorman@gmail.com",
-        groups: ['Agents'],
+        profiles: ['Agent'],
         updatedAt: new Date()
     })
 
@@ -67,7 +138,8 @@ if(Contacts.find().count() == 0){
         firstName: "John",
         lastName: "Citizen",
         email: "john@gmail.com",
-        groups: ['Clients'],
+        mobile: "0413 999951",
+        profiles: ['Client'],
         updatedAt: new Date()
     })
 
@@ -108,11 +180,39 @@ if(Contacts.find().count() == 0){
         text: 'Income'
     })
 
-    Activities.insert({
+    var stepId = Activities.insert({
         transactionId:transactionId,
         stageId: stageId,
         type:['Step'],
-        text: 'Last 2 payslips'
+        text: 'Last 2 payslips',
+        taskCount: 3,
+        taskCompletedCount: 0
+    })
+
+    //tasks and comments...
+
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        stepId: stepId,
+        type:['Task'],
+        text: 'Must be consecutive'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        stepId: stepId,
+        type:['Task'],
+        text: 'Must be ledgible'
+    })
+
+    Activities.insert({
+        transactionId:transactionId,
+        stageId: stageId,
+        stepId: stepId,
+        type:['Task'],
+        text: 'Within 4 weeks old'
     })
 
     Activities.insert({
@@ -215,7 +315,24 @@ if(Contacts.find().count() == 0){
         transactionId:transactionId
     })
 
+    //communications...
 
+    Communications.insert({
+        name: 'Conditional - Email Client with Conditions',
+        role: 'Client',
+        type: 'Mortgage',
+        stage: 'Conditional',
+        subject: 'Congratulations - Conditionally Approved',
+        body: 'Hi [Client],\n\nYour loan has been approved subject to the following conditions:'
+    })
 
+    Communications.insert({
+        name: 'Initial Enquiry - Welcome Email',
+        role: 'Client',
+        type: 'Mortgage',
+        stage: 'Presubmission',
+        subject: 'Welcome to Mortgage Choice',
+        body: 'Hi [Client],\n\nThank you for your enquiry...'
+    })
 
 }

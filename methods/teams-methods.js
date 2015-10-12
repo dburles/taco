@@ -3,9 +3,13 @@ Meteor.methods({
 
         var Team = {};
 
-        Team.name = 'New Team on ' + moment().format("MMM Do")
-        Team.role = 'Client';
-        Team.type = 'Mortgage';
+        Team.name = 'New Team on ' + moment().format("MMM Do");
+        Team.transactionProfiles = [
+            {
+                name:'Mortgage',
+                category:'Mortgage'
+            }
+        ];
 
         return Teams.insert(Team);
     },
@@ -13,7 +17,6 @@ Meteor.methods({
         Teams.remove({_id:id});
     },
     cloneTeam: function (doc) {
-
         doc.name = doc.name.shorten(43) + ' (Copy)';
         doc._id = null;
 

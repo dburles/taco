@@ -1,0 +1,21 @@
+<template name="mortgageVisual">
+    {{#with mortgage}}
+        {{#each applications}}
+            {{logThis}}
+            <div class="mortgage-visual">
+                <div>
+                    {{#each loans}}
+
+                        <div class="loan-visual">{{amount}}</div>
+                    {{/each}}
+                </div>
+                <div>
+                    {{#each properties}}
+                        <div class="property-visual">{{value}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        {{/each}}
+    {{/with}}
+
+</template>

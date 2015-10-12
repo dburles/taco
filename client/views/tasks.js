@@ -67,15 +67,15 @@ Template.tasks.events({
         FlowRouter.setQueryParams({search:null});
         //Session.set("searchText");
     },
-    'click .groupMenuItem': function (e, t) {
+    'click .profileMenuItem': function (e, t) {
         event.preventDefault();
         //debugger;
-        FlowRouter.setQueryParams({group: this.name})
+        FlowRouter.setQueryParams({profile: this.name})
     },
-    'click .groupAllMenuItem': function (e, t) {
+    'click .profileAllMenuItem': function (e, t) {
         event.preventDefault();
         //debugger;
-        FlowRouter.setQueryParams({group: null})
+        FlowRouter.setQueryParams({profile: null})
     },
     'click #addTaskButton': function (e, t) {
         e.preventDefault();
@@ -119,27 +119,27 @@ Template.tasks.events({
             email:this.email
         });
         var transactionContext = {
-            clientNames: this.name(),  //dont need this i think?
+            //clientNames: this.name(),  //dont need this i think?
             transaction: {
-                client: this.name()
+                client: this.name
             }
         }
 
         Modal.show('transactionModal', transactionContext);
     },
 
-    'click #addToGroupMenu': function (e, t) {
+    'click #addToProfileMenu': function (e, t) {
         e.preventDefault();
 
-        Modal.show('groupsModal', {
+        Modal.show('profilesModal', {
             mode: "Add"
         });
     },
 
-    'click #removeFromGroupMenu': function (e, t) {
+    'click #removeFromProfileMenu': function (e, t) {
         e.preventDefault();
 
-        Modal.show('groupsModal', {
+        Modal.show('profilesModal', {
             mode: "Remove"
         });
     },

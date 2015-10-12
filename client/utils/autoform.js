@@ -10,12 +10,12 @@ AutoForm.hooks({
             Modal.hide("contactSelector");
             toastr.success("Contact saved");
 
-            var group = FlowRouter.getQueryParam('group');
+            var profile = FlowRouter.getQueryParam('profile');
             var transactionId = FlowRouter.getParam('id');
-            var role = pluralize(group, 1);
+            var role = profile;
 
             Meteor.call('addMember', transactionId, result, role);
-            Meteor.call('addContactToGroup', result, group);
+            Meteor.call('addContactToProfile', result, profile);
 
         }
     },

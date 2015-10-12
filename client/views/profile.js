@@ -1,18 +1,20 @@
 Template.profile.helpers({
-    profile: function () {
+    contact: function () {
 
         var userId = FlowRouter.getParam("user");
         //Profiles.insert({userId:userId});
-        var doc =  Profiles.findOne({_id:userId});
+        var doc =  Contacts.findOne({_id:userId});
         //debugger;
         return doc;
     },
-    contact: function() {
-        var eml = FlowRouter.getParam("email");
-        var doc = Contacts.find({email: eml});
-    },
     user: function () {
         return Meteor.user();
+    },
+    teamOptions: function () {
+        var contact = Contacts.findOne(this._id);
+        return contact.user.teams.map(function(val){
+            return {label:val, value:val};
+        })
     }
 });
 
@@ -25,7 +27,7 @@ Template.profile.events({
 Template.profile.onCreated(function () {
     var userId = FlowRouter.getParam("user");
 
-    this.subscribe("oneProfile", userId);
+    this.subscribe("userContact", userId);
     //this.subscribe("oneContactByEmail", eml);
 });
 

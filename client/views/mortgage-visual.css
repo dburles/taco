@@ -1,0 +1,14 @@
+.loan-visual{
+    display: inline-block;
+    background-color: #337ab7;
+    color:white;
+    padding:8px;
+    border-radius: 4px;
+    margin-right:3px;
+}
+
+.mortgage-visual{
+    border: dotted 2px #c0c0c0;
+    padding:5px;
+    border-radius: 6px;
+}

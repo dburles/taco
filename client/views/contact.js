@@ -15,9 +15,9 @@ function newTransaction(ctx, partner) {
         });
 
     var transactionContext = {
-        clientNames: ctx.name(),  //dont need this i think?
+        //clientNames: ctx.name(),  //dont need this i think?
         transaction: {
-            client: ctx.name() + (partner ? (' & ' + ctx.partner.fullName()): '')
+            client: ctx.name + (partner ? (' & ' + ctx.partner.name): '')
         }
     }
 

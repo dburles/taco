@@ -1,16 +1,33 @@
 Template.transactionModal.helpers({
-    //editingtransactionDocument: function () {
-    //    var editingtransaction = Session.get("editingtransaction");
-    //    var editingtransactionDocument = transactions.findOne(editingtransaction);
-    //    console.log(editingtransactionDocument);
-    //    return editingtransactionDocument;
+    //profileOptions: function(){
+    //    var allTypes = Profile.Team().transactionTypes;
+    //    var allTypesArray = allTypes.map(function(item){
+    //        return item.name;
+    //    });
+    //
+    //    var myTypes = this.transaction.transactionTypes || [];
+    //
+    //    var profiles = [];
+    //
+    //    allTypes.forEach(function(typeItem){
+    //        if(typeItem.profiles){                            //need help here, should cascade checkboxes:  && myTypes.indexOf(typeItem.name) > -1){
+    //            typeItem.profiles.forEach(function(profile){
+    //                profiles.push({label:profile, value:profile})
+    //            })
+    //        }
+    //    })
+    //    return profiles;
     //},
-    //formType: function(){
-    //    var editingtransaction = Session.get("editingtransaction");
-    //    if(editingtransaction)
-    //        return "update"
-    //    else
-    //        return "insert"
+    //profileOptionsForType: function(){
+    //    var profilesArray = [];
+    //    debugger;
+    //    this.profiles.forEach(function(typeItem){
+    //        profilesArray.push({label:typeItem, value:typeItem})
+    //    })
+    //    return profilesArray;
+    //},
+    //availableTransactionTypes: function(){
+    //    return Profile.Team().transactionTypes;
     //}
 });
 
@@ -24,3 +41,27 @@ Template.transactionModal.events({
 
     }
 });
+
+
+
+//Template.transactionModal.helpers({
+//    profileOptions: function(){
+//        var allTypes = Profile.Team().transactionTypes;
+//        var allTypesArray = allTypes.map(function(item){
+//            return item.name;
+//        });
+//
+//        var myTypes = this.transaction.transactionTypes || [];
+//
+//        var profiles = [];
+//
+//        allTypes.forEach(function(typeItem){
+//            if(typeItem.profiles){                            //need help here, should cascade checkboxes:  && myTypes.indexOf(typeItem.name) > -1){
+//                typeItem.profiles.forEach(function(profile){
+//                    profiles.push({label:profile, value:profile})
+//                })
+//            }
+//        })
+//        return profiles;
+//    }
+//});
