@@ -143,6 +143,8 @@
             </tr>
         </table>
 
+        {{> sharingIndicator}}
+
     {{/with}}
 
 
@@ -261,7 +263,7 @@
 
 <template name="assignButton">
 
-    <button type="button" class="btn btn-default" style="padding:2px;" data-toggle="popover" data-placement="bottom" data-html="true" title="Assign To" >
+    <button type="button" class="btn btn-default" style="padding:2px;" data-toggle="popover" data-div="popover-content" data-placement="bottom" data-html="true" title="Assign To" >
         <img style="width:50px;height:50px" src="/images/matt.ireland.jpg"
              alt=""/>
         <!--class="img-rounded img-thumbnail pull-left"-->
@@ -363,5 +365,19 @@
 
 <template name="transactionSummary">
     <div class="well">Transaction Overview Here...</div>
+</template>
+
+<template name="sharingIndicator">
+<div>
+    <button type="button" data-div="popover-content1" data-trigger="focus" class="btn btn-default" style="" data-toggle="popover" data-placement="bottom" data-html="true" title="Sharing" >
+        Sharing
+    </button>
+
+    <div id="popover-content1" class="hide">
+        {{#autoForm collection="Activities" id="stepForm" type='update' doc=this}}
+            {{> afQuickField name="text" placeholder="Text" label=false autofocus="autofocus"}}
+        {{/autoForm}}
+    </div>
+</div>
 </template>
 

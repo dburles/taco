@@ -437,7 +437,8 @@ Template.assignButton.onRendered(function () {
     $("[data-toggle=popover]").popover({
         html: true,
         content: function() {
-            return $('#popover-content').html();
+            divId = $(this).data('div');
+            return $('#' + divId).html();
         }
     });
 
@@ -573,7 +574,8 @@ Template.transactionMembers.helpers({
         return Members.find({transactionId: id});
     },
     roles: function() {
-        return ApplicationHelpers.Roles();
+        var roles =  ApplicationHelpers.Roles();
+        return roles;
     }
 });
 
