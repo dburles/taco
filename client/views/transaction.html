@@ -81,9 +81,7 @@
                     {{#if hasType 'Important'}}
                         <span class="label label-primary">Important</span>&nbsp;
                     {{/if}}
-                    {{#if hasType 'Public'}}
-                        <span class="label label-default">Public</span>&nbsp;
-                    {{/if}}
+
                     {{activityText this}}
                     {{#if statusIs 'Outstanding'}}
                         <br/>
@@ -166,6 +164,9 @@
                     </ul>
                 </div>
                 {{formattedTaskText}} <span class="color-light-grey"> - {{fromNow updatedAt}}</span>
+                {{#if sharing.shared}}
+                    &nbsp;<i  class="fa-share-square-o color-grey fa"></i>
+                {{/if}}
             {{/if}}
 
             {{#if statusIs 'Outstanding'}}
@@ -177,7 +178,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a class="important-menu" href="#">Important</a></li>
+                        <li class="{{#if hasType 'Important'}}active{{/if}}"><a class="important-menu" href="#">Important</a></li>
+                        <li class="{{activeIf sharing.shared true}}"><a class="shared-menu" href="#">Shared</a></li>
                         <li><a class="promote-step-menu" href="#">Promote to Step</a></li>
                         <li><a class="not-applicable-menu" href="#">Not Applicable</a></li>
                         <li class="divider"></li>
@@ -185,6 +187,9 @@
                     </ul>
                 </div>
                 {{formattedTaskText}}
+                {{#if sharing.shared}}
+                    &nbsp;<i  class="fa-share-square-o color-grey fa"></i>
+                {{/if}}
             {{/if}}
 
             {{#if statusIs 'Not Applicable'}}
@@ -203,7 +208,7 @@
 
 
         </li>
-        {{/each }}
+        {{/each}}
     </ul>
     {{#if queryParamExists 'step'}}
         <textarea placeholder="Add a comment..." class="form-control margin-bottom-10" id="comment-text" rows="2"></textarea>
@@ -232,7 +237,9 @@
             {{/if}}
 
             {{text}}
+
             <span class="color-light-grey"> - {{fromNow updatedAt}}</span>
+
 
         </li>
         {{/each}}
@@ -369,13 +376,23 @@
 
 <template name="sharingIndicator">
 <div>
-    <button type="button" data-div="popover-content1" data-trigger="focus" class="btn btn-default" style="" data-toggle="popover" data-placement="bottom" data-html="true" title="Sharing" >
+
+
+
+
+    <button id="sharingButton" type="button" data-div="popover-content1" class="btn btn-default" style="" data-toggle="popover" data-placement="bottom" data-html="true" title="Sharing for {{text}}" >
         Sharing
     </button>
 
     <div id="popover-content1" class="hide">
-        {{#autoForm collection="Activities" id="stepForm" type='update' doc=this}}
-            {{> afQuickField name="text" placeholder="Text" label=false autofocus="autofocus"}}
+        {{#autoForm collection="Activities" id="sharingForm" type='update' doc=this}}
+            {{> afQuickField name="sharing.shared" placeholder="Text" label=false}}
+            {{> afQuickField name="sharing.subitems" placeholder="Text" label=false}}
+            {{> afQuickField name="sharing.applyExisting" placeholder="Text" label=false}}
+            <div class="button-row">
+                <button id="save-sharing-button" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                <button id="cancel-sharing-button" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+            </div>
         {{/autoForm}}
     </div>
 </div>

@@ -25,11 +25,15 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 {{> afQuickField name="type" type="select-checkbox" options=stepTypeOptions}}
-                                            </div>
-                                            <div class="col-sm-6">
                                                 <button type="button" id="template-button" class="btn btn-default">
                                                     Template
                                                 </button>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="control-label">Sharing</label>
+                                                {{> afQuickField name="sharing.shared"}}
+                                                {{> afQuickField name="sharing.subitems"}}
+                                                {{> afQuickField name="sharing.applyExisting"}}
                                             </div>
                                         </div>
                                     </div>

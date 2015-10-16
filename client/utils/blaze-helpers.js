@@ -113,4 +113,8 @@ UI.registerHelper('activityText', function (activity) {
     return Spacebars.SafeString("<span>" + activity.text + "</span>")
 });
 
+UI.registerHelper('activeIf', function (field, value) {
+    return (field == value ? "active" : "")
+});
+
 

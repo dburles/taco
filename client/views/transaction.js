@@ -382,6 +382,11 @@ Template.transactionDetail.events({
         e.preventDefault();
         Meteor.call('importantActivity', this)
     },
+    'click .shared-menu': function (e,t){
+        e.preventDefault();
+        var shared = (this.sharing ? this.sharing.shared : false);
+        Activities.update({_id:this._id},{$set:{"sharing.shared":!shared}});
+    },
     'click .delete-activity-menu': function (e,t){
         e.preventDefault();
         var self = this;
@@ -413,6 +418,15 @@ Template.transactionDetail.events({
     },
     'click #cancel-step': function () {
         Modal.hide('stepModal');
+    },
+    'click #save-sharing-button': function (e,t) {
+        e.preventDefault();
+        $('#sharingForm').submit();
+    },
+    'click #cancel-sharing-button': function (e,t) {
+        e.preventDefault();
+        $('#sharingButton').popover('hide');
+
     }
 
 

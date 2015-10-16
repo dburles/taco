@@ -43,5 +43,12 @@ AutoForm.hooks({
             Modal.hide("templateModal");
             toastr.success("Template Saved");
         }
+    },
+
+    sharingForm: {
+        onSuccess: function () {
+            $('#sharingButton').popover('hide');
+            toastr.success("Sharing Settings Saved");
+        }
     }
 });
