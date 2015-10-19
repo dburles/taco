@@ -19,6 +19,26 @@ if (Meteor.users.find().count() === 0) {
         }
     })
 
+    var userId = Accounts.createUser({
+        username: 'linda@ireland.mx',
+        email: 'linda@ireland.mx',
+        password: 'maver1ck'
+    });
+
+    var contactId = Contacts.insert({
+        _id: userId,
+        firstName: "Linda",
+        lastName: "Ireland",
+        email: "linda@ireland.mx",
+        mobile: "0414 012 714",
+        profiles: ['User'],
+        updatedAt: new Date(),
+        team: 'Mortgage Choice Buderim',
+        user:{
+            teams:['Mortgage Choice Buderim','Mortgage Choice Bundaberg']
+        }
+    })
+
     console.log("Seeding Contacts...")
 
     Teams.insert({

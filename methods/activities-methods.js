@@ -17,6 +17,10 @@ Meteor.methods({
             Activities.update({_id: step._id}, {$set: {status: 'Outstanding'}});
     },
 
+    assignStep: function (stepId, contactId) {
+        Activities.update({_id: stepId}, {$set: {assignedTo: contactId}});
+    },
+
     notApplicable: function (task) {
         Activities.update({_id: task._id}, {$set: {status: 'Not Applicable'}});
         Activities.update({_id: task.stepId}, {$inc: {taskCompletedCount: 1}});

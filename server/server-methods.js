@@ -18,4 +18,19 @@ Meteor.methods({
             text: text
         });
     }
+    //collegues: function () {
+    //    var myContact = Contacts.findOne(Meteor.userId());
+    //    console.log("*** My Contact is ***");
+    //    console.log(myContact);
+    //
+    //
+    //    var myTeam = myContact.team;
+    //
+    //    console.log("*** My Team is ***");
+    //    console.log(myTeam);
+    //
+    //    var collegues = Contacts.find({'user.teams':myTeam},{fields: {'name':1}});
+    //    //console.log(collegues.fetch());
+    //    return collegues.fetch();
+    //}
 });

@@ -427,6 +427,13 @@ Template.transactionDetail.events({
         e.preventDefault();
         $('#sharingButton').popover('hide');
 
+    },
+    'click #testButton': function (e,t) {
+        e.preventDefault();
+        Meteor.call('collegues', function(err,result){
+            console.log(result);
+        });
+
     }
 
 
@@ -457,6 +464,41 @@ Template.assignButton.onRendered(function () {
     });
 
 });
+
+
+Template.assignButton.helpers({
+    collegues: function() {
+        var collegues = Profile.TeamContacts();
+        return collegues;
+    },
+    assignedToName: function() {
+        var contact = Contacts.findOne({_id:this.assignedTo});
+        if(contact)
+            return contact.firstName;
+        else
+            return 'Unassigned';
+    }
+});
+
+Template.assignButton.events({
+    'click .assign-selector': function (e, t) {
+        event.preventDefault();
+        var contactId = this._id;
+        var stepId = Template.parentData(0)._id;
+        Meteor.call('assignStep', stepId, contactId);
+        //toastr.success("Assigning Contact " + contactId + ' to step ' + stepId);
+    }
+});
+
+Template.assignButton.onCreated(function () {
+    //var self = this;
+    //self.autorun(function () {
+    //    var groupName = FlowRouter.getQueryParam("group");
+    //    self.subscribe('contactsSelected', selectedContacts);
+    //});
+});
+
+
 
 
 Template.stepChart.onRendered(function () {

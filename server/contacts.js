@@ -47,13 +47,6 @@ Meteor.publish("contactForUser", function(){
     return Contacts.find({_id:this.userId});
 })
 
-
-Meteor.startup(function () {
-    Contacts._ensureIndex({"profiles": 1});
-    Contacts._ensureIndex({"firstName": 1});
-    Contacts._ensureIndex({"lastName": 1});
-});
-
 Meteor.publish("userContact", function(userId){
     var contacts = Contacts.find({_id:userId});
     if(contacts.count() < 1)
@@ -66,3 +59,27 @@ Meteor.publish("userContact", function(userId){
     //Meteor._sleepForMs(5000);
     return contacts;
 })
+
+Meteor.publish("teamContacts", function(){
+
+    var myContact = Contacts.findOne(this.userId);
+
+    //console.log("*** My Contact is ***");
+    //console.log(myContact);
+
+    var myTeam = myContact.team;
+
+    //console.log("*** My Team is ***");
+    //console.log(myTeam);
+
+    var collegues = Contacts.find({'user.teams':myTeam}); //,{fields: {'name':1}}
+    //console.log(collegues.fetch());
+
+    return collegues;
+});
+
+Meteor.startup(function () {
+    Contacts._ensureIndex({"profiles": 1});
+    Contacts._ensureIndex({"firstName": 1});
+    Contacts._ensureIndex({"lastName": 1});
+});
