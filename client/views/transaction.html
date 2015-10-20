@@ -164,7 +164,7 @@
                     </ul>
                 </div>
                 {{formattedTaskText}} <span class="color-light-grey"> - {{fromNow updatedAt}}</span>
-                {{#if sharing.shared}}
+                {{#if equals shared 'Shared'}}
                     &nbsp;<i  class="fa-share-square-o color-grey fa"></i>
                 {{/if}}
             {{/if}}
@@ -179,7 +179,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li class="{{#if hasType 'Important'}}active{{/if}}"><a class="important-menu" href="#">Important</a></li>
-                        <li class="{{activeIf sharing.shared true}}"><a class="shared-menu" href="#">Shared</a></li>
+                        <li class="{{activeIf shared 'Shared'}}"><a class="shared-menu" href="#">Shared</a></li>
                         <li><a class="promote-step-menu" href="#">Promote to Step</a></li>
                         <li><a class="not-applicable-menu" href="#">Not Applicable</a></li>
                         <li class="divider"></li>
@@ -187,7 +187,7 @@
                     </ul>
                 </div>
                 {{formattedTaskText}}
-                {{#if sharing.shared}}
+                {{#if equals shared 'Shared'}}
                     &nbsp;<i  class="fa-share-alt color-steel fa"></i>
                 {{/if}}
             {{/if}}
@@ -229,6 +229,8 @@
                     <li><a class="edit-comment-menu" href="#">Edit Comment</a></li>
                     <li><a class="convert-task-menu" href="#">Convert to Task</a></li>
                     <li><a class="important-menu" href="#">Important</a></li>
+                    <li class="{{activeIf shared 'Shared'}}"><a class="shared-menu" href="#">Shared</a></li>
+
                 </ul>
             </div>
 
@@ -237,6 +239,10 @@
             {{/if}}
 
             {{text}}
+
+            {{#if equals shared 'Shared'}}
+                &nbsp;<i  class="fa-share-alt color-steel fa"></i>
+            {{/if}}
 
             <span class="color-light-grey"> - {{fromNow updatedAt}}</span>
 
@@ -273,8 +279,8 @@
 
     <div class="btn-group">
         <button type="button" style="padding:2px;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span style="position:absolute;left:-7px;top:-7px;background-color: #1a4580;color:white;padding:1px 5px;border-radius:3px;opacity:0.7;text-transform:uppercase;font-size:9px;">{{assignedToName}}</span>
             <img style="width:50px;height:50px" src="/images/matt.ireland.jpg" alt=""/> <br/>
-            {{assignedToName}}
         </button>
         <ul class="dropdown-menu">
             {{#each collegues}}
@@ -352,30 +358,30 @@
     <div class="well">Transaction Overview Here...</div>
 </template>
 
-<template name="sharingIndicator">
-<div>
+<!--<template name="sharingIndicator">-->
+<!--<div>-->
 
 
-    <button id="testButton" type="button" class="btn btn-default" >
-        Get Collegues
-    </button>
+    <!--<button id="testButton" type="button" class="btn btn-default" >-->
+        <!--Get Collegues-->
+    <!--</button>-->
 
 
-    <button id="sharingButton" type="button" data-div="popover-content1" class="btn btn-default" style="" data-toggle="popover" data-placement="bottom" data-html="true" title="Sharing for {{text}}" >
-        Sharing
-    </button>
+    <!--<button id="sharingButton" type="button" data-div="popover-content1" class="btn btn-default" style="" data-toggle="popover" data-placement="bottom" data-html="true" title="Sharing for {{text}}" >-->
+        <!--Sharing-->
+    <!--</button>-->
 
-    <div id="popover-content1" class="hide">
-        {{#autoForm collection="Activities" id="sharingForm" type='update' doc=this}}
-            {{> afQuickField name="sharing.shared" placeholder="Text" label=false}}
-            {{> afQuickField name="sharing.subitems" placeholder="Text" label=false}}
-            {{> afQuickField name="sharing.applyExisting" placeholder="Text" label=false}}
-            <div class="button-row">
-                <button id="save-sharing-button" type="submit" class="btn btn-primary btn-fixed">Save</button>
-                <button id="cancel-sharing-button" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
-            </div>
-        {{/autoForm}}
-    </div>
-</div>
-</template>
+    <!--<div id="popover-content1" class="hide">-->
+        <!--{{#autoForm collection="Activities" id="sharingForm" type='update' doc=this}}-->
+            <!--{{> afQuickField name="sharing.shared" placeholder="Text" label=false}}-->
+            <!--{{> afQuickField name="sharing.subitems" placeholder="Text" label=false}}-->
+            <!--{{> afQuickField name="sharing.applyExisting" placeholder="Text" label=false}}-->
+            <!--<div class="button-row">-->
+                <!--<button id="save-sharing-button" type="submit" class="btn btn-primary btn-fixed">Save</button>-->
+                <!--<button id="cancel-sharing-button" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>-->
+            <!--</div>-->
+        <!--{{/autoForm}}-->
+    <!--</div>-->
+<!--</div>-->
+<!--</template>-->
 
