@@ -74,6 +74,7 @@ h1 {
     .hover-box:hover{
         border: solid 1px #A9D0F5;
         background-color: #EFF5FB;
+        cursor: default;
     }
 }
 

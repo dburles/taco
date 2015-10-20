@@ -65,22 +65,21 @@ Template.contact.onCreated(function () {
     this.subscribe("contactAndPartner", id);
 });
 
-Template.contact.newIndividualTransaction = function(context){
-
-}
-
 
 //Contact members
 
 Template.contactMembers.onCreated(function () {
 
-    var self = this;
+    //var self = this;
+    //
+    //// Use self.subscribe with the data context reactively
+    //self.autorun(function () {
+    //    var id = FlowRouter.getParam("id");
+    //    self.subscribe("membersForContact", id);
+    //});
 
-    // Use self.subscribe with the data context reactively
-    self.autorun(function () {
-        var id = FlowRouter.getParam("id");
-        self.subscribe("membersForContact", id);
-    });
+    var id = FlowRouter.getParam("id");
+    this.subscribe("membersForContact", id);
 });
 
 Template.contactMembers.helpers({

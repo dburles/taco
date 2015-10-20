@@ -384,10 +384,10 @@ Template.transactionDetail.events({
     },
     'click .shared-menu': function (e,t){
         e.preventDefault();
-        if(this.shared == 'Shared')
-            Activities.update({_id:this._id},{$set:{"shared":"No"}});
+        if(this.sharing == 'Shared')
+            Activities.update({_id:this._id},{$set:{"sharing":"None"}});
         else
-            Activities.update({_id:this._id},{$set:{"shared":"Shared"}});
+            Activities.update({_id:this._id},{$set:{"sharing":"Shared"}});
     },
     'click .delete-activity-menu': function (e,t){
         e.preventDefault();
