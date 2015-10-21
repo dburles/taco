@@ -103,13 +103,14 @@
 
 <template name="transactionDetail">
     {{#with step}}
-        {{#if hasType 'Public'}}
-            <span class="label label-default">Public</span>
-        {{/if}}
+
 
         <div class="row">
-            <div class="col-xs-10">
-                <h2 class="drop-heading ellipsis max-width-full" id="step-heading">{{activityText this}}</h2>
+            <div class="col-xs-10" >
+                <h2 class="drop-heading ellipsis max-width-full" id="step-heading" style="vertical-align:middle">{{activityText this}}</h2>
+                {{#if isShared}}
+                    <i  class="fa-share-alt color-steel fa" style="vertical-align:middle"></i>
+                {{/if}}
             </div>
             <div class="col-xs-2">
                 <div class="inline-block pull-right">
@@ -164,8 +165,8 @@
                     </ul>
                 </div>
                 {{formattedTaskText}} <span class="color-light-grey"> - {{fromNow updatedAt}}</span>
-                {{#if equals sharing 'Shared'}}
-                    &nbsp;<i  class="fa-share-square-o color-grey fa"></i>
+                {{#if isShared}}
+                    &nbsp;<i  class="fa-share-alt color-steel fa"></i>
                 {{/if}}
             {{/if}}
 
@@ -187,7 +188,7 @@
                     </ul>
                 </div>
                 {{formattedTaskText}}
-                {{#if equals sharing 'Shared'}}
+                {{#if isShared}}
                     &nbsp;<i  class="fa-share-alt color-steel fa"></i>
                 {{/if}}
             {{/if}}
@@ -240,7 +241,7 @@
 
             {{text}}
 
-            {{#if equals sharing 'Shared'}}
+            {{#if isShared}}
                 &nbsp;<i  class="fa-share-alt color-steel fa"></i>
             {{/if}}
 

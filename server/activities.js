@@ -31,11 +31,19 @@ Meteor.publish("stepsForTransaction", function(transactionId){
     });
 })
 
-Meteor.publish("stepsForTransactionByType", function(transactionId, type){
+//Meteor.publish("stepsForTransactionByType", function(transactionId, type){
+//
+//    return Activities.find({
+//        transactionId: transactionId,
+//        type: type
+//    });
+//})
+
+Meteor.publish("sharedStepsForTransaction", function(transactionId){
 
     return Activities.find({
         transactionId: transactionId,
-        type: type
+        $or:[{sharing:'Shared'},{sharing:'Shared All'}]
     });
 })
 

@@ -328,6 +328,9 @@ Template.transactionDetail.helpers({
         if(this.taskCount > 0 && this.taskCompletedCount < this.taskCount && this.taskCompletedCount > 0)
             return "chart";
         return 'light-grey';
+    },
+    isShared: function(){
+        return (this.sharing == 'Shared' || this.sharing == 'Shared All');
     }
 
 

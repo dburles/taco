@@ -7,12 +7,15 @@ Template.checklist.helpers({
     steps: function() {
         var id = FlowRouter.getParam("id");
         return Activities.find({transactionId: id,
-            $and: [{type: 'Step'},
-                {type: 'Public'}]});
+            type:'Step',
+            $or: [{sharing: 'Shared'},
+                {sharing: 'Shared All'}]});
     },
     tasks: function() {
         var id = FlowRouter.getQueryParam("step");
-        return Activities.find({
+        return Activities.find({type:task,
+            $or: [{sharing: 'Shared'},
+                {sharing: 'Shared All'}],
             $and: [
                 {stepId:id},
                 {stepId:{$ne:null}},
@@ -21,13 +24,13 @@ Template.checklist.helpers({
     },
     comments: function() {
         var id = FlowRouter.getQueryParam("step");
-        return Activities.find({
+        return Activities.find({type:'Comment',
             $and: [
                 {stepId:id},
-                {stepId:{$ne:null}},
-                {type:'Comment'},
-                {type:'Public'}
-            ]});
+                {stepId:{$ne:null}}],
+            $or: [{sharing: 'Shared'},
+                {sharing: 'Shared All'}]
+            });
     },
     checkedIfComplete: function() {
         if(this.status == "Completed")
@@ -77,7 +80,8 @@ Template.checklist.events({
                 transactionId: id,
                 stepId: stepId,
                 text: e.target.value,
-                type: ['Comment', 'Public']
+                sharing:'Shared',
+                type: ['Comment']
             })
 
             e.target.value = "";
@@ -120,7 +124,7 @@ Template.checklist.onCreated(function () {
     var id = FlowRouter.getParam("id");
 
     this.subscribe("oneTransaction", id);
-    this.subscribe("stepsForTransactionByType", id, "Public"); //clientDocuments
+    this.subscribe("sharedStepsForTransaction", id); //clientDocuments
 });
 
 
