@@ -83,3 +83,7 @@ Meteor.startup(function () {
     Contacts._ensureIndex({"firstName": 1});
     Contacts._ensureIndex({"lastName": 1});
 });
+
+Meteor.publish("suppliers", function(){
+    return Contacts.find({profiles:'Supplier'});
+})

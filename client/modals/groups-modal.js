@@ -1,8 +1,6 @@
 Template.profilesModal.helpers({
     profiles: function () {
-        return ApplicationHelpers.ClientProfiles().map(function(value){
-            return {name: value};
-        })
+        return ApplicationHelpers.ClientProfiles();
     },
     isAdding: function () {
         return this.mode == "Add";

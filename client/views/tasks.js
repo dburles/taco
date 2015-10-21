@@ -256,8 +256,7 @@ Template.tasks.onCreated(function () {
 });
 
 Template.tasks.rendered = function(){
-    //$('[data-toggle="tooltip"]').tooltip();
-    $("#buttonBar").sticky({topSpacing:0});
+
 }
 
 SelectedActivities.clear = function(){

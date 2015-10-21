@@ -1,7 +1,6 @@
 Template.stepModal.helpers({
     stepTypeOptions: function() {
         return [
-            {label: "Public", value: "Public"},
             {label: "Important", value: "Important"},
             {label: "Step", value: "Step"}
         ];
