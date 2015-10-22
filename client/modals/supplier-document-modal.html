@@ -1,0 +1,49 @@
+<template name="supplierDocumentModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{#autoForm collection="SupplierDocuments" id="supplierDocumentForm" type=this.type doc=this.doc}}
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs bottom-margin" role="tablist">
+                                    <li role="presentation" class="active"><a href="#document" aria-controls="document" role="tab" data-toggle="tab">Document</a></li>
+                                    <li role="presentation"><a href="#checks" aria-controls="checks" role="tab" data-toggle="tab">Checks</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+
+                                    <!--Main Tab-->
+
+                                    <div role="tabpanel" class="tab-pane active" id="document">
+                                        {{> afQuickField name="text" placeholder="Text"}}
+                                        {{> afQuickField name="identifier" placeholder="eg. income-payg-base"}}
+                                    </div>
+
+
+
+                                    <div role="tabpanel" class="tab-pane" id="checks">
+                                        {{> afQuickField name="checkItems"}}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="save-document-button" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                        <button id="cancel-document-button" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                    </div>
+
+                {{/autoForm}}
+            </div>
+        </div>
+    </div>
+</template>

@@ -14,7 +14,7 @@
                 <ul class="dropdown-menu" aria-labelledby="titleDropdown">
                     <li><a id="generalMenuItem" href="#">General</a></li>
                     {{#each suppliers}}
-                        <li><a class="supplierMenuItem" href="#">{{this.name}}</a></li>
+                        <li><a class="supplierMenuItem" href="#">{{this}}</a></li>
                     {{/each}}
                 </ul>
             </div>
@@ -24,17 +24,18 @@
 
 
     <div class="row">
+
+        <div class="col-sm-8">
+            {{#each documents}}
+                {{> documentItem this}}
+            {{/each}}
+        </div>
+
         <div class="col-sm-4">
 
             <div class="well margin-top-10">
 
-                <input id="team-search-text" type="text" placeholder="Search..."
-                       class="form-control margin-bottom-10">
-                <button id="add-template-button" class="btn btn-primary margin-bottom-10">Add Team</button>
-
-                {{#each teams}}
-                        {{> teamItem this}}
-                {{/each}}
+                <button id="add-document-button" class="btn btn-primary margin-bottom-10">Add Document</button>
 
                 {{#unless Template.subscriptionsReady}}
                     {{> loader}}
@@ -42,68 +43,21 @@
             </div>
 
         </div>
-        <div class="col-sm-8">
-            {{> teamView this}}
-        </div>
+
     </div>
 
 </template>
 
-<template name="teamItem">
-    <a href="{{viewPath}}" class="plain" >
-        <div class="{{#if isSelected}}selected-box{{/if}} hover-box selectable-box padding-10 margin-bottom-10 border-grey">
-            {{name}}
+<template name="documentItem">
+    <a href="#" class="plain" >
+        <div class="document-item hover-box selectable-box padding-10 margin-bottom-10 border-grey">
+            <!--<i class="fa fa-edit fa-2x pull-right"></i>-->
+            {{text}}
+            <ul>
+            {{#each checkItems}}
+                <li>{{this}}</li>
+            {{/each}}
+            </ul>
         </div>
     </a>
-</template>
-
-<template name="teamView">
-
-    {{#with team}}
-
-    {{#autoForm collection="Teams" id="teamsForm" autosave=true type="update" doc=this}}
-
-    {{> afQuickField name="name" label=true placeholder=""}}
-
-    <ul class="nav nav-tabs bottom-margin" role="tablist">
-        <li role="presentation" class="active"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
-        <li role="presentation"><a href="#contact-profiles" aria-controls="contact-profiles" role="tab" data-toggle="tab">Contact Profiles</a></li>
-        <li role="presentation"><a href="#transaction-profiles" aria-controls="transaction-profiles" role="tab" data-toggle="tab">Transaction Profiles</a></li>
-        <li role="presentation"><a href="#lead-sources" aria-controls="lead-sources" role="tab" data-toggle="tab">Lead Sources</a></li>
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-
-        <!--Main Tab-->
-
-        <div role="tabpanel" class="tab-pane active" id="details">
-            <p>Coming soon...</p>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="contact-profiles">
-            {{> afQuickField name="contactProfiles" label=false}}
-        </div>
-        <div role="tabpanel" class="tab-pane" id="transaction-profiles">
-            {{> afQuickField name="transactionProfiles" label=false}}
-        </div>
-        <div role="tabpanel" class="tab-pane" id="lead-sources">
-            {{> afQuickField name="leadSourceTypes" label=false}}
-        </div>
-    </div>
-
-    <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Team Options <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a id='delete-template-menu' href="#">Delete Team</a></li>
-            <li><a id='clone-template-menu' href="#">Clone Team</a></li>
-        </ul>
-    </div>
-    {{/autoForm}}
-
-
-    <div class="color-grey margin-top-10">Changes are saved automatically</div>
-    {{/with}}
 </template>

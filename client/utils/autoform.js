@@ -50,5 +50,12 @@ AutoForm.hooks({
             $('#sharingButton').popover('hide');
             toastr.success("Sharing Settings Saved");
         }
+    },
+
+    supplierDocumentForm: {
+        onSuccess: function () {
+            Modal.hide("templateModal");
+            toastr.success("Document Saved");
+        }
     }
 });
