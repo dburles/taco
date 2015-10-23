@@ -12,6 +12,7 @@
                                 <ul class="nav nav-tabs bottom-margin" role="tablist">
                                     <li role="presentation" class="active"><a href="#document" aria-controls="document" role="tab" data-toggle="tab">Document</a></li>
                                     <li role="presentation"><a href="#checks" aria-controls="checks" role="tab" data-toggle="tab">Checks</a></li>
+                                    <li role="presentation"><a href="#alternatives" aria-controls="alternatives" role="tab" data-toggle="tab">Alternatives</a></li>
                                 </ul>
 
                                 <!-- Tab panes -->
@@ -20,14 +21,25 @@
                                     <!--Main Tab-->
 
                                     <div role="tabpanel" class="tab-pane active" id="document">
+                                        <div class="row">
+                                            <div class="col-sm-6">{{> afQuickField name="category" placeholder="eg. Base Income"}}</div>
+                                            <div class="col-sm-6">{{> afQuickField name="supplier" readonly=true}}</div>
+                                        </div>
+
                                         {{> afQuickField name="text" placeholder="Text"}}
-                                        {{> afQuickField name="identifier" placeholder="eg. income-payg-base"}}
+                                        {{> afQuickField name="description" placeholder="Description"}}
+                                        {{> afQuickField name="downloadLink" placeholder="eg http://example.com/myfile.pdf"}}
+
                                     </div>
 
 
 
                                     <div role="tabpanel" class="tab-pane" id="checks">
                                         {{> afQuickField name="checkItems"}}
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane" id="alternatives">
+                                        {{> afQuickField name="alternativeItems"}}
                                     </div>
 
                                 </div>

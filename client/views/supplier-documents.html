@@ -8,7 +8,7 @@
                     <h1 class="ellipsis margin-right-5" style="display: inline">
                         <i class="fa fa-pie-chart color-blue small-right-margin"></i>{{title}}
                     </h1>
-                    <i class="fa fa-2x fa-caret-down light-text inline-block"></i>
+                    <i class="fa fa-2x fa-caret-down light-text inline-block no-print"></i>
                 </div>
 
                 <ul class="dropdown-menu" aria-labelledby="titleDropdown">
@@ -25,21 +25,22 @@
 
     <div class="row">
 
-        <div class="col-sm-8">
+        <div class="col-sm-8 sortable-documents">
             {{#each documents}}
                 {{> documentItem this}}
             {{/each}}
+            {{#unless Template.subscriptionsReady}}
+                {{> loader}}
+            {{/unless}}
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-4 no-print">
 
-            <div class="well margin-top-10">
+            <div class="well">
 
                 <button id="add-document-button" class="btn btn-primary margin-bottom-10">Add Document</button>
 
-                {{#unless Template.subscriptionsReady}}
-                    {{> loader}}
-                {{/unless}}
+
             </div>
 
         </div>
@@ -49,15 +50,30 @@
 </template>
 
 <template name="documentItem">
-    <a href="#" class="plain" >
-        <div class="document-item hover-box selectable-box padding-10 margin-bottom-10 border-grey">
-            <!--<i class="fa fa-edit fa-2x pull-right"></i>-->
-            {{text}}
-            <ul>
-            {{#each checkItems}}
-                <li>{{this}}</li>
-            {{/each}}
-            </ul>
-        </div>
-    </a>
+
+                <div class="document-item hover-box selectable-box padding-10 margin-bottom-10 border-white">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <b>{{text}}</b> <span class="label label-primary">{{category}}</span><br/>
+                            {{description}}<br/>
+                            {{#if downloadLink}}
+                            <a href="{{downloadLink}}" class="plain" onclick="javascript:event.stopPropagation();">
+                                <i class="fa fa-2x fa-cloud-download color-blue"></i>
+                            </a>
+                            {{/if}}
+                        </div>
+                        <div class="col-sm-5">
+                            {{#if checkItems}}
+                                <label for="">Things to check</label>
+                                <ul style="margin-bottom:0px;">
+                                {{#each checkItems}}
+                                    <li>{{this}}</li>
+                                {{/each}}
+                            </ul>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                </div>
+
 </template>
