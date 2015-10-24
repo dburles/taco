@@ -1,3 +1,3 @@
-Meteor.publish("supplierDocuments", function(supplier){
+Meteor.publish("supplierDocuments", function(){
     return SupplierDocuments.find();
 })

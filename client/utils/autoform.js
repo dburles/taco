@@ -57,5 +57,12 @@ AutoForm.hooks({
             Modal.hide("templateModal");
             toastr.success("Document Saved");
         }
+    },
+
+    checklistMortgageModalForm: {
+        onSuccess: function () {
+            Modal.hide("checklistMortgageModal");
+            toastr.success("Document Saved");
+        }
     }
 });

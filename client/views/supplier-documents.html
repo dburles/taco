@@ -51,29 +51,35 @@
 
 <template name="documentItem">
 
-                <div class="document-item hover-box selectable-box padding-10 margin-bottom-10 border-white">
+                <div class="document-item hover-box selectable-box padding-10 margin-bottom-10 border-white {{#if isSection}}inversed{{/if}}">
+                    {{#if isSection}}
+                        {{text}}
+                    {{else}}
                     <div class="row">
-                        <div class="col-sm-7">
-                            <b>{{text}}</b> <span class="label label-primary">{{category}}</span><br/>
-                            {{description}}<br/>
-                            {{#if downloadLink}}
-                            <a href="{{downloadLink}}" class="plain" onclick="javascript:event.stopPropagation();">
-                                <i class="fa fa-2x fa-cloud-download color-blue"></i>
-                            </a>
-                            {{/if}}
-                        </div>
-                        <div class="col-sm-5">
-                            {{#if checkItems}}
-                                <label for="">Things to check</label>
-                                <ul style="margin-bottom:0px;">
-                                {{#each checkItems}}
-                                    <li>{{this}}</li>
-                                {{/each}}
-                            </ul>
-                            {{/if}}
-                        </div>
-                    </div>
 
+
+                            <div class="col-sm-7">
+                                <b>{{text}}</b> <span class="label label-primary">{{category}}</span><br/>
+                                {{description}}<br/>
+                                {{#if downloadLink}}
+                                <a href="{{downloadLink}}" class="plain" onclick="javascript:event.stopPropagation();">
+                                    <i class="fa fa-2x fa-cloud-download color-blue"></i>
+                                </a>
+                                {{/if}}
+                            </div>
+                            <div class="col-sm-5">
+                                {{#if checkItems}}
+                                    <label for="">Things to check</label>
+                                    <ul style="margin-bottom:0px;">
+                                    {{#each checkItems}}
+                                        <li>{{this}}</li>
+                                    {{/each}}
+                                </ul>
+                                {{/if}}
+                            </div>
+
+                    </div>
+                    {{/if}}
                 </div>
 
 </template>
