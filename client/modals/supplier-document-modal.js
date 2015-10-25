@@ -1,8 +1,8 @@
 Template.supplierDocumentModal.helpers({
-    //contacts: function() {
-    //    var id = FlowRouter.getParam("id");
-    //    return Contacts.find({});
-    //}
+    checklistSectionOptions: function() {
+        var options = MortgageHelpers.ChecklistSectionOptions();
+        return options;
+    }
 });
 
 Template.supplierDocumentModal.events({

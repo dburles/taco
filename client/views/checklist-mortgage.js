@@ -2,13 +2,16 @@ Template.checklistMortgage.helpers({
     suppliers: function() {
         return ['ANZ', 'CBA', 'ING Direct', 'Macquarie', 'NAB', 'Suncorp', 'Westpac']
     },
+    sections: function() {
+        return MortgageHelpers.ChecklistSections();
+    },
     title: function() {
         var supplier = FlowRouter.getQueryParam('supplier');
         return (supplier || 'Mortgage') + ' Checklist';
     },
     checklist: function() {
         //var supplier = FlowRouter.getQueryParam('supplier');
-        return SelectedSupplierDocuments.find({},{sort:{order:1}});
+        return SelectedSupplierDocuments.find({section:this.name},{sort:{order:1}});
     },
     checked: function(category) {
         debugger;

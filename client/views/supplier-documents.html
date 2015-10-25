@@ -26,9 +26,15 @@
     <div class="row">
 
         <div class="col-sm-8 sortable-documents">
-            {{#each documents}}
-                {{> documentItem this}}
+            {{#each sections}}
+                <h2>{{name}}</h2>
+                {{#each items}}
+                    {{> documentItem this}}
+                {{/each}}
             {{/each}}
+            <!--{{#each documents}}-->
+                <!--{{> documentItem this}}-->
+            <!--{{/each}}-->
             {{#unless Template.subscriptionsReady}}
                 {{> loader}}
             {{/unless}}
@@ -62,7 +68,7 @@
                                 <b>{{text}}</b> <span class="label label-primary">{{category}}</span><br/>
                                 {{description}}<br/>
                                 {{#if downloadLink}}
-                                <a href="{{downloadLink}}" class="plain" onclick="javascript:event.stopPropagation();">
+                                <a href="{{downloadLink}}" target="_blank" class="plain" onclick="javascript:event.stopPropagation();">
                                     <i class="fa fa-2x fa-cloud-download color-blue"></i>
                                 </a>
                                 {{/if}}

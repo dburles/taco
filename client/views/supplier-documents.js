@@ -9,6 +9,13 @@ Template.supplierDocuments.helpers({
     documents: function() {
         var supplier = FlowRouter.getQueryParam('supplier');
         return SupplierDocuments.find({supplier:supplier},{sort:{order:1}});
+    },
+    items: function() {
+        var supplier = FlowRouter.getQueryParam('supplier');
+        return SupplierDocuments.find({supplier:supplier,section:this.name},{sort:{order:1}});
+    },
+    sections: function() {
+        return MortgageHelpers.ChecklistSections();
     }
 });
 

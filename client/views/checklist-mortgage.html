@@ -44,18 +44,18 @@
                     </label>
                 </div>
 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Existing Client
+                    </label>
+                </div>
+
 
                 <label>Income</label>
 
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"> Income
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Overtime Allowances Bonuses
                     </label>
                 </div>
 
@@ -80,6 +80,12 @@
                 <div class="checkbox" style="margin-top: 20px">
                     <label>
                         <input type="checkbox"> Rental Income
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Proposed Rent
                     </label>
                 </div>
 
@@ -175,6 +181,12 @@
 
                 <div class="checkbox">
                     <label>
+                        <input type="checkbox"> Overtime Allowances Bonuses
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
                         <input type="checkbox"> Has Unused ABN
                     </label>
                 </div>
@@ -193,9 +205,15 @@
 
 
                 <button id="add-document-button" class="btn btn-primary margin-bottom-10 no-print">Add Document</button>
-                {{#each checklist}}
-                    {{>supplierCheckItem this}}
+                {{#each sections}}
+                    <h2>{{name}}
+                    <i class="fa fa-plus-circle color-light-grey no-print"></i>
+                    </h2>
+                    {{#each checklist}}
+                        {{>supplierCheckItem this}}
+                    {{/each}}
                 {{/each}}
+
 
                 {{#unless Template.subscriptionsReady}}
                     {{> loader}}
@@ -208,36 +226,58 @@
 </template>
 
 <template name="supplierCheckItem">
+    <div style="margin-bottom: 10px;">
+        <h3 class="segoe" style="display: inline-block;margin-top: 10px">{{text}}</h3>&nbsp;&nbsp;<span class="label label-primary" style="vertical-align:text-top">{{category}}</span><br/>
+        {{description}}<br/>
+        {{#if downloadLink}}
+        <a href="{{downloadLink}}" target='_blank' class="plain" onclick="javascript:event.stopPropagation();">
+            <i class="fa fa-2x fa-cloud-download color-blue"></i>
+        </a>
+        {{/if}}
 
-                <div class="document-item hover-box selectable-box padding-10 margin-bottom-10 border-white {{#if isSection}}inversed{{/if}}">
-                    {{#if isSection}}
-                        {{text}}
-                    {{else}}
-                    <div class="row">
-
-
-                            <div class="col-sm-7">
-                                <b>{{text}}</b> <span class="label label-primary">{{category}}</span><br/>
-                                {{description}}<br/>
-                                {{#if downloadLink}}
-                                <a href="{{downloadLink}}" class="plain" onclick="javascript:event.stopPropagation();">
-                                    <i class="fa fa-2x fa-cloud-download color-blue"></i>
-                                </a>
-                                {{/if}}
-                            </div>
-                            <div class="col-sm-5">
-                                {{#if checkItems}}
-                                    <label for="">Things to check</label>
-                                    <ul style="margin-bottom:0px;">
-                                    {{#each checkItems}}
-                                        <li>{{this}}</li>
-                                    {{/each}}
-                                </ul>
-                                {{/if}}
-                            </div>
-
-                    </div>
-                    {{/if}}
-                </div>
-
+        {{#if checkItems}}
+            <div style="padding-top: 10px;color:#6E6E6E"><span style="text-decoration: underline">Things to check</span>
+            <ul style="margin-bottom:0px;">
+            {{#each checkItems}}
+                <li>{{this}}</li>
+            {{/each}}
+            </ul>
+            </div>
+        {{/if}}
+    </div>
 </template>
+
+
+
+
+
+<!--<div class="document-item hover-box selectable-box padding-10 margin-bottom-10 border-white {{#if isSection}}inversed{{/if}}">-->
+    <!--{{#if isSection}}-->
+        <!--{{text}}-->
+    <!--{{else}}-->
+        <!--<div class="row">-->
+
+
+            <!--<div class="col-sm-7">-->
+                <!--<b>{{text}}</b> <span class="label label-primary">{{category}}</span><br/>-->
+                <!--{{description}}<br/>-->
+                <!--{{#if downloadLink}}-->
+                    <!--<a href="{{downloadLink}}" class="plain" onclick="javascript:event.stopPropagation();">-->
+                        <!--<i class="fa fa-2x fa-cloud-download color-blue"></i>-->
+                    <!--</a>-->
+                <!--{{/if}}-->
+            <!--</div>-->
+            <!--<div class="col-sm-5">-->
+                <!--{{#if checkItems}}-->
+                    <!--<label for="">Things to check</label>-->
+                    <!--<ul style="margin-bottom:0px;">-->
+                        <!--{{#each checkItems}}-->
+                            <!--<li>{{this}}</li>-->
+                        <!--{{/each}}-->
+                    <!--</ul>-->
+                <!--{{/if}}-->
+            <!--</div>-->
+
+        <!--</div>-->
+    <!--{{/if}}-->
+<!--</div>-->

@@ -29,6 +29,7 @@
                                         </div>
 
                                         {{> afQuickField name="text" placeholder="Text"}}
+                                        {{> afQuickField name="section" options=checklistSectionOptions}}
                                         {{> afQuickField name="isSection"}}
                                         {{#unless afFieldValueIs name="isSection" value=true}}
                                             {{> afQuickField name="description" placeholder="Description"}}
