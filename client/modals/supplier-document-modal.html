@@ -23,18 +23,16 @@
                                     <!--Main Tab-->
 
                                     <div role="tabpanel" class="tab-pane active" id="document">
+                                        {{> afQuickField name="section" options=checklistSectionOptions}}
                                         <div class="row">
                                             <div class="col-sm-6">{{> afQuickField name="category" placeholder="eg. Base Income"}}</div>
                                             <div class="col-sm-6">{{> afQuickField name="supplier" readonly=true}}</div>
                                         </div>
 
                                         {{> afQuickField name="text" placeholder="Text"}}
-                                        {{> afQuickField name="section" options=checklistSectionOptions}}
-                                        {{> afQuickField name="isSection"}}
-                                        {{#unless afFieldValueIs name="isSection" value=true}}
-                                            {{> afQuickField name="description" placeholder="Description"}}
-                                            {{> afQuickField name="downloadLink" placeholder="eg http://example.com/myfile.pdf"}}
-                                        {{/unless}}
+                                        {{> afQuickField name="notRequired"}}
+                                        {{> afQuickField name="description" placeholder="Description"}}
+                                        {{> afQuickField name="downloadLink" placeholder="eg http://example.com/myfile.pdf"}}
                                     </div>
 
 

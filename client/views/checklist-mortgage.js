@@ -11,7 +11,7 @@ Template.checklistMortgage.helpers({
     },
     checklist: function() {
         //var supplier = FlowRouter.getQueryParam('supplier');
-        return SelectedSupplierDocuments.find({section:this.name},{sort:{order:1}});
+        return SelectedSupplierDocuments.find({section:this.name, notRequired: {$ne: true}},{sort:{order:1}});
     },
     checked: function(category) {
         debugger;
@@ -23,6 +23,14 @@ Template.checklistMortgage.helpers({
     },
     hideSections: function(){
         return Session.get('checklist-hide-sections') || false;
+    },
+    excludeChecklist: function() {
+        //var supplier = FlowRouter.getQueryParam('supplier');
+        return SelectedSupplierDocuments.find({notRequired:true},{sort:{order:1}});
+    },
+    alternativesChecklist: function() {
+        //var supplier = FlowRouter.getQueryParam('supplier');
+        return SelectedSupplierDocuments.find({alternativeItems: {$exists: true, $not: {$size: 0}}},{sort:{order:1}});
     }
 });
 
