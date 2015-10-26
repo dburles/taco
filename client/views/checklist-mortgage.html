@@ -197,6 +197,12 @@
                     </label>
                 </div>
 
+                <div class="checkbox" style="margin-top: 20px">
+                    <label>
+                        <input id="hide-sections-checkbox" type="checkbox"> Hide Section Headings
+                    </label>
+                </div>
+
             </div>
 
         </div>
@@ -204,11 +210,15 @@
         <div class="col-sm-8">
 
 
-                <button id="add-document-button" class="btn btn-primary margin-bottom-10 no-print">Add Document</button>
+                <!--<button id="add-document-button" class="btn btn-primary margin-bottom-10 no-print">Add Document</button>-->
                 {{#each sections}}
-                    <h2>{{name}}
-                    <i class="fa fa-plus-circle color-light-grey no-print"></i>
-                    </h2>
+                    {{#unless hideSections}}
+                        <h2 class="no-print">{{name}}
+                        <button class="add-document-button btn btn-transparent">
+                            <i class="fa fa-2x fa-plus-circle color-light-grey no-print"></i>
+                        </button>
+                        </h2>
+                    {{/unless}}
                     {{#each checklist}}
                         {{>supplierCheckItem this}}
                     {{/each}}

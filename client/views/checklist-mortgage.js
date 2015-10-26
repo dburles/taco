@@ -20,6 +20,9 @@ Template.checklistMortgage.helpers({
             return 'checked';
         else
             return '';
+    },
+    hideSections: function(){
+        return Session.get('checklist-hide-sections') || false;
     }
 });
 
@@ -51,16 +54,19 @@ Template.checklistMortgage.events({
         event.preventDefault();
         FlowRouter.setQueryParams({'supplier':null})
     },
-    'click #add-document-button': function(e,t){
+    'click .add-document-button': function(e,t){
         event.preventDefault();
         var supplier = FlowRouter.getQueryParam('supplier')
-        var doc = {supplier:supplier};
+        var doc = {supplier:supplier, section:this.name};
         var checklistMortgageModalData = {
             type: "insert",
             doc: doc
         }
 
         Modal.show('checklistMortgageModal', checklistMortgageModalData);
+    },
+    'click #hide-sections-checkbox': function (e, t) {
+        Session.set('checklist-hide-sections', e.target.checked);
     }
 });
 
