@@ -64,14 +64,29 @@ Template.checklistMortgage.events({
     },
     'click .add-document-button': function(e,t){
         event.preventDefault();
-        var supplier = FlowRouter.getQueryParam('supplier')
-        var doc = {supplier:supplier, section:this.name};
+        var supplier = FlowRouter.getQueryParam('supplier');
+        var $el = $(e.target).closest('button');
+        var section = $el.data('section');
+        var doc = {supplier:supplier, section:section};
         var checklistMortgageModalData = {
             type: "insert",
             doc: doc
         }
 
         Modal.show('checklistMortgageModal', checklistMortgageModalData);
+    },
+    'keypress #custom-item': function (e, t) {
+        if (e.which === 13) {
+
+            SelectedSupplierDocuments.insert({
+                section:'Miscellaneous',
+                text:'Special Requirement',
+                description: e.target.value
+            })
+
+            e.target.value = "";
+            e.preventDefault();
+        }
     },
     'click #hide-sections-checkbox': function (e, t) {
         Session.set('checklist-hide-sections', e.target.checked);

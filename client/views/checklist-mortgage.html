@@ -30,7 +30,27 @@
         <div class="col-sm-4 no-print">
             <div class="well">
 
+                <label>Forms</label>
+                <button class="add-document-button btn btn-transparent" data-section="Forms">
+                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                </button>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Client Information
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Lender Signatures
+                    </label>
+                </div>
+
                 <label>Identification</label>
+                <button class="add-document-button btn btn-transparent" data-section="Identification">
+                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                </button>
 
                 <div class="checkbox">
                     <label>
@@ -52,6 +72,9 @@
 
 
                 <label>Income</label>
+                <button class="add-document-button btn btn-transparent" data-section="Income">
+                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                </button>
 
                 <div class="checkbox">
                     <label>
@@ -68,12 +91,6 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"> Self Employed
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Short Employment
                     </label>
                 </div>
 
@@ -102,6 +119,9 @@
                 </div>
 
                 <label>Contribution</label>
+                <button class="add-document-button btn btn-transparent" data-section="Contribution">
+                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                </button>
 
                 <div class="checkbox">
                     <label>
@@ -116,6 +136,9 @@
                 </div>
 
                 <label>Commitments</label>
+                <button class="add-document-button btn btn-transparent" data-section="Commitments">
+                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                </button>
 
                 <div class="checkbox">
                     <label>
@@ -154,6 +177,9 @@
                 </div>
 
                 <label>Security</label>
+                <button class="add-document-button btn btn-transparent" data-section="Security">
+                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                </button>
 
                 <div class="checkbox">
                     <label>
@@ -177,21 +203,18 @@
 
             <div class="well">
 
-                <label>Forms</label>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Client Information
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Lender Signatures
-                    </label>
-                </div>
 
                 <label>Miscellaneous</label>
+                <button class="add-document-button btn btn-transparent" data-section="Miscellaneous">
+                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                </button>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Short Employment
+                    </label>
+                </div>
+
 
                 <div class="checkbox">
                     <label>
@@ -211,11 +234,11 @@
                     </label>
                 </div>
 
-                <div class="checkbox" style="margin-top: 20px">
-                    <label>
-                        <input id="hide-sections-checkbox" type="checkbox"> Hide Section Headings
-                    </label>
-                </div>
+                <!--<div class="checkbox" style="margin-top: 20px">-->
+                    <!--<label>-->
+                        <!--<input id="hide-sections-checkbox" type="checkbox"> Hide Section Headings-->
+                    <!--</label>-->
+                <!--</div>-->
 
             </div>
 
@@ -226,13 +249,13 @@
 
                 <!--<button id="add-document-button" class="btn btn-primary margin-bottom-10 no-print">Add Document</button>-->
                 {{#each sections}}
-                    {{#unless hideSections}}
-                        <h2 class="no-print">{{name}}
-                        <button class="add-document-button btn btn-transparent">
-                            <i class="fa fa-2x fa-plus-circle color-light-grey no-print"></i>
-                        </button>
-                        </h2>
-                    {{/unless}}
+                    <!--{{#unless hideSections}}-->
+                        <!--<h2 class="no-print">{{name}}-->
+                        <!--<button class="add-document-button btn btn-transparent">-->
+                            <!--<i class="fa fa-2x fa-plus-circle color-light-grey no-print"></i>-->
+                        <!--</button>-->
+                        <!--</h2>-->
+                    <!--{{/unless}}-->
                     {{#each checklist}}
                         {{>supplierCheckItem this}}
                     {{/each}}
@@ -256,6 +279,8 @@
                     {{/each}}
                 {{/unless}}
 
+                <textarea class="form-control no-print margin-top-10" name="custom-item" id="custom-item" rows="3" placeholder="Add a miscellaneous item..."></textarea>
+
                 {{#unless Template.subscriptionsReady}}
                     {{> loader}}
                 {{/unless}}
@@ -268,7 +293,8 @@
 
 <template name="supplierCheckItem">
     <div class="hover-aura edit-document-button">
-        <h3 class="segoe" style="display: inline-block;margin-top: 10px">
+        <!--<i class="fa fa-times-circle fa-2x color-blue pull-right"></i>-->
+        <h3 class="segoe" style="display: inline-block;margin-top: 10px;font-size: 18pt">
             {{text}}
             <!--<button class="edit-document-button btn btn-transparent">-->
                 <!--<i class="fa fa-2x fa-check-circle color-light-grey no-print"></i>-->
@@ -277,8 +303,8 @@
 
         {{#if description}}<div>{{description}}</div>{{/if}}
         {{#if downloadLink}}
-        <a href="{{downloadLink}}" target='_blank' class="plain" onclick="javascript:event.stopPropagation();">
-            <i class="fa fa-2x fa-cloud-download color-blue"></i>
+        <a href="{{downloadLink}}" target="_blank" class="btn btn-default margin-top-10" onclick="javascript:event.stopPropagation();">
+            <i class="fa  fa-cloud-download color-blue"></i> Download
         </a>
         {{/if}}
 
