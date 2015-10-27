@@ -177,13 +177,21 @@
 
             <div class="well">
 
-                <label>Miscellaneous</label>
+                <label>Forms</label>
 
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"> Client Information
                     </label>
                 </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Lender Signatures
+                    </label>
+                </div>
+
+                <label>Miscellaneous</label>
 
                 <div class="checkbox">
                     <label>
@@ -259,8 +267,14 @@
 </template>
 
 <template name="supplierCheckItem">
-    <div>
-        <h3 class="segoe" style="display: inline-block;margin-top: 10px">{{text}}</h3>&nbsp;&nbsp;<span class="label label-primary" style="vertical-align:text-top">{{category}}</span>
+    <div class="hover-aura edit-document-button">
+        <h3 class="segoe" style="display: inline-block;margin-top: 10px">
+            {{text}}
+            <!--<button class="edit-document-button btn btn-transparent">-->
+                <!--<i class="fa fa-2x fa-check-circle color-light-grey no-print"></i>-->
+            <!--</button>-->
+        </h3><span class="label label-primary" style="vertical-align:text-top;margin-left:10px">{{category}}</span>
+
         {{#if description}}<div>{{description}}</div>{{/if}}
         {{#if downloadLink}}
         <a href="{{downloadLink}}" target='_blank' class="plain" onclick="javascript:event.stopPropagation();">
@@ -269,6 +283,7 @@
         {{/if}}
 
         {{#if checkItems}}
+
             <div style="padding-top: 10px;color:#848484"><span style="text-decoration: underline">Things to check</span>
             <ul style="margin-bottom:0px;">
             {{#each checkItems}}
@@ -276,6 +291,7 @@
             {{/each}}
             </ul>
             </div>
+
         {{/if}}
     </div>
 </template>

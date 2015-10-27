@@ -84,7 +84,7 @@ Template.checklistMortgage.onCreated(function () {
 
 Template.supplierCheckItem.events({
 
-    'click .document-item': function(e,t){
+    'click .edit-document-button': function(e,t){
         event.preventDefault();
         var doc = {};
         var checklistMortgageModalData = {

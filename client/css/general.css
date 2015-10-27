@@ -322,3 +322,17 @@ h1 {
 .max-width-full{
     max-width:100%;
 }
+
+/*used in doc checklist*/
+
+.hover-aura{
+    border: solid 1px white;
+}
+
+.hover-aura:hover{
+    margin:-5px -10px;
+    padding:5px 10px;
+    border: solid 1px #A9E2F3;
+    border-radius: 4px;
+    background-color: #EFF8FB;
+}
