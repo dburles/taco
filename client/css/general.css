@@ -65,6 +65,12 @@ h1 {
     {
         display: none !important;
     }
+    body {
+        font-size: 80%;
+    }
+    .print-smaller{
+        font-size: 80%;
+    }
 }
 
 

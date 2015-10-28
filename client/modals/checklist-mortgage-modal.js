@@ -9,6 +9,11 @@ Template.checklistMortgageModal.events({
     'click #cancel-document-button': function (e, t) {
         event.preventDefault();
         Modal.hide('checklistMortgageModal');
+    },
+    'click #delete-document-button': function (e, t) {
+        event.preventDefault();
+        SelectedSupplierDocuments.remove({_id:this.doc._id});
+        Modal.hide('checklistMortgageModal');
     }
 });
 
