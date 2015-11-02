@@ -1,41 +1,28 @@
 Template.profile.helpers({
-    contact: function () {
-
-        var userId = FlowRouter.getParam("user");
-        //Profiles.insert({userId:userId});
-        var doc =  Contacts.findOne({_id:userId});
-        //debugger;
+    profile: function() {
+        var id = FlowRouter.getParam("id");
+        var doc =  Profiles.findOne(id);
         return doc;
     },
-    user: function () {
-        return Meteor.user();
-    },
-    teamOptions: function () {
-        var contact = Contacts.findOne(this._id);
-        return contact.user.teams.map(function(val){
-            return {label:val, value:val};
-        })
+    contacts: function(){
+        var id = FlowRouter.getParam("id");
+        var docs = ProfileContacts.find({profileId:id});
+        return docs;
     }
 });
 
 Template.profile.events({
-    'click #cancelProfile': function () {
-        history.back();
-    }
+    //'click #clearSearchButton': function (e, t) {
+    //    event.preventDefault();
+    //}
 });
 
 Template.profile.onCreated(function () {
-    var userId = FlowRouter.getParam("user");
-
-    this.subscribe("userContact", userId);
-    //this.subscribe("oneContactByEmail", eml);
+    var id = FlowRouter.getParam("id");
+    this.subscribe('profile', id);
+    this.subscribe('profileContacts', id);
 });
 
-Template.profile.rendered = function(){
-    setTimeout(function(){
-        $('.redactor').redactor({
-            minHeight:180
-        });
-    }, 500);
-
-};
+Template.profile.onRendered(function () {
+    //do something...
+});

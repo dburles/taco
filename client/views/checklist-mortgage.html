@@ -199,6 +199,18 @@
                     </label>
                 </div>
 
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Construction
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Guarantor
+                    </label>
+                </div>
+
             </div>
 
             <div class="well">
@@ -274,7 +286,7 @@
                 {{/each}}
 
                 {{#unless emptyCollection alternativesChecklist}}
-                    <h3 class="segoe print-smaller">Alternative Items</h3>
+                    <h3 class="segoe print-medium">Alternative Items</h3>
                     {{#each alternativesChecklist}}
                         <p>Alternatives for <span class="label label-primary">{{category}}</span></p>
                         <ul>
@@ -300,7 +312,7 @@
 <template name="supplierCheckItem">
     <div class="hover-aura edit-document-button">
         <!--<i class="fa fa-times-circle fa-2x color-blue pull-right"></i>-->
-        <h3 class="segoe print-smaller" style="display: inline-block;margin-top: 10px;font-size: 18pt">
+        <h3 class="segoe print-medium" style="display: inline-block;margin-top: 10px">
             {{text}}
             <!--<button class="edit-document-button btn btn-transparent">-->
                 <!--<i class="fa fa-2x fa-check-circle color-light-grey no-print"></i>-->

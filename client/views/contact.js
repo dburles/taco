@@ -55,6 +55,19 @@ Template.contact.events({
         e.preventDefault();
         var partner = Template.instance().partner
         newTransaction(this, partner);
+    },
+    'click #create-profile': function (e, t) {
+        e.preventDefault();
+        var profileId = Profiles.insert({
+            names: this.name
+        })
+        Contacts.update({_id:this._id},{$set:{profileId:profileId}});
+
+        ProfileContacts.insert({
+            profileId:profileId,
+            firstName:this.firstName,
+            lastName:this.lastName
+        })
     }
 });
 

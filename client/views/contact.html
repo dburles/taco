@@ -16,25 +16,42 @@
 
         <div class="well col-sm-5">
 
-            {{> contactInfo}}
-            {{> contactProfiles}}
+            <div class="row">
+                <div class="col-xs-8">
+                    {{> contactInfo}}
+                    {{> contactProfiles}}
+                </div>
+                <div class="col-xs-4">
+                    {{#if profileId}}
+                    <a href="/profiles/{{profileId}}">
+                        <button class="btn btn-primary pull-right" style="width:120px">Client Profile</button>
+                    </a>
+                    {{else}}
+                        <button id="create-profile" class="btn btn-primary pull-right" style="width:120px">Create Profile</button>
+                    {{/if}}
+
+                    <div class="btn-group pull-right margin-top-10">
+                        <button id="newTransactionButton" type="button" class="btn btn-primary" style="width:120px">New Txn</button>
+                        {{#if partner}}
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a id="newJointTransactionMenu" href="#">New Transaction with {{partnerFirstName}}</a></li>
+                                <li><a id="newIndividualTransactionMenu" href="#">New Individual Transaction</a></li>
+                            </ul>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+
             <div>
 
                 <h2 class="inline-block no-margin margin-bottom-5">Transactions</h2>
 
-                <div class="btn-group pull-right margin-top-10">
-                    <button id="newTransactionButton" type="button" class="btn btn-primary">New</button>
-                    {{#if partner}}
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a id="newJointTransactionMenu" href="#">New Transaction with {{partnerFirstName}}</a></li>
-                            <li><a id="newIndividualTransactionMenu" href="#">New Individual Transaction</a></li>
-                        </ul>
-                    {{/if}}
-                </div>
+
             </div>
             {{> contactMembers}}
         </div>

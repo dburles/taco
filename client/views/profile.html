@@ -1,155 +1,112 @@
 <template name="profile">
+
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 margin-top-10 margin-bottom-10">
             <h1 class="ellipsis">
                 <a href="/">
-                    <i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>My Profile
+                <i class="fa fa-chevron-circle-left coloured small-right-margin"></i></a>John and Mary Citizen
+
             </h1>
+
         </div>
     </div>
-
 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-12">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs bottom-margin" role="tablist">
+                <li role="presentation"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                <li role="presentation" class="active"><a href="#personal" aria-controls="personal" role="tab" data-toggle="tab">Personal</a></li>
+                <li role="presentation"><a href="#employment" aria-controls="employment" role="tab" data-toggle="tab">Employment</a></li>
+                <li role="presentation"><a href="#properties" aria-controls="properties" role="tab" data-toggle="tab">Properties and Loans</a></li>
+                <li role="presentation"><a href="#assets" aria-controls="assets" role="tab" data-toggle="tab">Assets and Liabilities</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
 
 
-        </div>
-        <div class="col-sm-6">
+
+        <!--Main Tab-->
+
+                <!--<div role="tabpanel" class="tab-pane fade active" id="overview">-->
+
+                    <!--Content-->
+                <!--</div>-->
+                <div role="tabpanel" class="tab-pane fade" id="overview">
+                    {{#autoForm collection="Profiles" id="profileOverview1" autosave=true doc=profile type='update'}}
+                        {{> afQuickField name="names" placeholder="Full names" label=false}}
+                    {{/autoForm}}
+                </div>
+                <div role="tabpanel" class="tab-pane fade in active" id="personal">
+
+                    {{#each contacts}}
+                    {{#autoForm collection="ProfileContacts" id="profileContact{{_id}}" autosave=true doc=this type='update'}}
 
 
-
-            {{#with contact}}
-                {{#autoForm collection="Contacts" id="profileForm" type="update" doc=this}}
-
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <i class="fa fa-user light-text fa-2x pull-right"></i>
-                        </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="picture" label=false placeholder="Picture" width="50" height="50"}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-2">
-
-                        </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="firstName" label=false placeholder="First Name"}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-2">
-
-                        </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="lastName" label=false placeholder="Last Name"}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <i style="font-size:170%" class="fa fa-envelope light-text fa-2x pull-right"></i>
-                        </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="email"  label=false placeholder="Email"}}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <i class="fa fa-phone light-text fa-2x pull-right"></i>
-                        </div>
-                        <div class="col-xs-10">
-                            <div class="input-group margin-bottom-15">
-                            <div class="input-group-addon">M</div>
-                            {{> afFieldInput name="mobile" label=false placeholder="Mobile"}}
+                        <div class="row">
+                            <div class="col-sm-12 fixed-label">
+                                Name
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-xs-2">
-
-                        </div>
-                        <div class="col-xs-10">
-                            <div class="input-group margin-bottom-15">
-                                <div class="input-group-addon">W</div>
-                                {{> afFieldInput name="work" label=false placeholder="Work"}}
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <!--<div class="fixed-label">Name</div>-->
+                                {{> afQuickField name="firstName" placeholder="First" label=false}}
+                            </div>
+                            <div class="col-sm-3">
+                                <!--<div class="fixed-label"></div>-->
+                                {{> afQuickField name="middleName" placeholder="Middle" label=false}}
+                            </div>
+                            <div class="col-sm-3">
+                                <!--<div class="fixed-label"></div>-->
+                                {{> afQuickField name="lastName" placeholder="Last" label=false}}
                             </div>
                         </div>
-                    </div>
 
-                    <hr/>
-
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <i class="fa fa-google light-text fa-2x pull-right"></i>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{> afQuickField name="mobile" placeholder="" label=true}}
+                            </div>
+                            <div class="col-sm-3">
+                                {{> afQuickField name="landLine" placeholder="" label=true}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{> afQuickField name="email" placeholder="" label=true}}
+                            </div>
                         </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="user.gmailAddress" label=false placeholder="Gmail Address"}}
-                        </div>
-                    </div>
+                    {{/autoForm}}
+                    {{/each}}
 
-                    <div class="row">
-                        <div class="col-xs-2">
-
-                        </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="user.gmailPassword" label=false placeholder="Gmail Password"}}
-                        </div>
-                    </div>
-
-                    <hr/>
+                </div>
 
 
 
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <i class="fa fa-share-alt light-text fa-2x pull-right"></i>
-                        </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="team" options=teamOptions}}
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    {{> afQuickField name="user.emailSignature" class="redactor" style="display:none"}}
+                <div role="tabpanel" class="tab-pane fade" id="employment">
+                    Employment Content
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="properties">
+                    Properties Content
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="assets">
+                    Assets Content
+                </div>
 
 
 
+            </div>
 
-
-                    <div class="button-row" style="margin-top: -10px">
-                        <button id="saveProfile" type="submit" class="btn btn-primary btn-fixed">Save</button>
-                        <button id="cancelProfile" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
-                    </div>
-
-                    <hr/>
-
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <i class="fa fa-share-alt light-text fa-2x pull-right"></i>
-                        </div>
-                        <div class="col-xs-10">
-                            {{> afQuickField name="user.teams"}}
-                        </div>
-                    </div>
-
-                {{/autoForm}}
-
-            {{/with}}
-            {{#if Template.subscriptionsReady}}
-
-            {{else}}
-                {{> loader}}
-            {{/if}}
-        </div>
-        <div class="col-sm-3">
 
 
         </div>
     </div>
+
+
+
+    {{#unless Template.subscriptionsReady}}
+        {{> loader}}
+    {{/unless}}
 
 </template>
