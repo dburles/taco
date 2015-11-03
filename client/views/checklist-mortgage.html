@@ -312,12 +312,17 @@
 <template name="supplierCheckItem">
     <div class="hover-aura edit-document-button">
         <!--<i class="fa fa-times-circle fa-2x color-blue pull-right"></i>-->
-        <h3 class="segoe print-medium" style="display: inline-block;margin-top: 10px">
+        <strong>
             {{text}}
-            <!--<button class="edit-document-button btn btn-transparent">-->
-                <!--<i class="fa fa-2x fa-check-circle color-light-grey no-print"></i>-->
-            <!--</button>-->
-        </h3><span class="label label-primary" style="vertical-align:text-top;margin-left:10px">{{category}}</span>
+        </strong>
+        <!--<h3 class="segoe print-medium" style="display: inline-block;margin-top: 10px">-->
+            <!--{{text}}-->
+            <!--&lt;!&ndash;<button class="edit-document-button btn btn-transparent">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="fa fa-2x fa-check-circle color-light-grey no-print"></i>&ndash;&gt;-->
+            <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--</h3>-->
+
+        <span class="label label-primary" style="vertical-align:text-top;margin-left:10px">{{category}}</span>
 
         {{#if description}}<div>{{description}}</div>{{/if}}
         {{#if downloadLink}}
@@ -337,5 +342,5 @@
             </div>
 
         {{/if}}
-    </div>
+    </div><br/>
 </template>
