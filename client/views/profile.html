@@ -15,29 +15,46 @@
         <div class="col-sm-12">
 
             <!-- Nav tabs -->
+
             <ul class="nav nav-tabs bottom-margin" role="tablist">
-                <li role="presentation"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                <li role="presentation" class="active"><a href="#personal" aria-controls="personal" role="tab" data-toggle="tab">Personal</a></li>
+                <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
+                <li role="presentation"><a href="#personal" aria-controls="personal" role="tab" data-toggle="tab">Personal</a></li>
                 <li role="presentation"><a href="#employment" aria-controls="employment" role="tab" data-toggle="tab">Employment</a></li>
                 <li role="presentation"><a href="#properties" aria-controls="properties" role="tab" data-toggle="tab">Properties and Loans</a></li>
                 <li role="presentation"><a href="#assets" aria-controls="assets" role="tab" data-toggle="tab">Assets and Liabilities</a></li>
             </ul>
 
             <!-- Tab panes -->
+
             <div class="tab-content">
 
+                <!--Main Tab-->
 
-
-        <!--Main Tab-->
-
-                <!--<div role="tabpanel" class="tab-pane fade active" id="overview">-->
-
-                    <!--Content-->
-                <!--</div>-->
-                <div role="tabpanel" class="tab-pane fade" id="overview">
+                <div role="tabpanel" class="tab-pane fade in active" id="overview">
                     {{#autoForm collection="Profiles" id="profileOverview1" autosave=true doc=profile type='update'}}
                         {{> afQuickField name="names" placeholder="Full names" label=false}}
                     {{/autoForm}}
+                    <div class="row">
+                        {{#each contacts}}
+                            <div class="col-sm-6">
+                                {{#autoForm collection="ProfileContacts" id="profileContact{{_id}}" autosave=true doc=this type='update'}}
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        {{> afQuickField name="firstName" placeholder="First Name" label=false}}
+                                    </div>
+                                    <div class="col-sm-5">
+                                        {{> afQuickField name="mobile" placeholder="Mobile" label=false}}
+                                    </div>
+                                    <div class="col-sm-12">
+                                        {{> afQuickField name="email" placeholder="Email" label=false}}
+                                    </div>
+                                </div>
+                                {{/autoForm}}
+                            </div>
+                        {{/each}}
+                    </div>
+
+            <!--Properties-->
 
                     <div class="row">
                         <div class="col-sm-12">
@@ -46,11 +63,6 @@
                             </button>
                             <h2 class="inline-block">Existing Properties</h2>
                         </div>
-                        <!--<div class="col-sm-1">-->
-                            <!--<button id="add-property-button" class="btn btn-primary margin-bottom-10">-->
-                                <!--<i class="fa fa-plus"></i>-->
-                            <!--</button>-->
-                        <!--</div>-->
                     </div>
                     {{#each properties}}
                         {{#autoForm collection="ProfileProperties" id=formId autosave=true doc=this type='update'}}
@@ -126,18 +138,17 @@
                                 <div class="col-sm-2">
                                     {{> afQuickField name="frequency" placeholder="Frequency" label=false}}
                                 </div>
-                                <!--<div class="col-sm-1">-->
-                                    <!--<button class="delete-mortgage-button btn btn-danger margin-bottom-10">-->
-                                        <!--<i class="fa fa-times"></i>-->
-                                    <!--</button>-->
-                                <!--</div>-->
+
                             </div>
                         {{/autoForm}}
                     {{/each}}
 
-                    <!--Personal Loans-->
+
 
                     <div class="row">
+
+                        <!--Left Column-->
+
                         <div class="col-md-8">
 
                             <div class="row">
@@ -173,14 +184,12 @@
                                         <div class="col-sm-3">
                                             {{> afQuickField name="frequency" placeholder="Frequency" label=false}}
                                         </div>
-                                        <!--<div class="col-sm-1">-->
-                                            <!--<button class="delete-loan-button btn btn-danger margin-bottom-10">-->
-                                                <!--<i class="fa fa-times"></i>-->
-                                            <!--</button>-->
-                                        <!--</div>-->
+
                                     </div>
                                 {{/autoForm}}
                             {{/each}}
+
+                            <!--Credit Cards-->
 
                             <div class="row">
                                 <div class="col-sm-11">
@@ -212,58 +221,52 @@
                                         <div class="col-sm-3">
                                             {{> afQuickField name="limit" placeholder="Limit" label=false}}
                                         </div>
-                                        <!--<div class="col-sm-1">-->
-                                            <!--<button class="delete-liability-button btn btn-danger margin-bottom-10">-->
-                                                <!--<i class="fa fa-times"></i>-->
-                                            <!--</button>-->
-                                        <!--</div>-->
+
                                     </div>
                                 {{/autoForm}}
                             {{/each}}
 
-                            <!--<div class="row">-->
-                                <!--<div class="col-xs-11"><h2>Income</h2></div>-->
-                                <!--<div class="col-xs-1">-->
-                                    <!--<button id="add-card-button" class="btn btn-primary">-->
-                                        <!--<i class="fa fa-plus"></i>-->
-                                    <!--</button>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-
-
-
                         </div>
-                        <div class="col-md-4">
-                            <div class="well">
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <h4>Kids</h4>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <button id="delete-kid-button" class="btn btn-transparent pull-right">
-                                            <i class="fa fa-2x fa-minus-circle color-red"></i>
-                                        </button>
-                                        <button id="add-kid-button" class="btn btn-transparent pull-right">
-                                            <i class="fa fa-2x fa-plus-circle color-blue"></i>
-                                        </button>
 
-                                    </div>
+                        <!--Right Column-->
+                        
+                        <div class="col-md-4">
+
+                            <!--Kids-->
+
+                            <div class="panel panel-default margin-top-10">
+                                <div class="panel-heading" style="padding-top:5px;padding-bottom:5px">
+                                    <h3 class="panel-title inline-block">Kids</h3>
+                                    <button id="add-kid-button" class="btn" style="border:none;padding:0px;background-color: transparent;margin:0px;margin-left:10px;">
+                                        <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                                    </button>
+                                    <button id="delete-kid-button" class="btn" style="border:none;padding:0px;background-color: transparent;margin:0px;margin-left:5px">
+                                        <i class="fa fa-2x fa-minus-circle color-red"></i>
+                                    </button>
 
                                 </div>
-                                <div class="row">
+                                <div class="panel-body">
                                     {{#each kids}}
-                                        {{#autoForm collection="ProfileKids" id=formId autosave=true doc=this type='update'}}
-                                            <div class="col-sm-4">
-                                                {{> afQuickField name="age" placeholder="Age" label=false}}
-                                            </div>
-                                        {{/autoForm}}
+                                        <div class="inline-block">
+                                            {{#autoForm collection="ProfileKids" id=formId autosave=true doc=this type='update'}}
+                                                <div class="inline-block" style="width:75px;padding:5px;">
+                                                    {{> afFieldInput name="age" placeholder="Age"}}
+                                                </div>
+                                            {{/autoForm}}
+                                        </div>
+                                    {{else}}
+                                        <span class="light-text">There are no children. Click (+) to add.</span>
                                     {{/each}}
                                 </div>
-
                             </div>
+
                         </div>
+
                     </div>
+
+
+                    <!--Incomes-->
+
                     <div class="row">
                         {{#each contacts}}
                             <div class="col-md-6">
@@ -301,12 +304,6 @@
                                                 {{> afQuickField name="frequency" placeholder="Frequency" label=false}}
                                             </div>
 
-                                            <!--<div class="col-sm-2">-->
-                                                <!--<button class="delete-income-button btn btn-danger margin-bottom-10">-->
-                                                    <!--<i class="fa fa-times"></i>-->
-                                                <!--</button>-->
-                                            <!--</div>-->
-
 
                                             <div class="col-sm-5">
                                                 {{> afQuickField name="duration" placeholder="Duration" label=false}}
@@ -322,12 +319,11 @@
                         {{/each}}
                     </div>
 
-
-
-
-                    <!--<button id="add-property-button" class="btn btn-default">Add Property</button>-->
                 </div>
-                <div role="tabpanel" class="tab-pane fade in active" id="personal">
+
+                <!--Personal Tab-->
+
+                <div role="tabpanel" class="tab-pane fade in" id="personal">
 
                     {{#each contacts}}
                     {{#autoForm collection="ProfileContacts" id="profileContact{{_id}}" autosave=true doc=this type='update'}}
