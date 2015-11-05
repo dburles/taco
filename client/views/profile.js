@@ -31,7 +31,6 @@ Template.profile.helpers({
     },
     incomes: function(){
         var profileContactId = this._id;
-        debugger;
         var docs = ProfileIncomes.find({profileContactId:profileContactId});
         return docs;
     },
@@ -125,7 +124,7 @@ Template.profile.events({
         event.preventDefault();
         var lastKid = ProfileKids.findOne({},{sort:{_id:-1}});
         ProfileKids.remove(lastKid._id);
-    },
+    }
 });
 
 Template.profile.onCreated(function () {

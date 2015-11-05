@@ -40,18 +40,32 @@
                     {{/autoForm}}
 
                     <div class="row">
-                        <div class="col-sm-11"><h2>Existing Properties</h2></div>
-                        <div class="col-sm-1">
-                            <button id="add-property-button" class="btn btn-primary margin-bottom-10">
-                                <i class="fa fa-plus"></i>
+                        <div class="col-sm-12">
+                            <button id="add-property-button" class="btn btn-transparent margin-bottom-13">
+                                <i class="fa fa-2x fa-plus-circle color-blue"></i>
                             </button>
+                            <h2 class="inline-block">Existing Properties</h2>
                         </div>
+                        <!--<div class="col-sm-1">-->
+                            <!--<button id="add-property-button" class="btn btn-primary margin-bottom-10">-->
+                                <!--<i class="fa fa-plus"></i>-->
+                            <!--</button>-->
+                        <!--</div>-->
                     </div>
                     {{#each properties}}
                         {{#autoForm collection="ProfileProperties" id=formId autosave=true doc=this type='update'}}
                             <div class="row">
                                 <div class="col-sm-4">
-                                    {{> afQuickField name="address" placeholder="Address" label=false}}
+                                    <table style="width: 100%"><tr>
+                                        <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                            <button class="delete-property-button btn btn-transparent" style="margin-top: -3px;">
+                                                <i class="fa fa-2x fa-times-circle color-red"></i>
+                                            </button>
+                                        </td>
+                                        <td style="width:99%">
+                                            {{> afQuickField name="address" class="full-width" placeholder="Address" label=false}}
+                                        </td>
+                                    </tr></table>
                                 </div>
                                 <div class="col-sm-1">
                                     {{> afQuickField name="home" placeholder="" label=false}}
@@ -65,11 +79,11 @@
                                 <div class="col-sm-2">
 
                                 </div>
-                                <div class="col-sm-1">
-                                    <button class="delete-property-button btn btn-danger margin-bottom-10">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
+                                <!--<div class="col-sm-1">-->
+                                    <!--<button class="delete-property-button btn btn-danger margin-bottom-10">-->
+                                        <!--<i class="fa fa-times"></i>-->
+                                    <!--</button>-->
+                                <!--</div>-->
                             </div>
                         {{/autoForm}}
                     {{/each}}
@@ -77,18 +91,28 @@
                     <!--Mortgages-->
 
                     <div class="row">
-                        <div class="col-sm-11"><h2>Existing Mortgages</h2></div>
-                        <div class="col-sm-1">
-                            <button id="add-mortgage-button" class="btn btn-primary margin-bottom-10">
-                                <i class="fa fa-plus"></i>
+                        <div class="col-sm-11">
+                            <button id="add-mortgage-button" class="btn btn-transparent margin-bottom-13">
+                                <i class="fa fa-2x fa-plus-circle color-blue"></i>
                             </button>
+                            <h2 class="inline-block">Existing Mortgages</h2>
                         </div>
                     </div>
                     {{#each mortgages}}
                         {{#autoForm collection="ProfileLiabilities" id=formId autosave=true doc=this type='update'}}
                             <div class="row">
-                                <div class="col-sm-3">
-                                    {{> afQuickField name="lender" placeholder="Lender" label=false}}
+                                <div class="col-sm-4">
+                                    <table style="width: 100%"><tr>
+                                        <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                            <button class="delete-liability-button btn btn-transparent" style="margin-top: -3px;">
+                                                <i class="fa fa-2x fa-times-circle color-red"></i>
+                                            </button>
+                                        </td>
+                                        <td style="width:99%">
+                                            {{> afQuickField name="lender" placeholder="Lender" label=false}}
+                                        </td>
+                                    </tr></table>
+
                                 </div>
                                 <div class="col-sm-2">
                                     {{> afQuickField name="owing" placeholder="Owing" label=false}}
@@ -102,11 +126,11 @@
                                 <div class="col-sm-2">
                                     {{> afQuickField name="frequency" placeholder="Frequency" label=false}}
                                 </div>
-                                <div class="col-sm-1">
-                                    <button class="delete-mortgage-button btn btn-danger margin-bottom-10">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                </div>
+                                <!--<div class="col-sm-1">-->
+                                    <!--<button class="delete-mortgage-button btn btn-danger margin-bottom-10">-->
+                                        <!--<i class="fa fa-times"></i>-->
+                                    <!--</button>-->
+                                <!--</div>-->
                             </div>
                         {{/autoForm}}
                     {{/each}}
@@ -117,50 +141,70 @@
                         <div class="col-md-8">
 
                             <div class="row">
-                                <div class="col-xs-11"><h2>Loans/Leases/Business Debts</h2></div>
-                                <div class="col-xs-1">
-                                    <button id="add-loan-button" class="btn btn-primary">
-                                        <i class="fa fa-plus"></i>
+                                <div class="col-sm-11">
+                                    <button id="add-loan-button" class="btn btn-transparent margin-bottom-13">
+                                        <i class="fa fa-2x fa-plus-circle color-blue"></i>
                                     </button>
+                                    <h2 class="inline-block">Loans/Leases</h2>
                                 </div>
                             </div>
                             {{#each loans}}
                                 {{#autoForm collection="ProfileLiabilities" id=formId autosave=true doc=this type='update'}}
                                     <div class="row">
-                                        <div class="col-sm-3">
-                                            {{> afQuickField name="lender" placeholder="Lender" label=false}}
+                                        <div class="col-sm-4">
+                                            <table style="width: 100%"><tr>
+                                                <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                                    <button class="delete-liability-button btn btn-transparent" style="margin-top: -3px;">
+                                                        <i class="fa fa-2x fa-times-circle color-red"></i>
+                                                    </button>
+                                                </td>
+                                                <td style="width:99%">
+                                                    {{> afQuickField name="lender" placeholder="Lender" label=false}}
+                                                </td>
+                                            </tr></table>
+
                                         </div>
                                         <div class="col-sm-3">
                                             {{> afQuickField name="owing" placeholder="Owing" label=false}}
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
                                             {{> afQuickField name="repayment" placeholder="Repayment" label=false}}
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             {{> afQuickField name="frequency" placeholder="Frequency" label=false}}
                                         </div>
-                                        <div class="col-sm-1">
-                                            <button class="delete-loan-button btn btn-danger margin-bottom-10">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
+                                        <!--<div class="col-sm-1">-->
+                                            <!--<button class="delete-loan-button btn btn-danger margin-bottom-10">-->
+                                                <!--<i class="fa fa-times"></i>-->
+                                            <!--</button>-->
+                                        <!--</div>-->
                                     </div>
                                 {{/autoForm}}
                             {{/each}}
 
                             <div class="row">
-                                <div class="col-xs-11"><h2>Credit Cards</h2></div>
-                                <div class="col-xs-1">
-                                    <button id="add-card-button" class="btn btn-primary">
-                                        <i class="fa fa-plus"></i>
+                                <div class="col-sm-11">
+                                    <button id="add-card-button" class="btn btn-transparent margin-bottom-13">
+                                        <i class="fa fa-2x fa-plus-circle color-blue"></i>
                                     </button>
+                                    <h2 class="inline-block">Credit Cards</h2>
                                 </div>
                             </div>
                             {{#each cards}}
                                 {{#autoForm collection="ProfileLiabilities" id=formId autosave=true doc=this type='update'}}
                                     <div class="row">
-                                        <div class="col-sm-5">
-                                            {{> afQuickField name="lender" placeholder="Lender and Type" label=false}}
+                                        <div class="col-sm-6">
+                                            <table style="width: 100%"><tr>
+                                                <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                                    <button class="delete-liability-button btn btn-transparent" style="margin-top: -3px;">
+                                                        <i class="fa fa-2x fa-times-circle color-red"></i>
+                                                    </button>
+                                                </td>
+                                                <td style="width:99%">
+                                                    {{> afQuickField name="lender" placeholder="Lender and Type" label=false}}
+                                                </td>
+                                            </tr></table>
+
                                         </div>
                                         <div class="col-sm-3">
                                             {{> afQuickField name="owing" placeholder="Owing" label=false}}
@@ -168,11 +212,11 @@
                                         <div class="col-sm-3">
                                             {{> afQuickField name="limit" placeholder="Limit" label=false}}
                                         </div>
-                                        <div class="col-sm-1">
-                                            <button class="delete-liability-button btn btn-danger margin-bottom-10">
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </div>
+                                        <!--<div class="col-sm-1">-->
+                                            <!--<button class="delete-liability-button btn btn-danger margin-bottom-10">-->
+                                                <!--<i class="fa fa-times"></i>-->
+                                            <!--</button>-->
+                                        <!--</div>-->
                                     </div>
                                 {{/autoForm}}
                             {{/each}}
@@ -194,15 +238,16 @@
                             <div class="well">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <h2>Kids</h2>
+                                        <h4>Kids</h4>
                                     </div>
                                     <div class="col-xs-6">
-                                        <button id="add-kid-button" class="btn btn-primary">
-                                            <i class="fa fa-plus"></i>
+                                        <button id="delete-kid-button" class="btn btn-transparent pull-right">
+                                            <i class="fa fa-2x fa-minus-circle color-red"></i>
                                         </button>
-                                        <button id="delete-kid-button" class="btn btn-danger">
-                                            <i class="fa fa-minus"></i>
+                                        <button id="add-kid-button" class="btn btn-transparent pull-right">
+                                            <i class="fa fa-2x fa-plus-circle color-blue"></i>
                                         </button>
+
                                     </div>
 
                                 </div>
@@ -222,37 +267,48 @@
                     <div class="row">
                         {{#each contacts}}
                             <div class="col-md-6">
+
                                 <div class="row">
-                                    <div class="col-xs-10"><h2>Income for {{firstName}}</h2></div>
-                                    <div class="col-xs-2">
-                                        <button class="add-income-button btn btn-primary">
-                                            <i class="fa fa-plus"></i>
+                                    <div class="col-sm-11">
+                                        <button class="add-income-button btn btn-transparent margin-bottom-13">
+                                            <i class="fa fa-2x fa-plus-circle color-blue"></i>
                                         </button>
+                                        <h2 class="inline-block">Income for {{firstName}}</h2>
                                     </div>
                                 </div>
 
                                 {{#each incomes}}
                                     {{#autoForm collection="ProfileIncomes" id=formId autosave=true doc=this type='update'}}
                                         <div class="row">
-                                            <div class="col-sm-4">
-                                                {{> afQuickField name="type" placeholder="Type" label=false}}
+                                            <div class="col-sm-5">
+                                                <table style="width: 100%"><tr>
+                                                    <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                                        <button class="delete-income-button btn btn-transparent" style="margin-top: -3px;">
+                                                            <i class="fa fa-2x fa-times-circle color-red"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td style="width:99%">
+                                                        {{> afQuickField name="type" placeholder="Type" label=false}}
+                                                    </td>
+                                                </tr></table>
+
                                             </div>
 
                                             <div class="col-sm-3">
                                                 {{> afQuickField name="amount" placeholder="Amount" label=false}}
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 {{> afQuickField name="frequency" placeholder="Frequency" label=false}}
                                             </div>
 
-                                            <div class="col-sm-2">
-                                                <button class="delete-income-button btn btn-danger margin-bottom-10">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </div>
+                                            <!--<div class="col-sm-2">-->
+                                                <!--<button class="delete-income-button btn btn-danger margin-bottom-10">-->
+                                                    <!--<i class="fa fa-times"></i>-->
+                                                <!--</button>-->
+                                            <!--</div>-->
 
 
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-5">
                                                 {{> afQuickField name="duration" placeholder="Duration" label=false}}
                                             </div>
                                             <div class="col-sm-7">
