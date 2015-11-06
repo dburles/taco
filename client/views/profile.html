@@ -37,7 +37,7 @@
                     <div class="row">
                         {{#each contacts}}
                             <div class="col-sm-6">
-                                {{#autoForm collection="ProfileContacts" id="profileContact{{_id}}" autosave=true doc=this type='update'}}
+                                {{#autoForm collection="ProfileContacts" id=formId autosave=true doc=this type='update'}}
                                 <div class="row">
                                     <div class="col-sm-7">
                                         {{> afQuickField name="firstName" placeholder="First Name" label=false}}
@@ -52,6 +52,12 @@
                                 {{/autoForm}}
                             </div>
                         {{/each}}
+                        {{#if collectionCountBelow contacts 2}}
+                            <div class="col-md-6">
+                                <button id="add-person-button" class="btn btn-primary">Add Person</button>
+                            </div>
+                        {{/if}}
+
                     </div>
 
             <!--Properties-->
@@ -229,7 +235,7 @@
                         </div>
 
                         <!--Right Column-->
-                        
+
                         <div class="col-md-4">
 
                             <!--Kids-->
@@ -326,7 +332,7 @@
                 <div role="tabpanel" class="tab-pane fade in" id="personal">
 
                     {{#each contacts}}
-                    {{#autoForm collection="ProfileContacts" id="profileContact{{_id}}" autosave=true doc=this type='update'}}
+                    {{#autoForm collection="ProfileContacts" id=formId autosave=true doc=this type='update'}}
 
 
                         <div class="row">

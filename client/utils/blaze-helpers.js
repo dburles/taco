@@ -61,6 +61,15 @@ UI.registerHelper('collectionCount', function(collection) {
     }
 });
 
+UI.registerHelper('collectionCountBelow', function(collection, count) {
+    if(collection){
+        return collection.count() < count;
+    } else
+        return false;
+});
+
+
+
 UI.registerHelper('logThis', function() {
     console.log('Logging from the logThis template helper...');
     console.log(this);

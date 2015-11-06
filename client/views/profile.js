@@ -46,6 +46,13 @@ Template.profile.helpers({
 });
 
 Template.profile.events({
+    'click #add-person-button': function (e, t) {
+        event.preventDefault();
+        var id = FlowRouter.getParam("id");
+        ProfileContacts.insert({
+            profileId: id
+        })
+    },
     'click #add-property-button': function (e, t) {
         event.preventDefault();
         var id = FlowRouter.getParam("id");

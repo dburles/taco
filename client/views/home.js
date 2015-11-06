@@ -8,7 +8,10 @@ Template.home.helpers({
         return pluralize(profileName);
     },
     contacts: function() {
-        return Contacts.find({}, {limit: 10, sort: {updatedAt: -1}});
+        var searchText = FlowRouter.getQueryParam("search"); //Session.get("searchText");
+        var profileName = FlowRouter.getQueryParam("profile");
+        var searchObject = ContactHelpers.getSearchObject(searchText,profileName);
+        return Contacts.find(searchObject, {limit: 10, sort: {updatedAt: -1}});
     },
     allProfiles: function () {
         return ApplicationHelpers.ClientProfiles().map(function(value){
