@@ -28,6 +28,7 @@
     <div class="row">
 
         <div class="col-sm-4 no-print">
+            {{#if Template.subscriptionsReady}}
             <div class="well">
 
                 <label>Forms</label>
@@ -259,8 +260,13 @@
                 </div>
 
             </div>
+            {{else}}
+                {{> loader}}
+            {{/if}}
 
         </div>
+
+
 
         <div class="col-sm-8">
 
@@ -299,9 +305,6 @@
 
                 <textarea class="form-control no-print margin-top-10" name="custom-item" id="custom-item" rows="3" placeholder="Add a miscellaneous item..."></textarea>
 
-                {{#unless Template.subscriptionsReady}}
-                    {{> loader}}
-                {{/unless}}
 
         </div>
 
