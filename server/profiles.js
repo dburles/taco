@@ -29,3 +29,18 @@ Meteor.publish("profileKids", function(profileId){
     return docs;
 })
 
+Meteor.publish("profileMortgages", function(transactionId){
+    var docs = ProfileMortgages.find({transactionId:transactionId});
+    return docs;
+})
+
+Meteor.publish("profileAddresses", function(profileId){
+    var docs = ProfileAddresses.find({profileId:profileId});
+    return docs;
+})
+
+Meteor.publish("profileEmployments", function(profileId){
+    var docs = ProfileEmployments.find({profileId:profileId});
+    return docs;
+})
+

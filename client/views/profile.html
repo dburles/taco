@@ -28,24 +28,31 @@
 
             <div class="tab-content">
 
-                <!--Main Tab-->
+                <!--Overview Tab-->
 
                 <div role="tabpanel" class="tab-pane fade in active" id="overview">
                     {{#autoForm collection="Profiles" id="profileOverview1" autosave=true doc=profile type='update'}}
                         {{> afQuickField name="names" placeholder="Full names" label=false}}
                     {{/autoForm}}
+
                     <div class="row">
                         {{#each contacts}}
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 {{#autoForm collection="ProfileContacts" id=formId autosave=true doc=this type='update'}}
                                 <div class="row">
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-4">
                                         {{> afQuickField name="firstName" placeholder="First Name" label=false}}
                                     </div>
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-4">
+                                        {{> afQuickField name="middleName" placeholder="Middle Name" label=false}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{> afQuickField name="lastName" placeholder="Last Name" label=false}}
+                                    </div>
+                                    <div class="col-sm-4">
                                         {{> afQuickField name="mobile" placeholder="Mobile" label=false}}
                                     </div>
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-8">
                                         {{> afQuickField name="email" placeholder="Email" label=false}}
                                     </div>
                                 </div>
@@ -58,7 +65,21 @@
                             </div>
                         {{/if}}
 
+
+
                     </div>
+
+                    {{#with mortgage}}
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{#autoForm collection="ProfileMortgages" id="profileMortgagesForm" autosave=true doc=this type='update'}}
+                                {{> afQuickField name="loanPurpose" placeholder="" label=true}}
+                            {{/autoForm}}
+                        </div>
+                    </div>
+
+                    {{/with}}
 
             <!--Properties-->
 
@@ -266,6 +287,20 @@
                                 </div>
                             </div>
 
+                            <!--Rent-->
+
+                            <div class="panel panel-default margin-top-10">
+                                <div class="panel-heading" style="padding-top:5px;padding-bottom:5px">
+                                    <h3 class="panel-title inline-block">Other</h3>
+
+                                </div>
+                                <div class="panel-body">
+                                    {{#autoForm collection="Profiles" id="profileOverview2" autosave=true doc=profile type='update'}}
+                                        {{> afQuickField name="payingRent" placeholder="Paying Rent (pw)" label=true}}
+                                    {{/autoForm}}
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -312,7 +347,14 @@
 
 
                                             <div class="col-sm-5">
-                                                {{> afQuickField name="duration" placeholder="Duration" label=false}}
+                                                <table style="width:100%"><tr>
+                                                    <td style="width:37px;">
+
+                                                    </td>
+                                                    <td>
+                                                        {{> afQuickField name="duration" placeholder="Duration" label=false}}
+                                                    </td>
+                                                </tr></table>
                                             </div>
                                             <div class="col-sm-7">
                                                 {{> afQuickField name="details" placeholder="Details" label=false}}
@@ -354,6 +396,9 @@
                                 <!--<div class="fixed-label"></div>-->
                                 {{> afQuickField name="lastName" placeholder="Last" label=false}}
                             </div>
+                            <div class="col-sm-3">
+                                {{> afQuickField name="maritalStatus" placeholder="" label=false}}
+                            </div>
                         </div>
 
                         <div class="row">
@@ -369,8 +414,77 @@
                         </div>
                     {{/autoForm}}
                     {{/each}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{#autoForm collection="Profiles" id=formId autosave=true doc=profile type='update'}}
+                                {{> afQuickField name="contactPreferences" placeholder="eg. After hours, who, mobile/email/text etc" label=true}}
+                            {{/autoForm}}
+                        </div>
+                    </div>
 
-                </div>
+                    <div class="row">
+                        {{#each contacts}}
+                            <div class="col-md-6">
+
+                                <div class="row">
+                                    <div class="col-sm-11">
+                                        <button class="add-address-button btn btn-transparent margin-bottom-13">
+                                            <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                                        </button>
+                                        <h2 class="inline-block">Addresses for {{firstName}}</h2>
+                                    </div>
+                                </div>
+
+                                {{#each addresses}}
+                                    {{#autoForm collection="ProfileAddresses" id=formId autosave=true doc=this type='update'}}
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <table style="width: 100%"><tr>
+                                                    <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                                        <button class="delete-address-button btn btn-transparent" style="margin-top: -3px;">
+                                                            <i class="fa fa-2x fa-times-circle color-red"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td style="width:99%">
+                                                        {{> afQuickField name="type" placeholder="Type" label=false}}
+                                                    </td>
+                                                </tr></table>
+
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                {{> afQuickField name="address" placeholder="Address" label=false}}
+                                            </div>
+                                            <div class="col-sm-4">
+                                                {{> afQuickField name="cityStatePostcode" placeholder="City, State, Postcode" label=false}}
+                                            </div>
+
+
+                                            <div class="col-sm-5">
+                                                <table style="width:100%"><tr>
+                                                    <td style="width:37px;">
+
+                                                    </td>
+                                                    <td>
+                                                        {{> afQuickField name="startDate" placeholder="" label=true}}
+                                                    </td>
+                                                </tr></table>
+                                            </div>
+                                            <div class="col-sm-7">
+                                                {{> afQuickField name="endDate" placeholder="" label=true}}
+                                            </div>
+                                        </div>
+                                    {{/autoForm}}
+                                {{/each}}
+
+                            </div>
+                        {{/each}}
+                    </div>
+
+
+
+
+    </div>
 
 
 

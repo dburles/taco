@@ -4,6 +4,11 @@ Template.profile.helpers({
         var doc =  Profiles.findOne(id);
         return doc;
     },
+    mortgage: function() {
+        var id = FlowRouter.getQueryParam("transaction");
+        var doc =  ProfileMortgages.findOne(id);
+        return doc;
+    },
     contacts: function(){
         var id = FlowRouter.getParam("id");
         var docs = ProfileContacts.find({profileId:id});
@@ -34,6 +39,16 @@ Template.profile.helpers({
         var docs = ProfileIncomes.find({profileContactId:profileContactId});
         return docs;
     },
+    addresses: function(){
+        var profileContactId = this._id;
+        var docs = ProfileAddresses.find({profileContactId:profileContactId});
+        return docs;
+    },
+    employments: function(){
+        var profileContactId = this._id;
+        var docs = ProfileEmployments.find({profileContactId:profileContactId});
+        return docs;
+    },
     kids: function(){
         var id = FlowRouter.getParam("id");
         var docs = ProfileKids.find({profileId:id});
@@ -41,7 +56,7 @@ Template.profile.helpers({
     },
 
     formId: function(){
-        return 'profile-properties-' + this._id;
+        return 'form-' + Random.hexString(4)
     }
 });
 
@@ -120,6 +135,34 @@ Template.profile.events({
         ProfileIncomes.remove(this._id);
     },
 
+    'click .add-address-button': function (e, t) {
+        event.preventDefault();
+        var id = FlowRouter.getParam("id");
+        var profileContactId = this._id;
+        ProfileAddresses.insert({
+            profileId: id,
+            profileContactId: profileContactId
+        })
+    },
+    'click .delete-address-button': function (e, t) {
+        event.preventDefault();
+        ProfileAddresses.remove(this._id);
+    },
+
+    'click .add-employment-button': function (e, t) {
+        event.preventDefault();
+        var id = FlowRouter.getParam("id");
+        var profileContactId = this._id;
+        ProfileEmployments.insert({
+            profileId: id,
+            profileContactId: profileContactId
+        })
+    },
+    'click .delete-employment-button': function (e, t) {
+        event.preventDefault();
+        ProfileEmployments.remove(this._id);
+    },
+
     'click #add-kid-button': function (e, t) {
         event.preventDefault();
         var id = FlowRouter.getParam("id");
@@ -141,7 +184,12 @@ Template.profile.onCreated(function () {
     this.subscribe('profileProperties', id);
     this.subscribe('profileLiabilities', id);
     this.subscribe('profileIncomes', id);
+    this.subscribe('profileAddresses', id);
+    this.subscribe('profileEmployments', id);
     this.subscribe('profileKids', id);
+
+    var transactionId = FlowRouter.getQueryParam('transaction');
+    this.subscribe('profileTransactions', transactionId);
 });
 
 Template.profile.onRendered(function () {
