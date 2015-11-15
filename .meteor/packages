@@ -34,7 +34,6 @@ cosio55:autoform-cloudinary
 momentjs:moment
 manuel:viewmodel
 mizzao:jquery-ui
-rajit:bootstrap3-datepicker
 sach:flow-db-admin
 chart:chart
 jamiter:pluralize
@@ -52,3 +51,5 @@ random
 ejson
 spacebars
 check
+aldeed:autoform-bs-datepicker
+rajit:bootstrap3-datepicker
