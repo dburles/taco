@@ -201,3 +201,161 @@
 
     </div>
 </template>
+
+
+
+****** Personal Tab ********
+
+ Personal  Tab
+                <div role="tabpanel" class="tab-pane fade in" id="personal">
+
+                    {{#each contacts}}
+                        {{#autoForm collection="ProfileContacts" id=formId autosave=true doc=this type='update'}}
+
+
+                            <div class="row">
+                                <div class="col-sm-12 fixed-label">
+                                    Name
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <!--<div class="fixed-label">Name</div>-->
+                                    {{> afQuickField name="firstName" placeholder="First" label=false}}
+                                </div>
+                                <div class="col-sm-3">
+                                    <!--<div class="fixed-label"></div>-->
+                                    {{> afQuickField name="middleName" placeholder="Middle" label=false}}
+                                </div>
+                                <div class="col-sm-3">
+                                    <!--<div class="fixed-label"></div>-->
+                                    {{> afQuickField name="lastName" placeholder="Last" label=false}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> afQuickField name="maritalStatus" placeholder="" label=false}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{> afQuickField name="mobile" placeholder="" label=true}}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{> afQuickField name="landLine" placeholder="" label=true}}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{> afQuickField name="email" placeholder="" label=true}}
+                                </div>
+                            </div>
+                        {{/autoForm}}
+                    {{/each}}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{#autoForm collection="Profiles" id=formId autosave=true doc=profile type='update'}}
+                                {{> afQuickField name="contactPreferences" placeholder="eg. After hours, who, mobile/email/text etc" label=true}}
+                            {{/autoForm}}
+                        </div>
+                    </div>
+
+                    <!--Addresses for each contact-->
+
+                    <div class="row">
+                        {{#each contacts}}
+                            <div class="col-md-6">
+
+                                <div class="row">
+                                    <div class="col-sm-11">
+                                        <button class="add-address-button btn btn-transparent margin-bottom-13">
+                                            <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                                        </button>
+                                        <h2 class="inline-block">Addresses for {{firstName}}</h2>
+                                    </div>
+                                </div>
+
+                                {{#each addresses}}
+                                    {{#autoForm collection="ProfileAddresses" id=formId autosave=true doc=this type='update'}}
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <table style="width: 100%"><tr>
+                                                    <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                                        <button class="delete-address-button btn btn-transparent" style="margin-top: -3px;">
+                                                            <i class="fa fa-2x fa-times-circle color-red"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td style="width:99%">
+                                                        <table style="width:100%">
+                                                            <tr>
+                                                                <td style="padding-right: 10px; padding-bottom:3px;width:40px;">
+
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                    {{> afQuickField name="addressType" placeholder="Type" label=true}}
+                                                                </tr>
+                                                            </table>
+
+                                                        <table style="width:100%">
+                                                            <tr>
+                                                                <td style="padding-right: 10px; padding-bottom:10px;width:40px;text-align: right">
+                                                                    From
+                                                                </td>
+                                                                <td style="padding-right: 10px;">
+                                                                    {{> afQuickField name="fromMonth" firstOption="(Month)" label=false}}
+                                                                </td>
+                                                                <td>
+                                                                    {{> afQuickField name="fromYear" firstOption="(Year)" label=false}}
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+
+                                                        {{#if afFieldValueIs name="addressType" value="Current"}}
+                                                            <table style="width:100%; margin-bottom: 10px">
+                                                                <tr>
+                                                                    <td style="padding-right: 10px; padding-bottom:10px;width:40px;text-align: right;">
+                                                                        To
+                                                                    </td>
+                                                                    <td>
+                                                                        <input class="form-control" type="text" disabled="true" value="Current Day"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+
+                                                        {{else}}
+                                                            <table style="width:100%">
+                                                                <tr>
+                                                                    <td style="padding-right: 10px; padding-bottom:10px;width:40px;text-align: right;">
+                                                                        To
+                                                                    </td>
+                                                                    <td style="padding-right: 10px;">
+                                                                        {{> afQuickField name="toMonth" firstOption="(Month)" label=false}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{> afQuickField name="toYear" firstOption="(Year)" label=false}}
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        {{/if}}
+
+
+                                                    </td>
+                                                </tr></table>
+
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                {{> afQuickField name="address" placeholder="Address" label=true}}
+                                                {{> afQuickField name="cityStatePostcode" placeholder="City, State, Postcode" label=false}}
+                                                {{> afQuickField name="ownership" placeholder="" label=false}}
+
+                                            </div>
+                                        </div>
+                                    {{/autoForm}}
+                                {{/each}}
+
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <!--end personal tab-->
