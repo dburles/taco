@@ -44,3 +44,8 @@ Meteor.publish("profileEmployments", function(profileId){
     return docs;
 })
 
+Meteor.publish("profileAssets", function(profileId){
+    var docs = ProfileAssets.find({profileId:profileId});
+    return docs;
+})
+

@@ -54,10 +54,19 @@ Template.profile.helpers({
         var docs = ProfileKids.find({profileId:id});
         return docs;
     },
+    assets: function(){
+        var id = FlowRouter.getParam("id");
+        var docs = ProfileAssets.find({profileId:id});
+        return docs;
+    },
 
     formId: function(){
         return 'form-' + Random.hexString(4)
+    },
+    descriptionPlaceholder: function(){
+        return this.descriptionPlaceholder;
     }
+
 });
 
 Template.profile.events({
@@ -174,6 +183,25 @@ Template.profile.events({
         event.preventDefault();
         var lastKid = ProfileKids.findOne({},{sort:{_id:-1}});
         ProfileKids.remove(lastKid._id);
+    },
+    'click #add-asset-button': function (e, t) {
+        event.preventDefault();
+        var id = FlowRouter.getParam("id");
+        ProfileAssets.insert({
+            profileId: id,
+            type:'Other',
+            descriptionPlaceholder: 'Description'
+        })
+    },
+    'click .delete-asset-button': function (e, t) {
+        event.preventDefault();
+        ProfileAssets.remove(this._id);
+    },
+
+    'click #reset-assets': function (e, t) {
+        event.preventDefault();
+        var id = FlowRouter.getParam("id");
+        ProfileHelpers.initialiseAssets(id);
     }
 });
 
@@ -187,6 +215,7 @@ Template.profile.onCreated(function () {
     this.subscribe('profileAddresses', id);
     this.subscribe('profileEmployments', id);
     this.subscribe('profileKids', id);
+    this.subscribe('profileAssets', id);
 
     var transactionId = FlowRouter.getQueryParam('transaction');
     this.subscribe('profileTransactions', transactionId);

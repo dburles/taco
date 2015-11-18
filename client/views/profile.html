@@ -15,21 +15,17 @@
             <!-- Nav tabs -->
 
             <ul class="nav nav-tabs bottom-margin" role="tablist">
-                <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab">Overview</a></li>
-                <li role="presentation"><a href="#personal" aria-controls="personal" role="tab" data-toggle="tab">Personal</a></li>
-                <li role="presentation"><a href="#employment" aria-controls="employment" role="tab" data-toggle="tab">Employment</a></li>
-                <li role="presentation"><a href="#properties" aria-controls="properties" role="tab" data-toggle="tab">Properties and Loans</a></li>
-                <li role="presentation"><a href="#assets" aria-controls="assets" role="tab" data-toggle="tab">Assets and Liabilities</a></li>
+                <li role="presentation" class="active"><a href="#basic" aria-controls="basic" role="tab" data-toggle="tab">Basic</a></li>
+                <li role="presentation"><a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">Advanced</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
 
                 <!--Overview  Tab -->
-                <div role="tabpanel" class="tab-pane fade in active" id="overview">
+                <div role="tabpanel" class="tab-pane fade in active" id="basic">
 
-                    <!--crashing here...-->
-                    {{#with profile}}
+                     {{#with profile}}
                         {{#autoForm collection="Profiles" id=formId autosave=true doc=this type='update'}}
                             {{> afQuickField name="names" placeholder="Full names" label=false}}
                         {{/autoForm}}
@@ -363,54 +359,54 @@
                     </div>
 
                 </div>
-                <!--end overview tab-->
+                <!--end basic tab-->
 
 
 
 
 
 
-                <!--Personal Tabss-->
-                <div role="tabpanel" class="tab-pane fade in" id="personal">
+                <!--Advanced Tab-->
+                <div role="tabpanel" class="tab-pane fade in" id="advanced">
 
-                        {{#each contacts}}
-                            {{#autoForm collection="ProfileContacts" id=formId autosave=true doc=this type='update'}}
+                    {{#each contacts}}
+                        {{#autoForm collection="ProfileContacts" id=formId autosave=true doc=this type='update'}}
 
 
-                            <div class="row">
-                                <div class="col-sm-12 fixed-label">
-                                    Name
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-12 fixed-label">
+                                Name
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-3">
-                                    {{> afQuickField name="firstName" placeholder="First" label=false}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> afQuickField name="middleName" placeholder="Middle" label=false}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> afQuickField name="lastName" placeholder="Last" label=false}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> afQuickField name="maritalStatus" placeholder="" label=false}}
-                                </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{> afQuickField name="firstName" placeholder="First" label=false}}
                             </div>
+                            <div class="col-sm-3">
+                                {{> afQuickField name="middleName" placeholder="Middle" label=false}}
+                            </div>
+                            <div class="col-sm-3">
+                                {{> afQuickField name="lastName" placeholder="Last" label=false}}
+                            </div>
+                            <div class="col-sm-3">
+                                {{> afQuickField name="maritalStatus" placeholder="" label=false}}
+                            </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    {{> afQuickField name="mobile" placeholder="" label=true}}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{> afQuickField name="landLine" placeholder="" label=true}}
-                                </div>
-                                <div class="col-sm-6">
-                                    {{> afQuickField name="email" placeholder="" label=true}}
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{> afQuickField name="mobile" placeholder="" label=true}}
                             </div>
-                            {{/autoForm}}
-                        {{/each}}
+                            <div class="col-sm-3">
+                                {{> afQuickField name="landLine" placeholder="" label=true}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{> afQuickField name="email" placeholder="" label=true}}
+                            </div>
+                        </div>
+                        {{/autoForm}}
+                    {{/each}}
                     <div class="row">
                         <div class="col-sm-12">
 
@@ -522,13 +518,8 @@
                             </div>
                         {{/each}}
                     </div>
-                </div>
-                <!--end personal  tab-->
 
-                <!--Employment Tab-->
-                <div role="tabpanel" class="tab-pane fade in" id="employment">
-
-                    <!--employment for each contact-->
+                    <!--employment-->
 
                     <div class="row">
                         {{#each contacts}}
@@ -614,6 +605,15 @@
                                             </div>
 
                                             <div class="col-sm-6">
+                                                {{> afQuickField name="position" placeholder="Position" label=true}}
+                                                <div class="row">
+                                                    <div class="col-xs-6">
+                                                        {{> afQuickField name="contactPerson" placeholder="Full name" label=true}}
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        {{> afQuickField name="contactPhone" placeholder="" label=true}}
+                                                    </div>
+                                                </div>
                                                 {{> afQuickField name="address" placeholder="Address" label=true}}
                                                 {{> afQuickField name="cityStatePostcode" placeholder="City, State, Postcode" label=false}}
 
@@ -624,16 +624,49 @@
 
                             </div>
                         {{/each}}
-                    </div>
-                </div>
-                <!--end employment tab-->
 
-                <div role="tabpanel" class="tab-pane fade" id="properties">
-                    Properties Content
+                        <!--assets-->
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button id="add-asset-button" class="btn btn-transparent margin-bottom-13">
+                                    <i class="fa fa-2x fa-plus-circle color-blue"></i>
+                                </button>
+                                <h2 class="inline-block">Assets</h2>
+                            </div>
+                        </div>
+                        {{#each assets}}
+                            {{#autoForm collection="ProfileAssets" id=formId autosave=true doc=this type='update'}}
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <table style="width: 100%"><tr>
+                                            <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                                <button class="delete-asset-button btn btn-transparent" style="margin-top: -3px;">
+                                                    <i class="fa fa-2x fa-times-circle color-red"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width:99%">
+                                                {{> afQuickField name="type" class="full-width" placeholder="Type" label=true}}
+                                            </td>
+                                        </tr></table>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{> afQuickField name="description" placeholder=descriptionPlaceholder label=descriptionPlaceholder}}
+                                    </div>
+                                    <div class="col-sm-2">
+                                        {{> afQuickField name="value" placeholder="Value" label=true}}
+                                    </div>
+                                </div>
+                            {{/autoForm}}
+                        {{/each}}
+
+                        <button id="reset-assets" class="btn btn-danger">Reset All Assets</button>
+                    </div>
+
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="assets">
-                    Assets Content
-                </div>
+                <!--end advanced  tab-->
+
+
 
             </div>
             <!--end tab panes-->
