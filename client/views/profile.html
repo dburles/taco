@@ -9,6 +9,29 @@
         </div>
     </div>
 
+    {{#with profile}}
+    <div class="row">
+        <div class="col-sm-12 margin-top-10 margin-bottom-10">
+            <div class="background-blue" style="width:160px;height:110px;color:white;padding:10px;padding-top:5px;">
+
+                <span style="font-size:24pt"><i class="fa fa-home"></i> {{formatPercent totalLVR}}</span>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <span style="font-size:8pt">PROPERTY</span> <br/>
+                        <span style="font-size:16pt">{{abbreviateNumber totalPropertiesValues}}</span>
+                    </div>
+                    <div class="col-xs-7">
+                        <span style="font-size:8pt">MORTGAGES</span> <br/>
+                        <span style="font-size:16pt">{{abbreviateNumber totalMortgageValues}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    {{/with}}
+
     <div class="row">
         <div class="col-sm-12">
 

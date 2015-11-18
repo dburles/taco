@@ -70,6 +70,8 @@ UI.registerHelper('collectionCountBelow', function(collection, count) {
 
 
 
+
+
 UI.registerHelper('logThis', function() {
     console.log('Logging from the logThis template helper...');
     console.log(this);
@@ -124,6 +126,14 @@ UI.registerHelper('activityText', function (activity) {
 
 UI.registerHelper('activeIf', function (field, value) {
     return (field == value ? "active" : "")
+});
+
+UI.registerHelper('abbreviateNumber', function(value) {
+    return (value / 1000).toString() + 'k';
+});
+
+UI.registerHelper('formatPercent', function(value) {
+    return Math.round(value,2).toString() + '%';
 });
 
 
