@@ -15,6 +15,10 @@ UI.registerHelper("formatDate", function(datetime, format) {
     }
 });
 
+UI.registerHelper("formatDollars", function(amount) {
+    return amount.formatMoney(0);
+});
+
 UI.registerHelper("fromNow", function(datetime) {
     if (moment && datetime) {
         //debugger;

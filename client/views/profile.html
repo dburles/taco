@@ -375,6 +375,11 @@
                                             </div>
                                         </div>
                                     {{/autoForm}}
+                                    {{#if grossAnnual}}
+                                    <div class="alert alert-info">
+                                        <b>Annual:</b> {{formatDollars grossAnnual}} (net: {{formatDollars netAnnual}})   <b>Monthly:</b> {{formatDollars grossMonthly}} (net: {{formatDollars netMonthly}})
+                                    </div>
+                                    {{/if}}
                                 {{/each}}
 
                             </div>
@@ -647,6 +652,7 @@
 
                             </div>
                         {{/each}}
+                    </div>
 
                         <!--assets-->
 
@@ -663,7 +669,7 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <table style="width: 100%"><tr>
-                                            <td style="width: 1%; padding-right:3px;vertical-align: top;">
+                                            <td style="width: 1%; padding-right:3px;padding-bottom: 13px;vertical-align: bottom;">
                                                 <button class="delete-asset-button btn btn-transparent" style="margin-top: -3px;">
                                                     <i class="fa fa-2x fa-times-circle color-red"></i>
                                                 </button>
@@ -684,12 +690,9 @@
                         {{/each}}
 
                         <button id="reset-assets" class="btn btn-danger">Reset All Assets</button>
-                    </div>
 
                 </div>
                 <!--end advanced  tab-->
-
-
 
             </div>
             <!--end tab panes-->
