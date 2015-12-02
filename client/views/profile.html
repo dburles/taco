@@ -1,5 +1,6 @@
 <template name="profile">
 
+    {{#with profile}}
     <div class="row">
         <div class="col-sm-12 margin-top-10 margin-bottom-10">
             <h1 class="ellipsis">
@@ -9,28 +10,47 @@
         </div>
     </div>
 
-    {{#with profile}}
+
     <div class="row">
         <div class="col-sm-12 margin-top-10 margin-bottom-10">
-            <div class="background-blue" style="width:160px;height:110px;color:white;padding:10px;padding-top:5px;">
+            {{#if totalPropertiesValues}}
+                <div class="background-blue" style="display:inline-block;width:160px;height:100px;color:white;padding:10px;padding-top:5px;">
 
-                <span style="font-size:24pt"><i class="fa fa-home"></i> {{formatPercent totalLVR}}</span>
-                <div class="row">
-                    <div class="col-xs-5">
-                        <span style="font-size:8pt">PROPERTY</span> <br/>
-                        <span style="font-size:16pt">{{abbreviateNumber totalPropertiesValues}}</span>
+                    <span style="font-size:20pt"><i class="fa fa-home"></i> {{formatPercent totalLVR}}</span>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <span style="font-size:8pt">PROPERTY</span> <br/>
+                            <span style="font-size:16pt">{{abbreviateNumber totalPropertiesValues}}</span>
+                        </div>
+                        <div class="col-xs-7">
+                            <span style="font-size:8pt">MORTGAGES</span> <br/>
+                            <span style="font-size:16pt">{{abbreviateNumber totalMortgageValues}}</span>
+                        </div>
                     </div>
-                    <div class="col-xs-7">
-                        <span style="font-size:8pt">MORTGAGES</span> <br/>
-                        <span style="font-size:16pt">{{abbreviateNumber totalMortgageValues}}</span>
-                    </div>
+
                 </div>
+            {{/if}}
 
-            </div>
+            {{#if totalIncome}}
+                <div class="background-blue" style="display:inline-block;width:160px;height:100px;color:white;padding:10px;padding-top:5px;">
+
+                    <span style="font-size:20pt"><i class="fa fa-balance-scale"></i> {{formatDollars totalUmi}}</span>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <span style="font-size:8pt">INCOME</span> <br/>
+                            <span style="font-size:16pt">{{formatDollars totalIncome}}</span>
+                        </div>
+                        <div class="col-xs-7">
+                            <span style="font-size:8pt">EXPENSES</span> <br/>
+                            <span style="font-size:16pt">{{formatDollars totalExpenses}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            {{/if}}
 
         </div>
     </div>
-    {{/with}}
 
     <div class="row">
         <div class="col-sm-12">
@@ -177,6 +197,11 @@
 
                             </div>
                         {{/autoForm}}
+                        {{#if annualPayment}}
+                            <div class="alert alert-info">
+                                <b>Annual:</b> {{formatDollars annualPayment}} <b>Monthly:</b> {{formatDollars monthlyPayment}} <b>Weekly:</b> {{formatDollars weeklyPayment}} <b>Sensitised:</b> {{formatDollars sensitisedPayment}}
+                            </div>
+                        {{/if}}
                     {{/each}}
 
 
@@ -261,7 +286,11 @@
                                     </div>
                                 {{/autoForm}}
                             {{/each}}
-
+                            {{#if totalCardLimits}}
+                                <div class="alert alert-info">
+                                    <b>Total Limits:</b> {{formatDollars totalCardLimits}} <b>Monthly Est:</b> {{formatDollars totalCardCommitments}}
+                                </div>
+                            {{/if}}
                         </div>
 
                         <!--Right Column-->
@@ -293,6 +322,8 @@
                                     {{else}}
                                         <span class="light-text">There are no children. Click (+) to add.</span>
                                     {{/each}}
+                                    <div class="light-text">Est Living Expenses: {{formatDollars totalLivingExpenses}}</div>
+
                                 </div>
                             </div>
 
@@ -582,6 +613,14 @@
                                                                 </td>
                                                                 {{> afQuickField name="employmentType" placeholder="Type" label=true}}
                                                             </tr>
+                                                            <tr>
+                                                                <td style="padding-right: 10px; padding-bottom:3px;width:40px;">
+
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                {{> afQuickField name="position" placeholder="Position" label=true}}
+                                                            </tr>
                                                         </table>
 
                                                         <table style="width:100%">
@@ -633,7 +672,7 @@
                                             </div>
 
                                             <div class="col-sm-6">
-                                                {{> afQuickField name="position" placeholder="Position" label=true}}
+                                                {{> afQuickField name="companyName" placeholder="Company" label=true}}
                                                 <div class="row">
                                                     <div class="col-xs-6">
                                                         {{> afQuickField name="contactPerson" placeholder="Full name" label=true}}
@@ -701,6 +740,8 @@
         <!--end col and row for page-->
         </div>
     </div>
+
+    {{/with}}
 
 
 
