@@ -38,6 +38,13 @@ AutoForm.hooks({
         }
     },
 
+    activityForm: {
+        onSuccess: function () {
+            Modal.hide("activityModal");
+            //toastr.success("Activity Saved");
+        }
+    },
+
     templateForm: {
         onSuccess: function () {
             Modal.hide("templateModal");

@@ -335,7 +335,10 @@
 </template>
 
 <template name="stageSummary">
-    <h2 class="ellipsis">{{title}}</h2>
+
+
+    <h2>{{title}}</h2>
+
     <p>{{description}}</p>
 
     {{#with activeStage}}
@@ -344,6 +347,8 @@
         {{else}}
                 Steps in this stage will be <label class="sharing-label label label-default">Private</label> by default
         {{/if}}
+        <br/><br/>
+        <a id="stage-heading" href="#">Edit Stage</a>
 
     {{/with}}
     <br/><br/>

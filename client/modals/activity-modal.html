@@ -1,0 +1,57 @@
+<template name="activityModal">
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{#autoForm collection="Activities" id="stepForm" type='update' doc=this}}
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs bottom-margin" role="tablist">
+                                    <li role="presentation" class="active"><a href="#activity" aria-controls="activity" role="tab" data-toggle="tab">Details</a></li>
+                                    <li role="presentation"><a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">Advanced</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+
+                                    <!--Main Tab-->
+
+                                    <div role="tabpanel" class="tab-pane active" id="activity">
+                                        {{> afQuickField name="text" placeholder="Text" label=false type="textarea"}}
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+
+                                            </div>
+                                            <div class="col-sm-6">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div role="tabpanel" class="tab-pane" id="advanced">
+                                        <p>This application is too simple to have advanced features</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="save-activity" type="submit" class="btn btn-primary btn-fixed">Save</button>
+                        <button id="cancel-activity" type="button" class="btn btn-default btn-fixed cancel">Cancel</button>
+                    </div>
+
+                {{/autoForm}}
+            </div>
+        </div>
+    </div>
+</template>

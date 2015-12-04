@@ -409,6 +409,10 @@ Template.transactionDetail.events({
         e.preventDefault();
         Meteor.call('convertToTask', this);
     },
+    'click .edit-comment-menu': function (e,t) {
+        e.preventDefault();
+        Modal.show('activityModal', this);
+    },
     'click .promote-step-menu': function (e,t){
         e.preventDefault();
         Meteor.call('promoteToStep', this)
@@ -705,6 +709,10 @@ Template.stageSummary.events({
     'click .sharing-label': function (e, t) {
         event.preventDefault();
         Meteor.call('shareActivity', this);
+    },
+    'click #stage-heading': function () {
+        //debugger;
+        Modal.show('stepModal', this);
     }
 });
 

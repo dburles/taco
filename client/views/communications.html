@@ -13,9 +13,9 @@
 
             <div class="well margin-top-10">
 
-                <input data-bind="change: typeSearch, value: searchText, delay: 300" id="communication-search-text" type="text" placeholder="Search..."
+                <input value="{{searchText}}" id="communication-search-text" type="text" placeholder="Search..."
                        class="form-control margin-bottom-10">
-                <button data-bind="click: add" id="add-template-button" class="btn btn-primary margin-bottom-10">Add Template</button>
+                <button id="add-template-button" class="btn btn-primary margin-bottom-10">Add Template</button>
 
                 {{#each communications}}
                         {{> communicationItem this}}
@@ -42,8 +42,9 @@
 </template>
 
 <template name="communicationItem">
-    <a data-bind="attr: { href: viewPath }" class="plain" >
-        <div data-bind="text: name, class: {selected-box: isSelected}" class="hover-box selectable-box padding-10 margin-bottom-10 border-grey">
+    <a href="{{viewPath}}" class="plain select-communication-item">
+        <div class="{{isSelected}} hover-box selectable-box padding-10 margin-bottom-10 border-grey">
+            {{name}}
         </div>
     </a>
 </template>

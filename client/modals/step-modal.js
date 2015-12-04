@@ -2,7 +2,8 @@ Template.stepModal.helpers({
     stepTypeOptions: function() {
         return [
             {label: "Important", value: "Important"},
-            {label: "Step", value: "Step"}
+            {label: "Step", value: "Step"},
+            {label: "Stage", value: "Stage"}
         ];
     }
 });
